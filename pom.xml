@@ -14,47 +14,7 @@
         <native.image.reportExceptionStackTraces>true</native.image.reportExceptionStackTraces>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.helidon</groupId>
-                <artifactId>helidon-dependencies</artifactId>
-                <version>3.0.1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
-            <dependency>
-                <groupId>io.helidon.webserver</groupId>
-                <artifactId>helidon-webserver</artifactId>
-            </dependency>
-
-            <dependency>
-                <groupId>io.helidon.dbclient</groupId>
-                <artifactId>helidon-dbclient</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>io.helidon.dbclient</groupId>
-                <artifactId>helidon-dbclient-jdbc</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>io.helidon.integrations.db</groupId>
-                <artifactId>h2</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>io.helidon.dbclient</groupId>
-                <artifactId>helidon-dbclient-health</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>io.helidon.dbclient</groupId>
-                <artifactId>helidon-dbclient-metrics</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>io.helidon.dbclient</groupId>
-                <artifactId>helidon-dbclient-jsonp</artifactId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -63,6 +23,28 @@
             <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.helidon.openapi</groupId>
+            <artifactId>helidon-openapi</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.dbclient</groupId>
+            <artifactId>helidon-dbclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.helidon.dbclient</groupId>
+            <artifactId>helidon-dbclient-jdbc</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -84,35 +66,7 @@
 
         </plugins>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>io.helidon.build-tools</groupId>
-                    <artifactId>helidon-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>jlink-image</id>
-                            <configuration>
-                                <addClassDataSharingArchive>false</addClassDataSharingArchive>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
 
-                <plugin>
-                    <groupId>io.helidon.build-tools</groupId>
-                    <artifactId>helidon-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>native-image</id>
-                            <configuration>
-                                <finalName>my-fantastic-service</finalName>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
 

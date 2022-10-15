@@ -62,7 +62,7 @@
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.77.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.77.Final" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />
   </component>
 </module>

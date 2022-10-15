@@ -4,15 +4,30 @@ import java.io.IOException;
 import java.lang.constant.ClassDesc;
 import java.lang.constant.MethodTypeDesc;
 import java.lang.module.ModuleFinder;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
 import java.util.Arrays;
 
 public class ASM {
 
-    private static String getTypeName(String type){
+    private static String getTypeName(String type) {
         var arr = type.split("/");
         return arr[arr.length - 1];
+    }
+
+    private static String getNameFromOpcode(int opcode) {
+        var fields = Opcodes.class.getDeclaredFields();
+        try {
+            for (var field : fields){
+                if((int) field.get(field) == opcode){
+                    return field.getName();
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException {
@@ -80,7 +95,7 @@ public class ASM {
 
                                 @Override
                                 public void visitInsn(int opcode) {
-                                    System.err.println("    opcode " + opcode);
+                                    System.err.println("    opcode " + getNameFromOpcode(opcode));
                                 }
 
                                 @Override
@@ -105,7 +120,7 @@ public class ASM {
 
                                 @Override
                                 public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-                                    System.err.println("    opcode " + opcode + " " + getTypeName(name));
+                                    System.err.println("    opcode " + getNameFromOpcode(opcode) + " " + getTypeName(name));
                                     System.err.println();
                                 }
 
@@ -178,6 +193,11 @@ public class ASM {
                                 void visitLineNumber(int line, Label start);
                                 void visitMaxs(int maxStack, int maxLocals);
                                 void visitEnd();*/
+
+                                @Override
+                                public void visitLineNumber(int line, Label start){
+                                    System.out.println("\n LINE NUMBER : " + line + " " + start + "\n\n");
+                                }
 
                                 @Override
                                 public void visitEnd(){

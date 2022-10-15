@@ -27,8 +27,8 @@ public class DatabaseConfig {
         Objects.requireNonNull(version);
         var co = connectDb();
         var s = co.createStatement();
-        s.execute("INSERT INTO Artefact (groupId, artefactId, version) VALUES (\'" + groupId + "\', " +
-                "\'" + artefactId + "\', \'" + version + "\')");
+        s.execute("INSERT INTO Artefact (groupId, artefactId, version) VALUES ('" + groupId + "', " +
+                "'" + artefactId + "', '" + version + "')");
         var last = s.executeQuery("SELECT * FROM Artefact ORDER BY id DESC"); /*finds the id of the last artefact inserted*/
         closeDb(co);
         return last.getInt("id");
@@ -41,6 +41,17 @@ public class DatabaseConfig {
         var last = s.executeQuery("SELECT * FROM Clone ORDER BY idClone DESC"); /*finds the id of the last clone inserted*/
         closeDb(co);
         return last.getInt("idClone");
+    }
+
+    public static int insertHash(int value, String file, int line, int id) throws SQLException {
+        Objects.requireNonNull(file);
+        var co = connectDb();
+        var s = co.createStatement();
+        s.execute("INSERT INTO Hash(hashValue, file, line, id) VALUES(" + value + ", '" + file + "'," +
+                line + ", " + id + ")");
+        var last = s.executeQuery("SELECT * FROM Hash ORDER BY idHash DESC"); /*finds the id of the last clone inserted*/
+        closeDb(co);
+        return last.getInt("idHash");
     }
 
     public static void main(String... args) throws Exception {
@@ -63,7 +74,6 @@ public class DatabaseConfig {
                 "artefactID varchar(255)," +
                 "version varchar(50))");
         s.execute("create table Hash (idHash serial primary key, " +
-                "fileName varchar(255), " +
                 "hashValue int, " +
                 "file varchar(255), " +
                 "line int, " +
@@ -75,10 +85,7 @@ public class DatabaseConfig {
                 "foreign key (idHash1) references Hash(idHash)," +
                 "foreign key (idHash2) references Hash(idHash))");
 
-        /**TESTS POUR L'APPLICATION**/ /*A SUPPRIMER APRES*/
-
-        s.execute("INSERT INTO Artefact (groupId, artefactId, version) VALUES (\'fr.uge.slice\', " +
-                "\'slice\', \'0.0.4\')");
+        /*TESTS POUR L'APPLICATION*/ /*A SUPPRIMER APRES*/
 
         ResultSet res = s.executeQuery("SELECT * FROM Artefact");
 

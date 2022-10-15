@@ -60,3 +60,196 @@ drop table if exists artefact on cascade [42000-214]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table Hash (idHash serial primary key, fileName varchar(255), hashValue int, file varchar(255), line int, id int [*]foreign key references Artefact(id))"; attendu "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"
 Syntax error in SQL statement "create table Hash (idHash serial primary key, fileName varchar(255), hashValue int, file varchar(255), line int, id int [*]foreign key references Artefact(id))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
 create table Hash (idHash serial primary key, fileName varchar(255), hashValue int, file varchar(255), line int, id int foreign key references Artefact(id)) [42001-214]
+2022-10-15 20:39:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO Artefact[*]"; attendu "., (, OVERRIDING USER VALUE, OVERRIDING SYSTEM VALUE, DIRECT, SORTED, DEFAULT VALUES, VALUES, SET, WITH, (, SELECT, TABLE, VALUES"
+Syntax error in SQL statement "INSERT INTO Artefact[*]"; expected "., (, OVERRIDING USER VALUE, OVERRIDING SYSTEM VALUE, DIRECT, SORTED, DEFAULT VALUES, VALUES, SET, WITH, (, SELECT, TABLE, VALUES"; SQL statement:
+INSERT INTO Artefact [42001-214]
+2022-10-15 20:40:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO Artefact.[*]"; attendu "identifier"
+Syntax error in SQL statement "INSERT INTO Artefact.[*]"; expected "identifier"; SQL statement:
+INSERT INTO Artefact. [42001-214]
+2022-10-15 20:41:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "GROUPEID" non trouvée
+Column "GROUPEID" not found; SQL statement:
+INSERT INTO Artefact(groupeId, artefactId) VALUES(fr.uge.slice, slice) [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:749)
+	at org.h2.command.Parser.parseColumn(Parser.java:1256)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1241)
+	at org.h2.command.Parser.parseInsert(Parser.java:1641)
+	at org.h2.command.Parser.parsePrepared(Parser.java:814)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at DatabaseConfig.main(DatabaseConfig.java:45)
+2022-10-15 20:41:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "FR.UGE.SLICE" non trouvée
+Column "FR.UGE.SLICE" not found; SQL statement:
+INSERT INTO Artefact(groupId, artefactId) VALUES(fr.uge.slice, slice) [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:575)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at DatabaseConfig.main(DatabaseConfig.java:45)
+2022-10-15 20:42:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "fr.uge.slice" non trouvée
+Column "fr.uge.slice" not found; SQL statement:
+INSERT INTO Artefact(groupId, artefactId) VALUES("fr.uge.slice", "slice") [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:575)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at DatabaseConfig.main(DatabaseConfig.java:45)
+2022-10-15 20:42:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "fr.uge.slice" non trouvée
+Column "fr.uge.slice" not found; SQL statement:
+INSERT INTO Artefact (groupId, artefactId) VALUES ("fr.uge.slice", "slice") [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:575)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at DatabaseConfig.main(DatabaseConfig.java:45)
+2022-10-15 20:56:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Methode est autorisée uniquement pour une requête. Utilisez execute ou executeUpdate à la place d'executeQuery
+Method is only allowed for a query. Use execute or executeUpdate instead of executeQuery; SQL statement:
+INSERT INTO Artefact (groupId, artefactId) VALUES ('fr.uge.slice', 'slice') [90002-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.command.Prepared.query(Prepared.java:256)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:251)
+	at org.h2.command.Command.executeQuery(Command.java:190)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:99)
+	at DatabaseConfig.main(DatabaseConfig.java:46)
+2022-10-15 21:14:39 database: wrong user or password; user: ""
+org.h2.message.DbException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.jdbcx.JdbcDataSource.getConnection(JdbcDataSource.java:155)
+	at DatabaseConfig.main(DatabaseConfig.java:21)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:510)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 10 more
+2022-10-15 21:23:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "id" non trouvée
+Column "id" not found [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at DatabaseConfig.main(DatabaseConfig.java:47)
+2022-10-15 21:25:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "id" non trouvée
+Column "id" not found [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at DatabaseConfig.main(DatabaseConfig.java:48)
+2022-10-15 21:27:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "id" non trouvée
+Column "id" not found [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at DatabaseConfig.main(DatabaseConfig.java:47)
+2022-10-15 21:27:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "id" non trouvée
+Column "id" not found [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at DatabaseConfig.main(DatabaseConfig.java:47)
+2022-10-15 21:27:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "SELECT MAX(id) AS [*]'ID' FROM Artefact"; attendu "identifier"
+Syntax error in SQL statement "SELECT MAX(id) AS [*]'ID' FROM Artefact"; expected "identifier"; SQL statement:
+SELECT MAX(id) AS 'ID' FROM Artefact [42001-214]
+2022-10-15 21:28:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "SELECT MAX(id) AS [*]'last' FROM Artefact"; attendu "identifier"
+Syntax error in SQL statement "SELECT MAX(id) AS [*]'last' FROM Artefact"; expected "identifier"; SQL statement:
+SELECT MAX(id) AS 'last' FROM Artefact [42001-214]
+2022-10-15 21:29:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "DESC" non trouvée
+Column "DESC" not found; SQL statement:
+SELECT * FROM Artefact ORDER BY DESC [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1170)
+	at org.h2.command.query.Query.prepare(Query.java:218)
+	at org.h2.command.Parser.prepareCommand(Parser.java:575)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:92)
+	at DatabaseConfig.main(DatabaseConfig.java:45)
+2022-10-15 21:31:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50)[*]"; attendu "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"
+Syntax error in SQL statement "create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50)[*]"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50) [42001-214]

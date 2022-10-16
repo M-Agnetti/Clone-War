@@ -70,6 +70,7 @@ public class DatabaseConfig {
         s.execute("drop table if exists Clone cascade"); //A SUPP APRES
 
         s.execute("create table Artefact(id serial primary key," +
+                "addDate date default now()," +
                 "groupId varchar(255)," +
                 "artefactID varchar(255)," +
                 "version varchar(50))");

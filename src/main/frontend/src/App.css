@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.artefactApp {
+    background-color:white;
+    width: 50em;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

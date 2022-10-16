@@ -1,3 +1,8 @@
+import io.helidon.common.reactive.Single;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
 import org.h2.jdbcx.JdbcDataSource;
 import org.h2.tools.DeleteDbFiles;
 
@@ -7,7 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 
+import static jakarta.json.Json.createReader;
+
 public class DatabaseConfig {
+
+    private static final String ARTEFACTS = "/Artefacts.json";
 
     public static Connection connectDb() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
@@ -100,6 +109,14 @@ public class DatabaseConfig {
 
         s.close();
         co.close();
+
+        Single<Long> stage = Single.just(0L);
+        try (JsonReader reader = createReader(DatabaseConfig.class.getResourceAsStream(ARTEFACTS))) {
+            JsonArray pokemons = reader.readArray();
+            for (JsonValue pokemonValue : pokemons) {
+                JsonObject pokemon = pokemonValue.asJsonObject();
+            }
+        }
     }
 
 }

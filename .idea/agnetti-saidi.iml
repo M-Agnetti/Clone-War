@@ -30,7 +30,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.parsson:parsson:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.30" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.config:helidon-config:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.jboss:jandex:2.4.3.Final" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.microprofile.openapi:microprofile-openapi-api:3.0" level="project" />
@@ -61,6 +60,8 @@
     <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.77.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.77.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.config:helidon-config-yaml:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />

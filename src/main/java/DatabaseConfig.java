@@ -10,7 +10,11 @@ public class DatabaseConfig {
         return 0;
     }
 
-    public static int insertHash(int value, String file, int line, int id) throws SQLException {
+    public static int insertHash(int value, String file, int line, int id, DbClient dbClient) throws SQLException {
+        dbClient.execute(dbExecute -> dbExecute
+                .createInsert("insert-hash")
+                .addParam("fr.uge.slice")
+                .execute());
         return 0;
     }
 
@@ -32,9 +36,11 @@ public class DatabaseConfig {
 
     public static void insertArtefact(DbClient dbClient){
         dbClient.execute(dbExecute -> dbExecute
-                .createNamedInsert("insert-artefact")
-                .addParam("fr.uge.slice")
-                .execute());
+                .createNamedInsert("insert-clone")
+                .addParam("12")
+                .addParam("13")
+                .execute()
+        );
     }
 
     public static void main(String... args) throws Exception {
@@ -50,14 +56,11 @@ public class DatabaseConfig {
 
         dbClient.execute(dbExecute -> dbExecute
                 .namedQuery("select-all-artefact"))
-                .map(dbRow -> dbRow.column("id"))
-                .forEach(dbColumn -> System.out.println(dbColumn));
+                .map(dbRow -> dbRow.column("id").value())
+                .forEach(e-> System.out.println("hey"));
 
-        List<Artefact> a =
-                dbClient.execute(exec -> exec.namedQuery("select-all-artefact"))
-                        .map(it -> it.as(Artefact.class)).collectList().get();
-
-        System.out.println("size : " + a.size() + " " + a.toString());
+        dbClient.execute(exec -> exec.namedQuery("select-all-artefact"))
+                        .map(it -> it.column("groupId").value()).forEach(System.out::println);
 
         System.out.println("HELLO");
 

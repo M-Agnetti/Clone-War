@@ -22,6 +22,7 @@ db:
                       FOREIGN KEY (idHash2) REFERENCES Hash(idHash), FOREIGN KEY (idHash2) REFERENCES Hash(idHash)"
     #insert statements
     insert-artefact: "INSERT INTO ARTEFACT (groupId) VALUES (?) "
+    insert-clone: "INSERT INTO CLONE (idHash1, idHash2) VALUES (?, ?) "
     # Select statements
     select-all-artefact: "SELECT * FROM ARTEFACT"
     select-all-clones: "SELECT * FROM CLONE"

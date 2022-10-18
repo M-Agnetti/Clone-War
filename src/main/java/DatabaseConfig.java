@@ -36,9 +36,8 @@ public class DatabaseConfig {
 
     public static void insertArtefact(DbClient dbClient){
         dbClient.execute(dbExecute -> dbExecute
-                .createNamedInsert("insert-clone")
-                .addParam("12")
-                .addParam("13")
+                .createNamedInsert("insert-artefact")
+                .addParam("fr.uge.slice")
                 .execute()
         );
     }

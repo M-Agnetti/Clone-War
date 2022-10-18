@@ -73,7 +73,6 @@
             <artifactId>helidon-webserver-static-content</artifactId>
             <version>3.0.1</version>
         </dependency>
-
     </dependencies>
 
     <build>

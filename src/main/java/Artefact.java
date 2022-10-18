@@ -1,2 +1,2 @@
-public record Artefact(int id, String name) {
+public record Artefact(String groupId) {
 }

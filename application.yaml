@@ -4,15 +4,24 @@ server:
 db:
   source: jdbc
   connection:
-    url: jdbc:h2:tcp://localhost:8080/h2
+    username: "agnetti-saidi"
+    password: "marc_soumeya"
+    url: "jdbc:h2:./h2"
     poolName: h2
-statements:
-  # Create database schema
-  create-artefact: "CREATE TABLE ARTEFACT (id SERIAL PRIMARY KEY, addDate DATE DEFAULT NOW() )"
-  create-hash: "CREATE TABLE HASH (idHash SERIAL PRIMARY KEY, hashValue INT, file VARCHAR(255),
-                    line INT, id INT, FOREIGN KEY (int) REFERENCES Artefact(id) )"
-  create-clone: "CREATE TABLE CLONE (idClone SERIAL PRIMARY KEY, 
-                    idHash1 INT, idHash2 INT,
-                    FOREIGN KEY (idHash2) REFERENCES Hash(idHash), FOREIGN KEY (idHash2) REFERENCES Hash(idHash)"
-  # Select all the clones
-  select-all-clones: "SELECT * FROM CLONE"
+    initializationFailTimeout: -1
+    connectionTimeout: 2000
+  statements:
+    drop-tables: "drop table if exists ARTEFACT cascade"
+    # Create database schema
+    create-artefact: "CREATE TABLE ARTEFACT (id SERIAL PRIMARY KEY, addDate DATE DEFAULT NOW(),
+                      groupId VARCHAR (255) )"
+    create-hash: "CREATE TABLE HASH (idHash SERIAL PRIMARY KEY, hashValue INT, file VARCHAR(255),
+                      line INT, id INT, FOREIGN KEY (int) REFERENCES Artefact(id) )"
+    create-clone: "CREATE TABLE CLONE (idClone SERIAL PRIMARY KEY, 
+                      idHash1 INT, idHash2 INT,
+                      FOREIGN KEY (idHash2) REFERENCES Hash(idHash), FOREIGN KEY (idHash2) REFERENCES Hash(idHash)"
+    #insert statements
+    insert-artefact: "INSERT INTO ARTEFACT (groupId) VALUES (?) "
+    # Select statements
+    select-all-artefact: "SELECT * FROM ARTEFACT"
+    select-all-clones: "SELECT * FROM CLONE"

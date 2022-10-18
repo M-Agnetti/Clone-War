@@ -17,6 +17,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-jackson:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-http:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.openapi:helidon-openapi:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.smallrye:smallrye-open-api-core:2.1.16" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.microprofile.config:microprofile-config-api:2.0" level="project" />
@@ -30,7 +39,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.parsson:parsson:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.30" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.config:helidon-config:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.jboss:jandex:2.4.3.Final" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.microprofile.openapi:microprofile-openapi-api:3.0" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver-cors:3.0.1" level="project" />
@@ -38,7 +46,6 @@
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-service-loader:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-context:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-mapper:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient-jdbc:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-configurable:3.0.1" level="project" />
@@ -47,8 +54,6 @@
     <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-http:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-key-util:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.logging:helidon-logging-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.tracing:helidon-tracing:3.0.1" level="project" />
@@ -62,8 +67,8 @@
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.77.Final" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.config:helidon-config-yaml:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver-static-content:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
   </component>
 </module>

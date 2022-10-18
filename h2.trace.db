@@ -253,3 +253,40 @@ SELECT * FROM Artefact ORDER BY DESC [42122-214]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50)[*]"; attendu "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"
 Syntax error in SQL statement "create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50)[*]"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
 create table Artefact(id serial primary key,groupId varchar(255),artefactID varchar(255),version varchar(50) [42001-214]
+2022-10-17 20:40:36 database: wrong user or password; user: "AGNETTI-SAIDI"
+org.h2.message.DbException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at io.helidon.dbclient.jdbc.HikariConnectionPool.<init>(HikariConnectionPool.java:47)
+	at io.helidon.dbclient.jdbc.ConnectionPool$Builder.build(ConnectionPool.java:146)
+	at io.helidon.dbclient.jdbc.ConnectionPool.create(ConnectionPool.java:70)
+	at io.helidon.dbclient.jdbc.JdbcDbClientProviderBuilder.lambda$config$0(JdbcDbClientProviderBuilder.java:97)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at io.helidon.config.ConfigValue.ifPresent(ConfigValue.java:227)
+	at io.helidon.config.Config.ifExists(Config.java:596)
+	at io.helidon.dbclient.jdbc.JdbcDbClientProviderBuilder.config(JdbcDbClientProviderBuilder.java:97)
+	at io.helidon.dbclient.jdbc.JdbcDbClientProviderBuilder.config(JdbcDbClientProviderBuilder.java:41)
+	at io.helidon.dbclient.DbClient$Builder.config(DbClient.java:240)
+	at io.helidon.dbclient.DbClient.builder(DbClient.java:149)
+	at Main.createRouting(Main.java:18)
+	at Main.main(Main.java:41)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:510)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 29 more

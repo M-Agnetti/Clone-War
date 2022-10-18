@@ -1,8 +1,9 @@
 import io.helidon.common.reactive.Single;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
-import jakarta.json.JsonValue;
+import io.helidon.config.Config;
+import io.helidon.dbclient.DbClient;
+import io.helidon.dbclient.DbExecute;
+import io.helidon.webserver.Routing;
+import io.helidon.webserver.WebServer;
 import org.h2.jdbcx.JdbcDataSource;
 import org.h2.tools.DeleteDbFiles;
 
@@ -21,8 +22,6 @@ public class DatabaseConfig {
     public static Connection connectDb() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
         ds.setURL("jdbc:h2:./h2");
-        ds.setUser("agnetti-saidi");
-        ds.setPassword("marc_soumeya");
         return ds.getConnection();
     }
 
@@ -63,60 +62,22 @@ public class DatabaseConfig {
         return last.getInt("idHash");
     }
 
+
+    public static void initArtefact(DbClient dbClient){
+        dbClient.execute(dbExecute -> dbExecute
+                .namedDml("create-artefact")
+                .flatMapSingle(aLong -> dbExecute.namedDml("create-hash")))
+                .await();
+    }
+
     public static void main(String... args) throws Exception {
-        DeleteDbFiles.execute(".", "/h2", true);
-
-        JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:./h2");
-        ds.setUser("agnetti-saidi");
-        ds.setPassword("marc_soumeya");
-
-        var co = ds.getConnection();
-
-        Statement s = co.createStatement();
-        s.execute("drop table if exists Artefact cascade"); //A SUPP APRES
-        s.execute("drop table if exists Hash cascade"); //A SUPP APRES
-        s.execute("drop table if exists Clone cascade"); //A SUPP APRES
-
-        s.execute("create table Artefact(id serial primary key," +
-                "addDate date default now()," +
-                "groupId varchar(255)," +
-                "artefactID varchar(255)," +
-                "version varchar(50))");
-        s.execute("create table Hash (idHash serial primary key, " +
-                "hashValue int, " +
-                "file varchar(255), " +
-                "line int, " +
-                "id int, " +
-                "foreign key (id) references Artefact(id))");
-        s.execute("create table Clone (idClone serial primary key," +
-                "idHash1 int," +
-                "idHash2 int," +
-                "foreign key (idHash1) references Hash(idHash)," +
-                "foreign key (idHash2) references Hash(idHash))");
-
-        /*TESTS POUR L'APPLICATION*/ /*A SUPPRIMER APRES*/
-
-        ResultSet res = s.executeQuery("SELECT * FROM Artefact");
-
-        while (res.next()) {
-            var id = res.getInt("id");
-            var groupId = res.getString("groupId");
-            var artefactId = res.getString("artefactId");
-            System.out.println("id : " + id + " groupId : " + groupId + " artefactId :" + artefactId);
-        }
 
 
-        s.close();
-        co.close();
+        Config dbConfig = Config.create().get("db");
 
-        Single<Long> stage = Single.just(0L);
-        try (JsonReader reader = createReader(DatabaseConfig.class.getResourceAsStream(ARTEFACTS))) {
-            JsonArray pokemons = reader.readArray();
-            for (JsonValue pokemonValue : pokemons) {
-                JsonObject pokemon = pokemonValue.asJsonObject();
-            }
-        }
+        DbClient dbClient = DbClient.builder(dbConfig).build();
+
+
     }
 
 }

@@ -4,24 +4,31 @@ import io.helidon.dbclient.DbRow;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 
 public class CloneMapper implements DbMapper<Artefact> {
 
+    private final static Logger LOGGER = Logger.getLogger(CloneMapper.class.getName());
+
     @Override
-    public Artefact read(DbRow row) {
-        DbColumn groupId = row.column("groupId");
+    public Artefact read(DbRow dbRow) {
+        var groupId = dbRow.column("groupId");
         return new Artefact(groupId.as(String.class));
     }
 
     @Override
     public Map<String, ?> toNamedParameters(Artefact artefact) {
-        return null;
+        var map = Map.of(
+                "groupId", artefact.groupId() );
+        return map;
     }
 
     @Override
     public List<?> toIndexedParameters(Artefact artefact) {
-        return null;
+        return List.of(
+                artefact.groupId()
+        );
     }
 
 }

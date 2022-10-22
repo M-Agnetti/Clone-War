@@ -35,23 +35,23 @@ public class DatabaseConfig {
     }
 
     public static void insertArtefact(DbClient dbClient){
+        System.out.println("insertArtefact");
         dbClient.execute(dbExecute -> dbExecute
-                .createNamedInsert("insert-artefact")
-                .addParam("fr.uge.slice")
-                .execute()
+                .namedInsert("insert-artefact", "groupId")
+                .peek(aLong -> System.out.println("hey"))
         );
     }
 
     public static void main(String... args) throws Exception {
 
         Config dbConfig = Config.create().get("db");
-
         DbClient dbClient = DbClient.builder(dbConfig).build();
 
         //dropTables(dbClient);
         //initArtefact(dbClient);
         insertArtefact(dbClient);
         insertArtefact(dbClient);
+
 
         dbClient.execute(dbExecute -> dbExecute
                 .namedQuery("select-all-artefact"))

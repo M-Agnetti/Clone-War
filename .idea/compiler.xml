@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="agnetti-saidi" target="1.5" />
+      <module name="agnetti-saidi" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

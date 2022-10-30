@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -11,5 +11,38 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-mapper:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-http:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-context:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-common:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.config:helidon-config:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-key-util:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-configurable:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.logging:helidon-logging-common:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-service-loader:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.tracing:helidon-tracing:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.tracing:helidon-tracing-config:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.77.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.config:helidon-config-yaml:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.30" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-jackson:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
   </component>
 </module>

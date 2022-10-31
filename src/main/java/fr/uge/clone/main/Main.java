@@ -20,7 +20,10 @@ public class Main {
                         .build())
                 .get("/", (req, res) -> res.send("Hello World!"))
                 .get("/artefacts", (req, res) -> res.send("[{\"groupId\":\"groupId\",\"artefactId\":\"artefactId\"}," +
-                        "{\"groupId\":\"groupId2\",\"artefactId\":\"artefactId2\"}]"))
+                        "{\"groupId\":\"groupId2\",\"artefactId\":\"artefactId2\"}," +
+                        "{\"groupId\":\"groupId\",\"artefactId\":\"artefactId\"}," +
+                        "{\"groupId\":\"groupId\",\"artefactId\":\"artefactId\"}," +
+                        "{\"groupId\":\"groupId\",\"artefactId\":\"artefactId\"}]"))
                 .build();
 
         Config config = Config.create().get("server");

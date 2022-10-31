@@ -61,6 +61,8 @@
     <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-configurable:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:5.0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
   </component>
 </module>

@@ -7,8 +7,8 @@ db:
   connection:
     username: sa
     password:
-    url: "jdbc:h2:./src/main/resources/clone"
-    poolName: clone
+    url: "jdbc:h2:./src/main/resources/clone.db"
+    poolName: h2
     initializationFailTimeout: -1
     connectionTimeout: 2000
 

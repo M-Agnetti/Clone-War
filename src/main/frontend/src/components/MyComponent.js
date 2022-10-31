@@ -1,52 +1,49 @@
-import React, {Component} from "react";
+import React from 'react'
+import APIService from './APIService'
 
+class MyComponent extends React.Component {
 
-class MyComponent extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            error: null,
-            isLoaded: false,
-            items: []
-        };
+            artefacts: []
+        }
     }
 
-    componentDidMount() {
-        fetch("/pokemon")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+    componentDidMount(){
+        APIService.getArtefacts().then((data) => {
+            this.setState({ artefacts: data});
+            console.log(this.state.artefacts);
+        })
+            .catch(function (ex) {
+                console.log('Response parsing failed. Error: ', ex);
+            });
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
-        if (error) {
-            return <div>Erreur : {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Chargement…</div>;
-        } else {
-            return (
-                <ul>
-                    {items.map(item => (
-                        <li key={item.name}>
-                            {item.name} {item.price}
-                        </li>
-                    ))}
-                </ul>
-            );
-        }
+        return (
+            <div>
+                <h2 className="text-center">Artefacts</h2>
+                <table className="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>GroupId</th>
+                        <th>ArtefactId</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        this.state.artefacts.map(artefact =>
+                            <tr>
+                                <td>{artefact.groupId}</td>
+                                <td>{artefact.artefactId}</td>
+                            </tr>
+                        )
+                    }
+                    </tbody>
+                </table>
+            </div>
+        )
     }
 }
 

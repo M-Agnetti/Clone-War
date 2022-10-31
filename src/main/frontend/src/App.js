@@ -6,8 +6,11 @@ import MyComponent from "./components/MyComponent";
 function App() {
 
   return (
+
     <div className="App">
-      Youpii
+        <h1 className="text-3xl font-bold underline">
+            Hello world!
+        </h1>
         <MyComponent/>
     </div>
 

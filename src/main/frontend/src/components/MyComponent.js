@@ -1,5 +1,6 @@
 import React from 'react'
 import APIService from './APIService'
+import './MyComponent.css';
 
 class MyComponent extends React.Component {
 
@@ -24,24 +25,16 @@ class MyComponent extends React.Component {
         return (
             <div>
                 <h2 className="text-center">Artefacts</h2>
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>GroupId</th>
-                        <th>ArtefactId</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+
                     {
                         this.state.artefacts.map(artefact =>
-                            <tr>
-                                <td>{artefact.groupId}</td>
-                                <td>{artefact.artefactId}</td>
-                            </tr>
+                            <div className="Div">
+                                <p>{artefact.groupId}</p>
+                                <p>{artefact.artefactId}</p>
+                            </div>
                         )
                     }
-                    </tbody>
-                </table>
+
             </div>
         )
     }

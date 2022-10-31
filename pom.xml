@@ -52,6 +52,26 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.helidon.webserver</groupId>
+            <artifactId>helidon-webserver-static-content</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.dbclient</groupId>
+            <artifactId>helidon-dbclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.dbclient</groupId>
+            <artifactId>helidon-dbclient-jdbc</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+        </dependency>
 
 
     </dependencies>
@@ -73,6 +93,82 @@
             <artifactId>helidon-maven-plugin</artifactId>
         </plugin>
 
+        <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <!-- Use the latest released version:
+            https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+            <version>1.12.1</version>
+
+
+            <executions>
+                <execution>
+                    <id>install node and npm</id>
+                    <goals>
+                        <goal>install-node-and-npm</goal>
+                    </goals>
+                    <phase>generate-resources</phase>
+                    <configuration>
+                        <nodeVersion>v19.0.0</nodeVersion>
+                        <npmVersion>8.19.2</npmVersion>
+                        <workingDirectory>src/main/frontend</workingDirectory>
+                        <installDirectory>target</installDirectory>
+                    </configuration>
+                </execution>
+
+                <execution>
+                    <id>npm install</id>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <phase>generate-resources</phase>
+                    <configuration>
+                        <arguments>install</arguments>
+                    </configuration>
+                </execution>
+
+                <execution>
+                    <id>npm build</id>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <phase>generate-resources</phase>
+                    <configuration>
+                        <arguments>run build</arguments>
+                    </configuration>
+                </execution>
+            </executions>
+
+            <configuration>
+                <nodeVersion>v19.0.0</nodeVersion>
+                <workingDirectory>src/main/frontend</workingDirectory>
+            </configuration>
+
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <executions>
+                <execution>
+                    <id>Copy my app into target static folder</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>target/classes/static</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>src/main/frontend/build</directory>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 
     </plugins>
 

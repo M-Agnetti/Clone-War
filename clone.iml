@@ -12,6 +12,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="h2-2.1.214" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.9.0" level="project" />
@@ -30,17 +31,12 @@
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:3.4.2" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-mapper:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-http:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-context:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.config:helidon-config:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-key-util:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-configurable:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.logging:helidon-logging-common:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-service-loader:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.tracing:helidon-tracing:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.tracing:helidon-tracing-config:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.77.Final" level="project" />
@@ -55,5 +51,16 @@
     <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-jdk14:1.7.32" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver-static-content:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-media-type:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-service-loader:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-context:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-mapper:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient-jdbc:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.dbclient:helidon-dbclient-common:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-configurable:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:5.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
   </component>
 </module>

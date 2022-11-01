@@ -8,7 +8,11 @@ function App() {
   return (
 
     <div className="App">
-
+        <form>
+            <input type="file" accept=".jar" required />
+            <input type="file" accept=".jar" required />
+            <button type="submit">Ajouter</button>
+        </form>
         <MyComponent/>
     </div>
 

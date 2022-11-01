@@ -1,16 +1,27 @@
 server:
   port: 8080
-  bind-address: "0.0.0.0"
+  host: "0.0.0.0"
 
 db:
   source: jdbc
   connection:
-    username: sa
+    username: "clone"
     password:
-    url: "jdbc:h2:./src/main/resources/clone.db"
+    url: "jdbc:h2:./src/main/resources/clone"
     poolName: h2
     initializationFailTimeout: -1
     connectionTimeout: 2000
+    helidon:
+      pool-metrics:
+        enabled: true
+        # name prefix defaults to "db.pool." - if you have more than one client within a JVM, you may want to distinguish between them
+        name-prefix: "hikari."
+  services:
+    metrics:
+      - type: METER
+  health-check:
+    type: "dml"
+    statementName: "ping"
 
   statements:
     # Ping statement

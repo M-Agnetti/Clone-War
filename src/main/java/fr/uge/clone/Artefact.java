@@ -1,7 +1,7 @@
 package fr.uge.clone;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
-public record Artefact(int id, String version, String groupId, String artefactId, LocalDate addDate,
+public record Artefact(int id, String version, String groupId, String artefactId, Date addDate,
                        boolean analyzing) {
 }

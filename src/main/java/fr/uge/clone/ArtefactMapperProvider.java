@@ -29,7 +29,7 @@ public class ArtefactMapperProvider implements DbMapperProvider {
             DbColumn addDate = row.column("ADDDATE");
             DbColumn analyzing = row.column("ANALYZING");
             return new Artefact(id.as(Integer.class), version.as(String.class), groupId.as(String.class),
-                    artefactId.as(String.class), addDate.as(LocalDate.class), analyzing.as(Boolean.class));
+                    artefactId.as(String.class), addDate.as(Date.class), analyzing.as(Boolean.class));
             //return new Artefact(1, "", "groupId.as(String.class)",
                //     "artefactId.as(String.class)", LocalDate.now(), true);
         }

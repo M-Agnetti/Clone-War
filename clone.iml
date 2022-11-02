@@ -65,6 +65,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:2.1.214" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:9.4" level="project" />
   </component>
 </module>

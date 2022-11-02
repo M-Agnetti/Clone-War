@@ -23,7 +23,8 @@ public class CloneService implements Service {
 
     @Override
     public void update(Routing.Rules rules) {
-        rules.get("/artefacts", this::getArtefactsJSON);
+        rules.get("/artefacts", this::getArtefactsJSON)
+                .get("/artefact/{id}", (serverRequest, serverResponse) -> serverResponse.send("hey"));
     }
 
     public void getArtefactsJSON(ServerRequest serverRequest, ServerResponse serverResponse){

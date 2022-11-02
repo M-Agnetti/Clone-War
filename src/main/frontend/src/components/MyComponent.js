@@ -1,14 +1,16 @@
 import React from 'react'
 import APIService from './APIService'
 import './MyComponent.css';
+import Artefact from "./Artefact";
 
 class MyComponent extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             artefacts: []
-        }
+        };
+        this.button = false;
     }
 
     componentDidMount(){
@@ -19,6 +21,10 @@ class MyComponent extends React.Component {
             .catch(function (ex) {
                 console.log('Response parsing failed. Error: ', ex);
             });
+    }
+
+    nextPath(path) {
+        this.props.history.push(path);
     }
 
     render() {
@@ -36,10 +42,12 @@ class MyComponent extends React.Component {
 
                                             <h2 className="text-xl font-medium text-gray-700">{artefact.groupId}</h2>
                                             <span className="text-blue-500 block mb-5">{artefact.artefactId}</span>
+                                            <h2 className="text-xl font-medium text-gray-700">{artefact.version}</h2>
+                                            <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.addDate).toLocaleDateString("fr")}</h2>
 
                                                 <button
-                                                        className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">Read
-                                                        more
+                                                        className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">
+                                                    Read more
                                                     </button>
                                                 </div>
                                         </div>

@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  host: "0.0.0.0"
+
+db:
+  source: jdbc
+  connection:
+    username: "clone"
+    password:
+    url: "jdbc:h2:./src/main/resources/clone"
+    poolName: h2
+    initializationFailTimeout: -1
+    connectionTimeout: 2000
+    helidon:
+      pool-metrics:
+        enabled: true
+        # name prefix defaults to "db.pool." - if you have more than one client within a JVM, you may want to distinguish between them
+        name-prefix: "hikari."
+  services:
+    metrics:
+      - type: METER
+  health-check:
+    type: "dml"
+    statementName: "ping"
+
+  statements:
+    # Ping statement
+    ping: "SET @HELIDON_PING=0"
+    # Create database schema
+    create-types: "CREATE TABLE TEST (id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL)"
+    create-artefact: " drop table if exists Artefact cascade;
+
+    create table Artefact
+          (
+            id   INTEGER auto_increment  primary key,
+            version     CHARACTER VARYING(60),
+            groupId    CHARACTER VARYING(60) not null,
+            artefactId CHARACTER VARYING(60)  not null,
+            addDate DATE default NOW(),
+            analyzing    BOOLEAN default FALSE
+          );"
+    create-instruction: "drop table if exists Instruction cascade;
+    
+    create table Instruction
+          (
+            idHash INTEGER auto_increment primary key,
+            hashValue     INTEGER,
+            file    CHARACTER VARYING(100) not null,
+            line INTEGER,
+            id INTEGER,
+            constraint fk foreign key (id) references Artefact (id)
+          );"
+    select-all-types: "SELECT * FROM TEST"
+    select-all-artefacts: "SELECT * FROM ARTEFACT"
+    insert-type: "INSERT INTO TEST VALUES(?, ?)"
+    insert-artefact: "INSERT INTO Artefact(groupId, artefactId, version) VALUES(?, ?, ?)"

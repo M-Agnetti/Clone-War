@@ -37,24 +37,18 @@ public class ArtefactMapperProvider implements DbMapperProvider {
         @Override
         public Map<String, Object> toNamedParameters(Artefact value) {
             Map<String, Object> map = new HashMap<>();
-            map.put("id", value.id());
-            map.put("version", value.version());
             map.put("groupId", value.groupId());
             map.put("artefactId", value.artefactId());
-            map.put("addDate", value.addDate());
-            map.put("analyzing", value.analyzing());
+            map.put("version", value.version());
             return map;
         }
 
         @Override
         public List<Object> toIndexedParameters(Artefact value) {
             List<Object> list = new ArrayList<>();
-            list.add(value.id());
-            list.add(value.version());
             list.add(value.groupId());
             list.add(value.artefactId());
-            list.add(value.addDate());
-            list.add(value.analyzing());
+            list.add(value.version());
             return list;
         }
     }

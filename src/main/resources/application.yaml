@@ -53,4 +53,4 @@ db:
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     insert-type: "INSERT INTO TEST VALUES(?, ?)"
-    insert-artefact: "INSERT INTO Artefact(groupId, artefactId, version) VALUES(?, ?, ?)"
+    insert-artefact: "INSERT INTO Artefact(version, groupId, artefactId) VALUES(?, ?, ?)"

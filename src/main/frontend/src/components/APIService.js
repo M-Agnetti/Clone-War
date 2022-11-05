@@ -9,8 +9,7 @@ class APIService {
                 'Content-Type': 'application/json',
             },
             'credentials': 'same-origin'
-        })
-            .then(res => res.json());
+        }).then(res => res.json());
     }
 
 }

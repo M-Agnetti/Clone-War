@@ -9,7 +9,10 @@ import java.lang.module.ModuleFinder;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
 import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class AsmParser {
 
@@ -33,6 +36,12 @@ public class AsmParser {
     }
 
     public static void main(String[] args) throws IOException {
+        var list = parse().stream().filter(s -> s.length() > 0).toList();
+        System.out.println(list);
+    }
+
+    public static List<String> parse() throws IOException {
+        final ArrayList<String> list = new ArrayList<>();
 
         var finder = ModuleFinder.of(Path.of("test2.jar"));
         var moduleReference = finder.findAll().stream().findFirst().orElseThrow();
@@ -71,7 +80,7 @@ public class AsmParser {
 
                         @Override
                         public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-                            System.err.println("  field " + modifier(access) + " " + name + " " + ClassDesc.ofDescriptor(descriptor).displayName() + " " + signature);
+                            System.err.println("  field " + modifier(access) + " " + ClassDesc.ofDescriptor(descriptor).displayName());
                             return null;
                         }
 
@@ -80,14 +89,11 @@ public class AsmParser {
                             System.err.println("\n method " + modifier(access) + " " + name + " " + MethodTypeDesc.ofDescriptor(descriptor).displayDescriptor() + " " + signature);
                             return new MethodVisitor(Opcodes.ASM9) {
                                 private int lineNumber = -1;
-
-                                @Override
-                                public void visitCode(){
-                                    System.out.println("Start of the method's bytecode " + name + " : \n");
-                                }
+                                private StringJoiner bytecode = new StringJoiner("\n");
 
                                 @Override
                                 public void visitInsn(int opcode) {
+                                    bytecode.add(getOpcode(opcode));
                                     System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                 }
 
@@ -98,17 +104,25 @@ public class AsmParser {
 
                                 @Override
                                 public void visitVarInsn(int opcode, int var){
+                                    bytecode.add(getOpcode(opcode));
                                     System.err.println("    visitVarInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitTypeInsn(int opcode, String desc){
-                                    System.err.println("    visitTypeInsn : " + getOpcode(opcode) + " | desc : " + desc);
+                                    bytecode.add(getOpcode(opcode));
+                                    System.err.println("    visitTypeInsn : " + getOpcode(opcode)  + " | line " + lineNumber);
+                                }
+
+                                @Override
+                                public void visitFieldInsn(int opc, String owner, String name, String desc){
+                                    System.err.println("    visitFieldInsn : " + getOpcode(opc) + " " + name);
                                 }
 
                                 @Override
                                 public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-                                    System.err.println("    " + getOpcode(opcode)+ " " + owner+ " " + name + " " + descriptor + " | line " + lineNumber);
+                                    bytecode.add(getOpcode(opcode) + " " + name);
+                                    System.err.println("    " + getOpcode(opcode) + " " + name + " | line " + lineNumber);
                                 }
 
                                 // + the other visit methods to get all the opcodes
@@ -117,22 +131,24 @@ public class AsmParser {
                                 public void visitIincInsn(int var, int increment){
                                     System.err.println("visitIincInsn : " + var);
                                 }
+
                                 @Override
-                                public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index){
-                                    System.err.println("    visitLocalVariable : " + name + " " + desc + " | line " + lineNumber);
+                                public void visitJumpInsn(int opcode, Label label){
+                                    System.err.println("    visitJumpInsn : " + getOpcode(opcode));
                                 }
+
+                                @Override
+                                public void visitLdcInsn(Object cst){
+                                    bytecode.add("LDC " + cst.toString());
+                                    System.err.println("    visitLdcInsn : LDC " + cst.toString() + " | line " + lineNumber);
+                                }
+
                                 @Override
                                 public void visitLineNumber(int line, Label start){
                                     this.lineNumber = line;
-                                }
-
-                                @Override
-                                public void visitMaxs(int maxStack, int maxLocals){
-
-                                }
-                                @Override
-                                public void visitEnd(){
-                                    System.out.println("\nEndEnd of the method's bytecode " + name + "\n");
+                                    list.add(bytecode.toString());
+                                    System.out.println(bytecode + "\n\n");
+                                    bytecode = new StringJoiner("\n");
                                 }
                             };
                         }
@@ -140,5 +156,6 @@ public class AsmParser {
                 }
             }
         }
+        return list;
     }
 }

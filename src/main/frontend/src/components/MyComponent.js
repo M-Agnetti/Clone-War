@@ -16,7 +16,6 @@ class MyComponent extends React.Component {
     componentDidMount(){
         APIService.getArtefacts().then((data) => {
             this.setState({ artefacts: data});
-            console.log(this.state.artefacts);
         })
             .catch(function (ex) {
                 console.log('Response parsing failed. Error: ', ex);

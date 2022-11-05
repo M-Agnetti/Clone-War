@@ -8,6 +8,7 @@ import java.lang.constant.MethodTypeDesc;
 import java.lang.module.ModuleFinder;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
+import java.security.PublicKey;
 import java.util.Arrays;
 
 public class AsmParser {
@@ -17,7 +18,7 @@ public class AsmParser {
         return arr[arr.length - 1];
     }
 
-    private static String getNameFromOpcode(int opcode){
+    private static String getOpcode(int opcode){
         var fields = Opcodes.class.getDeclaredFields();
         try{
             for(var field:fields){
@@ -33,7 +34,7 @@ public class AsmParser {
 
     public static void main(String[] args) throws IOException {
 
-        var finder = ModuleFinder.of(Path.of("testt.jar"));
+        var finder = ModuleFinder.of(Path.of("test2.jar"));
         var moduleReference = finder.findAll().stream().findFirst().orElseThrow();
         try(var reader = moduleReference.open()) {
             for(var filename: (Iterable<String>) reader.list()::iterator) {
@@ -76,19 +77,63 @@ public class AsmParser {
 
                         @Override
                         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-                            System.err.println("  method " + modifier(access) + " " + name + " " + MethodTypeDesc.ofDescriptor(descriptor).displayDescriptor() + " " + signature);
+                            System.err.println("\n method " + modifier(access) + " " + name + " " + MethodTypeDesc.ofDescriptor(descriptor).displayDescriptor() + " " + signature);
                             return new MethodVisitor(Opcodes.ASM9) {
+                                private int lineNumber = -1;
+
+                                @Override
+                                public void visitCode(){
+                                    System.out.println("Start of the method's bytecode " + name + " : \n");
+                                }
+
                                 @Override
                                 public void visitInsn(int opcode) {
-                                    System.err.println("    visitInsn : " + getNameFromOpcode(opcode));
+                                    System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
+                                }
+
+                                @Override
+                                public void visitIntInsn(int opcode, int operand){
+                                    System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand);
+                                }
+
+                                @Override
+                                public void visitVarInsn(int opcode, int var){
+                                    System.err.println("    visitVarInsn : " + getOpcode(opcode) + " | line " + lineNumber);
+                                }
+
+                                @Override
+                                public void visitTypeInsn(int opcode, String desc){
+                                    System.err.println("    visitTypeInsn : " + getOpcode(opcode) + " | desc : " + desc);
                                 }
 
                                 @Override
                                 public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-                                    System.err.println("    " + getNameFromOpcode(opcode)+ " " + owner+ "." + name + descriptor);
+                                    System.err.println("    " + getOpcode(opcode)+ " " + owner+ " " + name + " " + descriptor + " | line " + lineNumber);
                                 }
 
                                 // + the other visit methods to get all the opcodes
+
+                                @Override
+                                public void visitIincInsn(int var, int increment){
+                                    System.err.println("visitIincInsn : " + var);
+                                }
+                                @Override
+                                public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index){
+                                    System.err.println("    visitLocalVariable : " + name + " " + desc + " | line " + lineNumber);
+                                }
+                                @Override
+                                public void visitLineNumber(int line, Label start){
+                                    this.lineNumber = line;
+                                }
+
+                                @Override
+                                public void visitMaxs(int maxStack, int maxLocals){
+
+                                }
+                                @Override
+                                public void visitEnd(){
+                                    System.out.println("\nEndEnd of the method's bytecode " + name + "\n");
+                                }
                             };
                         }
                     }, 0);

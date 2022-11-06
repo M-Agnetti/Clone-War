@@ -8,11 +8,8 @@ import java.lang.constant.MethodTypeDesc;
 import java.lang.module.ModuleFinder;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AsmParser {
 
@@ -36,12 +33,17 @@ public class AsmParser {
     }
 
     public static void main(String[] args) throws IOException {
-        var list = parse().stream().filter(s -> s.length() > 0).toList();
+        var list = parse().entrySet().stream().sorted(Map.Entry.comparingByKey())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new
+                        ));
         System.out.println(list);
     }
 
-    public static List<String> parse() throws IOException {
+    public static Map<Integer, StringJoiner> parse() throws IOException {
         final ArrayList<String> list = new ArrayList<>();
+        final Map<Integer, StringJoiner> map = new HashMap<>();
 
         var finder = ModuleFinder.of(Path.of("test2.jar"));
         var moduleReference = finder.findAll().stream().findFirst().orElseThrow();
@@ -93,24 +95,26 @@ public class AsmParser {
 
                                 @Override
                                 public void visitInsn(int opcode) {
-                                    bytecode.add(getOpcode(opcode));
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitIntInsn(int opcode, int operand){
-                                    System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand);
+                                    System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitVarInsn(int opcode, int var){
-                                    bytecode.add(getOpcode(opcode));
-                                    System.err.println("    visitVarInsn : " + getOpcode(opcode) + " | line " + lineNumber);
+                                    var s = getOpcode(opcode);
+                                    var opName = s.endsWith("LOAD") ? "LOAD" : s.startsWith("V") ? "STORE" : s;
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName + " " + var);
+                                    System.err.println("    visitVarInsn : " + getOpcode(opcode) + " " + var + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitTypeInsn(int opcode, String desc){
-                                    bytecode.add(getOpcode(opcode));
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitTypeInsn : " + getOpcode(opcode)  + " | line " + lineNumber);
                                 }
 
@@ -121,7 +125,9 @@ public class AsmParser {
 
                                 @Override
                                 public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-                                    bytecode.add(getOpcode(opcode) + " " + name);
+                                    var s = getOpcode(opcode);
+                                    var opName = s.endsWith("STATIC") ? (s + name) : s;
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
                                     System.err.println("    " + getOpcode(opcode) + " " + name + " | line " + lineNumber);
                                 }
 
@@ -129,25 +135,26 @@ public class AsmParser {
 
                                 @Override
                                 public void visitIincInsn(int var, int increment){
-                                    System.err.println("visitIincInsn : " + var);
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
+                                    System.err.println("visitIincInsn : " + var + " " + increment + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitJumpInsn(int opcode, Label label){
-                                    System.err.println("    visitJumpInsn : " + getOpcode(opcode));
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode) + " " + label);
+                                    System.err.println("    visitJumpInsn : " + getOpcode(opcode) + " " + label.toString()
+                                            + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitLdcInsn(Object cst){
-                                    bytecode.add("LDC " + cst.toString());
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
                                     System.err.println("    visitLdcInsn : LDC " + cst.toString() + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitLineNumber(int line, Label start){
                                     this.lineNumber = line;
-                                    list.add(bytecode.toString());
-                                    System.out.println(bytecode + "\n\n");
                                     bytecode = new StringJoiner("\n");
                                 }
                             };
@@ -156,6 +163,6 @@ public class AsmParser {
                 }
             }
         }
-        return list;
+        return map;
     }
 }

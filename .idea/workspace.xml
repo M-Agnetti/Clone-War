@@ -11,10 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/test2.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +86,11 @@
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn clean package" />
-      <command value="mvn package" />
       <command value="mvn clean" />
+      <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.clone.jar">
+  <component name="RunManager">
     <configuration name="clone.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/clone.jar" />
       <method v="2" />
@@ -151,7 +150,7 @@
       <workItem from="1667592086108" duration="840000" />
       <workItem from="1667637891039" duration="32756000" />
       <workItem from="1667721285754" duration="7255000" />
-      <workItem from="1667743194113" duration="89000" />
+      <workItem from="1667743194113" duration="6964000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -314,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667728792936</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="commit">
+      <created>1667743295944</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1667743295944</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -12,7 +12,6 @@
     <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +26,14 @@
         <option value="JavaScript File" />
         <option value="Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+        <option value="NO_VERIFY" />
+      </set>
     </option>
   </component>
   <component name="Git.Settings">
@@ -50,7 +57,6 @@
   </component>
   <component name="ProjectId" id="2GrTigwP2nmTVv8jc1j0uQneBek" />
   <component name="ProjectLevelVcsManager">
-    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -90,20 +96,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.AsmParser">
-    <configuration name="AsmParser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.uge.clone.AsmParser" />
-      <module name="clone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fr.uge.clone.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="clone.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/clone.jar" />
       <method v="2" />
@@ -126,8 +119,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AsmParser" />
         <item itemvalue="JAR Application.clone.jar" />
+        <item itemvalue="Node.js.tailwind.config.js" />
       </list>
     </recent_temporary>
   </component>
@@ -162,7 +155,8 @@
       <workItem from="1667591860122" duration="197000" />
       <workItem from="1667592086108" duration="840000" />
       <workItem from="1667637891039" duration="32756000" />
-      <workItem from="1667721285754" duration="6620000" />
+      <workItem from="1667721285754" duration="7255000" />
+      <workItem from="1667743194113" duration="6964000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -318,7 +312,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667686503344</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="commit">
+      <created>1667728792936</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667728792936</updated>
+    </task>
+    <task id="LOCAL-00024" summary="commit">
+      <created>1667743295944</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1667743295944</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,13 +352,10 @@
     <MESSAGE value="database created + configurated + tested" />
     <MESSAGE value="Artefact mapper configured for mapping from db object to Artefact" />
     <MESSAGE value="Service configured (managed to select db objects, turned them into java objects then json array, then sent them through a get request to the front)" />
-    <MESSAGE value="commit" />
     <MESSAGE value="AsmParser Init" />
     <MESSAGE value="Reading a specific java file in a source.jar" />
     <MESSAGE value="Sending a jar from front and insert new artefact + refresh page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sending a jar from front and insert new artefact + refresh page" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/agnetti_saidi2$agnetti_saidi_1_0_SNAPSHOT_jar.ic" NAME="agnetti-saidi-1.0-SNAPSHOT.jar Coverage Results" MODIFIED="1666427626134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>

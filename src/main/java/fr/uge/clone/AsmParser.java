@@ -41,9 +41,9 @@ public class AsmParser {
         System.out.println(list);
     }
 
-    public static Map<Integer, StringJoiner> parse() throws IOException {
+    public static Map<String, Map<Integer, StringJoiner>> parse() throws IOException {
         final ArrayList<String> list = new ArrayList<>();
-        final Map<Integer, StringJoiner> map = new HashMap<>();
+        final Map<String, Map<Integer, StringJoiner>> map = new HashMap<>();
 
         var finder = ModuleFinder.of(Path.of("test2.jar"));
         var moduleReference = finder.findAll().stream().findFirst().orElseThrow();
@@ -55,6 +55,7 @@ public class AsmParser {
                 try(var inputStream = reader.open(filename).orElseThrow()) {
                     var classReader = new ClassReader(inputStream);
                     classReader.accept(new ClassVisitor(Opcodes.ASM9) {
+                        String fileName;
 
                         private static String modifier(int access) {
                             if (Modifier.isPublic(access)) {
@@ -71,6 +72,7 @@ public class AsmParser {
 
                         @Override
                         public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+                            fileName = name;
                             System.err.println("class " + modifier(access) + " " + name + " " + superName + " " + (interfaces != null? Arrays.toString(interfaces): ""));
                         }
 
@@ -97,13 +99,15 @@ public class AsmParser {
                                 public void visitInsn(int opcode) {
                                     var s = getOpcode(opcode);
                                     var opName = s.endsWith("RETURN") ? "RETURN" : s;
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
                                     System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitIntInsn(int opcode, int operand){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand + " | line " + lineNumber);
                                 }
 
@@ -111,27 +115,31 @@ public class AsmParser {
                                 public void visitVarInsn(int opcode, int var){
                                     var s = getOpcode(opcode);
                                     var opName = s.endsWith("LOAD") ? "LOAD" : s.startsWith("V") ? "STORE" : s;
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName + " " + var);
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName + " " + var);
                                     System.err.println("    visitVarInsn : " + getOpcode(opcode) + " " + var + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitTypeInsn(int opcode, String desc){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitTypeInsn : " + getOpcode(opcode)  + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitFieldInsn(int opc, String owner, String name, String desc){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opc));
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opc));
                                     System.err.println("    visitFieldInsn : " + getOpcode(opc) + " " + name);
                                 }
 
                                 @Override
                                 public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
                                     var s = getOpcode(opcode);
-                                    var opName = s.endsWith("STATIC") ? (s + name) : s;
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
+                                    var opName = s.endsWith("STATIC") ? (s + " " + name) : s;
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
                                     System.err.println("    " + getOpcode(opcode) + " " + name + " | line " + lineNumber);
                                 }
 
@@ -139,20 +147,23 @@ public class AsmParser {
 
                                 @Override
                                 public void visitIincInsn(int var, int increment){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
                                     System.err.println("visitIincInsn : " + var + " " + increment + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitJumpInsn(int opcode, Label label){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitJumpInsn : " + getOpcode(opcode) + " " + label.toString()
                                             + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitLdcInsn(Object cst){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
+                                    map.computeIfAbsent(fileName, k -> new HashMap<>())
+                                            .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
                                     System.err.println("    visitLdcInsn : LDC " + cst.toString() + " | line " + lineNumber);
                                 }
 

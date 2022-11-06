@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="commit">
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="ASM parser">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
     </list>
@@ -92,8 +92,8 @@
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn clean package" />
-      <command value="mvn clean" />
       <command value="mvn package" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager">
@@ -326,7 +326,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667743295944</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="ASM parser">
+      <created>1667764777648</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1667764777648</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,6 +363,7 @@
     <MESSAGE value="Reading a specific java file in a source.jar" />
     <MESSAGE value="Sending a jar from front and insert new artefact + refresh page" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="ASM parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="ASM parser" />
   </component>
 </project>

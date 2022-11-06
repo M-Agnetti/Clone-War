@@ -93,7 +93,6 @@ public class AsmParser {
                             System.err.println("\n method " + modifier(access) + " " + name + " " + MethodTypeDesc.ofDescriptor(descriptor).displayDescriptor() + " " + signature);
                             return new MethodVisitor(Opcodes.ASM9) {
                                 private int lineNumber = -1;
-                                private StringJoiner bytecode = new StringJoiner("\n");
 
                                 @Override
                                 public void visitInsn(int opcode) {
@@ -170,7 +169,6 @@ public class AsmParser {
                                 @Override
                                 public void visitLineNumber(int line, Label start){
                                     this.lineNumber = line;
-                                    bytecode = new StringJoiner("\n");
                                 }
                             };
                         }

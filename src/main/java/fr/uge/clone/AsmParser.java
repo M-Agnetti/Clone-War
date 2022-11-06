@@ -95,12 +95,15 @@ public class AsmParser {
 
                                 @Override
                                 public void visitInsn(int opcode) {
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                    var s = getOpcode(opcode);
+                                    var opName = s.endsWith("RETURN") ? "RETURN" : s;
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
                                     System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                 }
 
                                 @Override
                                 public void visitIntInsn(int opcode, int operand){
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand + " | line " + lineNumber);
                                 }
 
@@ -120,6 +123,7 @@ public class AsmParser {
 
                                 @Override
                                 public void visitFieldInsn(int opc, String owner, String name, String desc){
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opc));
                                     System.err.println("    visitFieldInsn : " + getOpcode(opc) + " " + name);
                                 }
 
@@ -141,7 +145,7 @@ public class AsmParser {
 
                                 @Override
                                 public void visitJumpInsn(int opcode, Label label){
-                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode) + " " + label);
+                                    map.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
                                     System.err.println("    visitJumpInsn : " + getOpcode(opcode) + " " + label.toString()
                                             + " | line " + lineNumber);
                                 }

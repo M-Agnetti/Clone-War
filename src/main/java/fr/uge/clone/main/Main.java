@@ -25,7 +25,6 @@ public class Main {
                 .register("/", StaticContentSupport.builder("/static")
                         .welcomeFileName("index.html")
                         .build())
-                //.register(MultiPartSupport.create())
                 .build();
 
         Config config = Config.create().get("server");

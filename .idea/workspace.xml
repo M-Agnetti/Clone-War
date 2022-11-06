@@ -9,9 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="Sending a jar from front and insert new artefact + refresh page">
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
@@ -88,8 +87,8 @@
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn clean package" />
-      <command value="mvn clean" />
       <command value="mvn package" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
@@ -151,7 +150,8 @@
       <workItem from="1667591860122" duration="197000" />
       <workItem from="1667592086108" duration="840000" />
       <workItem from="1667637891039" duration="32756000" />
-      <workItem from="1667721285754" duration="6620000" />
+      <workItem from="1667721285754" duration="7255000" />
+      <workItem from="1667743194113" duration="89000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -307,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667686503344</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="commit">
+      <created>1667728792936</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667728792936</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,10 +340,10 @@
     <MESSAGE value="database created + configurated + tested" />
     <MESSAGE value="Artefact mapper configured for mapping from db object to Artefact" />
     <MESSAGE value="Service configured (managed to select db objects, turned them into java objects then json array, then sent them through a get request to the front)" />
-    <MESSAGE value="commit" />
     <MESSAGE value="AsmParser Init" />
     <MESSAGE value="Reading a specific java file in a source.jar" />
     <MESSAGE value="Sending a jar from front and insert new artefact + refresh page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sending a jar from front and insert new artefact + refresh page" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>

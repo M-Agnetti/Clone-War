@@ -22,18 +22,6 @@ public class CloneService implements Service {
                 .get("/artefact/{id}", (serverRequest, serverResponse) -> serverResponse.send("hey"))
                 .post("/", (serverRequest, serverResponse) -> {
                     insertArtefact();
-                    //System.out.println(serverRequest.content());
-                    serverRequest.content()
-                            .peek(mediaType -> System.out.println("HEY"));
-                    /*RequestPredicate.create().accepts(MediaType.MULTIPART_FORM_DATA)
-                            .thenApply((req, resp) -> {
-                                System.out.println("YOUPI");
-                                req.content().as(MediaType.MULTIPART_FORM_DATA.getClass())
-                                        .thenApply(mediaType -> {
-                                            System.out.println("HEY");
-                                            return mediaType;
-                                        });
-                            }).accept(serverRequest, serverResponse);;*/
                 });
     }
 

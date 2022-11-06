@@ -3,6 +3,7 @@ package fr.uge.clone.main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uge.clone.Artefact;
 import fr.uge.clone.CloneService;
+import io.helidon.common.http.FormParams;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 import io.helidon.media.jackson.JacksonSupport;
@@ -18,12 +19,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
+
         Routing routing = Routing.builder()
                 .register("/", new CloneService(DbClient.create(Config.create().get("db"))))
                 .register("/", StaticContentSupport.builder("/static")
                         .welcomeFileName("index.html")
-
                         .build())
+                //.register(MultiPartSupport.create())
                 .build();
 
         Config config = Config.create().get("server");

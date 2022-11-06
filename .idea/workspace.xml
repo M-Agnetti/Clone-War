@@ -9,36 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="Reading a specific java file in a source.jar">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_media_helidon_media_jackson_3_0_1.xml" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="Sending a jar from front and insert new artefact + refresh page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clone.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/frontend/src/components/APIService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend/src/components/APIService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/frontend/src/components/MyComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend/src/components/MyComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/clone.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/ArtefactMapperProvider$ArtefactMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/ArtefactMapperProvider$ArtefactMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/AsmParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/CloneService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/CloneService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/SourcesJar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/SourcesJar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fr/uge/clone/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fr/uge/clone/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/test2.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,37 +59,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "ignore.preview.features.used": "true",
-    "import_schema_mapping": "<schema-mapping>\n  <databases>\n    <list>\n      <schema-mapping-item>\n        <source-data-source-id>4e8d9383-548b-40b4-bb58-b920b571281c</source-data-source-id>\n        <source-path>database/&quot;CLONE&quot;/schema/&quot;PUBLIC&quot;</source-path>\n        <target-data-source-id>4e8d9383-548b-40b4-bb58-b920b571281c</target-data-source-id>\n        <target-path>database/&quot;CLONE&quot;/schema/&quot;PUBLIC&quot;</target-path>\n      </schema-mapping-item>\n    </list>\n  </databases>\n</schema-mapping>",
-    "last_opened_file_path": "C:/Users/soumi/IdeaProjects/TestASM/src/main/java/AsmSources.java",
-    "list.type.of.created.stylesheet": "CSS",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2954023",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;import_schema_mapping&quot;: &quot;&lt;schema-mapping&gt;\n  &lt;databases&gt;\n    &lt;list&gt;\n      &lt;schema-mapping-item&gt;\n        &lt;source-data-source-id&gt;4e8d9383-548b-40b4-bb58-b920b571281c&lt;/source-data-source-id&gt;\n        &lt;source-path&gt;database/&amp;quot;CLONE&amp;quot;/schema/&amp;quot;PUBLIC&amp;quot;&lt;/source-path&gt;\n        &lt;target-data-source-id&gt;4e8d9383-548b-40b4-bb58-b920b571281c&lt;/target-data-source-id&gt;\n        &lt;target-path&gt;database/&amp;quot;CLONE&amp;quot;/schema/&amp;quot;PUBLIC&amp;quot;&lt;/target-path&gt;\n      &lt;/schema-mapping-item&gt;\n    &lt;/list&gt;\n  &lt;/databases&gt;\n&lt;/schema-mapping&gt;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/soumi/IdeaProjects/TestASM/src/main/java/AsmSources.java&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2954023&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "h2"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn verify" />
+      <command value="mvn clean package" />
       <command value="mvn clean" />
       <command value="mvn package" />
-      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
@@ -173,7 +150,8 @@
       <workItem from="1667414104321" duration="4365000" />
       <workItem from="1667591860122" duration="197000" />
       <workItem from="1667592086108" duration="840000" />
-      <workItem from="1667637891039" duration="32626000" />
+      <workItem from="1667637891039" duration="32756000" />
+      <workItem from="1667721285754" duration="6620000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -322,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667650702392</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Sending a jar from front and insert new artefact + refresh page">
+      <created>1667686503344</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1667686503344</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,6 +336,7 @@
     <MESSAGE value="commit" />
     <MESSAGE value="AsmParser Init" />
     <MESSAGE value="Reading a specific java file in a source.jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reading a specific java file in a source.jar" />
+    <MESSAGE value="Sending a jar from front and insert new artefact + refresh page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sending a jar from front and insert new artefact + refresh page" />
   </component>
 </project>

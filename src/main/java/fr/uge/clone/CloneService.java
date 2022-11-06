@@ -1,13 +1,8 @@
 package fr.uge.clone;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.helidon.common.http.FormParams;
 import io.helidon.dbclient.DbClient;
-import io.helidon.webserver.Routing;
-import io.helidon.webserver.ServerRequest;
-import io.helidon.webserver.ServerResponse;
-import io.helidon.webserver.Service;
-
+import io.helidon.webserver.*;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -27,7 +22,18 @@ public class CloneService implements Service {
                 .get("/artefact/{id}", (serverRequest, serverResponse) -> serverResponse.send("hey"))
                 .post("/", (serverRequest, serverResponse) -> {
                     insertArtefact();
-                    System.out.println(serverRequest.content());
+                    //System.out.println(serverRequest.content());
+                    serverRequest.content()
+                            .peek(mediaType -> System.out.println("HEY"));
+                    /*RequestPredicate.create().accepts(MediaType.MULTIPART_FORM_DATA)
+                            .thenApply((req, resp) -> {
+                                System.out.println("YOUPI");
+                                req.content().as(MediaType.MULTIPART_FORM_DATA.getClass())
+                                        .thenApply(mediaType -> {
+                                            System.out.println("HEY");
+                                            return mediaType;
+                                        });
+                            }).accept(serverRequest, serverResponse);;*/
                 });
     }
 

@@ -8,6 +8,8 @@ class App extends Component {
         selectedFile2:null
     };
 
+
+
     onFileChange1 = event => {
         this.setState({ selectedFile1: event.target.files[0] });
     };
@@ -16,24 +18,27 @@ class App extends Component {
     };
 
     onFileUpload = () => {
-        const formData = new FormData();
 
-        formData.append(
-            "classes",
+        const fileData = new FormData();
+
+        fileData.append(
+            "class",
             this.state.selectedFile1,
             this.state.selectedFile1.name
         );
-        formData.append(
+        /*
+        fileData.append(
             "sources",
             this.state.selectedFile2,
             this.state.selectedFile2.name
         );
+        */
 
         // Request made to the backend api
         // Send formData object
-        fetch("http://localhost:8080/",{
+        fetch("http://localhost:8080/class",{
             method: 'post',
-            body: formData
+            body: fileData
         });
            // .then(res => res.json());
         //this.setState({ selectedFile1: null, selectedFile2: null});
@@ -46,11 +51,11 @@ class App extends Component {
         return (
 
             <div className="App">
-                    <input type="file"  onChange={this.onFileChange1} required />
-                    <input type="file" onChange={this.onFileChange2} required />
-                    <button onClick={this.onFileUpload} >
-                        Upload!
-                    </button>
+                <input type="file"  onChange={this.onFileChange1} required />
+                <input type="file" onChange={this.onFileChange2} required />
+                <button onClick={this.onFileUpload} >
+                    Upload!
+                </button>
 
                 <MyComponent/>
             </div>

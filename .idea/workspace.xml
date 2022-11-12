@@ -10,8 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="ASM parser">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_media_helidon_media_multipart_3_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,8 +100,8 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn verify" />
-      <command value="mvn clean package" />
       <command value="mvn package" />
+      <command value="mvn clean package" />
       <command value="mvn clean" />
     </option>
   </component>
@@ -157,6 +166,7 @@
       <workItem from="1667637891039" duration="32756000" />
       <workItem from="1667721285754" duration="7255000" />
       <workItem from="1667743194113" duration="6964000" />
+      <workItem from="1668175468022" duration="33888000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -333,7 +343,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667764777648</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="ASM parser">
+      <created>1667764855107</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1667764855107</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

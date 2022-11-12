@@ -45,7 +45,7 @@ public class AsmParser {
         final ArrayList<String> list = new ArrayList<>();
         final Map<String, Map<Integer, StringJoiner>> map = new HashMap<>();
 
-        var finder = ModuleFinder.of(Path.of("test2.jar"));
+        var finder = ModuleFinder.of(Path.of("src/main/resources/fileuploads/test2.jar"));
         var moduleReference = finder.findAll().stream().findFirst().orElseThrow();
         try(var reader = moduleReference.open()) {
             for(var filename: (Iterable<String>) reader.list()::iterator) {

@@ -30,7 +30,6 @@
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-interpolation:1.26" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:3.4.2" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.webserver:helidon-webserver:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-http:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-common:3.0.1" level="project" />
@@ -70,5 +69,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.media:helidon-media-multipart:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.helidon.common:helidon-common-reactive:3.0.1" level="project" />
   </component>
 </module>

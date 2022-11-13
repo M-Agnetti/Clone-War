@@ -33,9 +33,8 @@ db:
     create table Artefact
           (
             id   INTEGER auto_increment  primary key,
-            version     CHARACTER VARYING(60),
-            groupId    CHARACTER VARYING(60) not null,
             artefactId CHARACTER VARYING(60)  not null,
+            filePath CHARACTER VARYING(200)  not null,
             addDate DATE default NOW(),
             analyzing    BOOLEAN default FALSE
           );"
@@ -52,5 +51,6 @@ db:
           );"
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
+    select-artefact-by-id: "SELECT * FROM ARTEFACT WHERE id = :id"
     insert-type: "INSERT INTO TEST VALUES(?, ?)"
-    insert-artefact: "INSERT INTO Artefact(version, groupId, artefactId) VALUES(?, ?, ?)"
+    insert-artefact: "INSERT INTO Artefact(artefactId, filePath) VALUES(?, ?)"

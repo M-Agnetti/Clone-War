@@ -6,7 +6,6 @@ import io.helidon.dbclient.DbRow;
 import io.helidon.dbclient.spi.DbMapperProvider;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 public class ArtefactMapperProvider implements DbMapperProvider {
@@ -23,32 +22,27 @@ public class ArtefactMapperProvider implements DbMapperProvider {
         @Override
         public Artefact read(DbRow row) {
             DbColumn id = row.column("ID");
-            DbColumn groupId = row.column("GROUPID");
             DbColumn artefactId = row.column("ARTEFACTID");
-            DbColumn version = row.column("VERSION");
+            DbColumn filePath = row.column("FILEPATH");
             DbColumn addDate = row.column("ADDDATE");
             DbColumn analyzing = row.column("ANALYZING");
-            return new Artefact(id.as(Integer.class), version.as(String.class), groupId.as(String.class),
-                    artefactId.as(String.class), addDate.as(Date.class), analyzing.as(Boolean.class));
-            //return new Artefact(1, "", "groupId.as(String.class)",
-               //     "artefactId.as(String.class)", LocalDate.now(), true);
+            return new Artefact(id.as(Integer.class), artefactId.as(String.class), filePath.as(String.class),
+                    addDate.as(Date.class), analyzing.as(Boolean.class));
         }
 
         @Override
         public Map<String, Object> toNamedParameters(Artefact value) {
             Map<String, Object> map = new HashMap<>();
-            map.put("groupId", value.groupId());
             map.put("artefactId", value.artefactId());
-            map.put("version", value.version());
+            map.put("filePath", value.filePath());
             return map;
         }
 
         @Override
         public List<Object> toIndexedParameters(Artefact value) {
             List<Object> list = new ArrayList<>();
-            list.add(value.groupId());
             list.add(value.artefactId());
-            list.add(value.version());
+            list.add(value.filePath());
             return list;
         }
     }

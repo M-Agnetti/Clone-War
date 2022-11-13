@@ -97,6 +97,11 @@
             <artifactId>helidon-common-reactive</artifactId>
             <version>3.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>io.helidon.openapi</groupId>
+            <artifactId>helidon-openapi</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 
 
     </dependencies>

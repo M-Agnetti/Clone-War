@@ -1,7 +1,6 @@
 import React from 'react'
-import APIService from './APIService'
 import './MyComponent.css';
-import Artefact from "./Artefact";
+import {Link} from "react-router-dom";
 
 class MyComponent extends React.Component {
 
@@ -14,12 +13,20 @@ class MyComponent extends React.Component {
     }
 
     componentDidMount(){
-        APIService.getArtefacts().then((data) => {
+        fetch('http://localhost:8080/artefacts',{
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            'credentials': 'same-origin'
+        }).then(res => res.json())
+        .then((data) => {
             this.setState({ artefacts: data});
         })
-            .catch(function (ex) {
-                console.log('Response parsing failed. Error: ', ex);
-            });
+        .catch(function (ex) {
+            console.log('Response parsing failed. Error: ', ex);
+        });
     }
 
     nextPath(path) {
@@ -39,11 +46,10 @@ class MyComponent extends React.Component {
                                 <div className="bg-white rounded">
                                         <div className="shadow-lg hover:shadow-xl transform transition duration-500 hover:scale-105 p-6 rounded">
 
-                                            <h2 className="text-xl font-medium text-gray-700">{artefact.groupId}</h2>
                                             <span className="text-blue-500 block mb-5">{artefact.artefactId}</span>
-                                            <h2 className="text-xl font-medium text-gray-700">{artefact.version}</h2>
                                             <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.addDate).toLocaleDateString("fr")}</h2>
 
+                                            <Link to={`/artefact/${artefact.id}`} >lien</Link>
                                                 <button
                                                         className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">
                                                     Read more

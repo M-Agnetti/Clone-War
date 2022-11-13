@@ -8,6 +8,7 @@ import io.helidon.media.common.MediaSupport;
 import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.multipart.MultiPartSupport;
 import io.helidon.media.multipart.ReadableBodyPart;
+import io.helidon.openapi.OpenAPISupport;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.staticcontent.StaticContentSupport;
@@ -22,11 +23,20 @@ public class Main {
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
 
+        Config dbConfig = Config.create().get("db");
+/*
+        DbClient dbClient = DbClient.create(dbConfig);
+        dbClient.execute(exec -> exec
+                .namedDml("create-artefact"))
+                .await();
+*/
+
         Routing routing = Routing.builder()
-                .register("/", new CloneService(DbClient.create(Config.create().get("db"))))
+                .register("/", new CloneService(DbClient.create(dbConfig)))
                 .register("/", StaticContentSupport.builder("/static")
                         .welcomeFileName("index.html")
                         .build())
+                .register(OpenAPISupport.create(dbConfig))
                 .build();
 
         Config config = Config.create().get("server");

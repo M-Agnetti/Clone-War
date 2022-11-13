@@ -1,13 +1,14 @@
 import './App.css';
 import MyComponent from "./components/MyComponent";
 import React, {Component} from 'react';
+import {Route, Routes} from "react-router-dom";
+import Artefact from "./components/Artefact";
 
 class App extends Component {
     state = {
         selectedFile1: null,
         selectedFile2:null
     };
-
 
 
     onFileChange1 = event => {
@@ -26,16 +27,13 @@ class App extends Component {
             this.state.selectedFile1,
             this.state.selectedFile1.name
         );
-        /*
+
         fileData.append(
             "sources",
             this.state.selectedFile2,
             this.state.selectedFile2.name
         );
-        */
 
-        // Request made to the backend api
-        // Send formData object
         fetch("http://localhost:8080/class",{
             method: 'post',
             body: fileData
@@ -46,20 +44,20 @@ class App extends Component {
     };
 
     render() {
-        console.log("Render");
-
+        console.log("hey");
         return (
-
             <div className="App">
-                <input type="file"  onChange={this.onFileChange1} required />
-                <input type="file" onChange={this.onFileChange2} required />
-                <button onClick={this.onFileUpload} >
-                    Upload!
-                </button>
+                    <input type="file"  onChange={this.onFileChange1} required />
+                    <input type="file" onChange={this.onFileChange2} required />
+                    <button onClick={this.onFileUpload} >
+                        Upload!
+                    </button>
 
-                <MyComponent/>
+                <Routes>
+                    <Route index element={<MyComponent />} />
+                    <Route path="/artefact/:id" element={<Artefact />} />
+                </Routes>
             </div>
-
         );
     }
 

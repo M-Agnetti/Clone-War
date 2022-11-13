@@ -1,6 +1,5 @@
 package fr.uge.clone;
 
-
 import io.helidon.common.http.DataChunk;
 import io.helidon.common.http.MediaType;
 import io.helidon.common.reactive.IoMulti;
@@ -8,59 +7,42 @@ import io.helidon.dbclient.DbClient;
 import io.helidon.media.multipart.ReadableBodyPart;
 import io.helidon.webserver.*;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class CloneService implements Service {
 
     private final DbClient dbClient;
-    private final Executor executor = Executors.newFixedThreadPool(4);
-    private final Storage storage;
+    private final Executor executor = Executors.newFixedThreadPool(1);
 
     public CloneService(DbClient dbClient){
         Objects.requireNonNull(dbClient, "dbClient is null");
         this.dbClient = dbClient;
-        storage = new Storage();
     }
 
     @Override
-    public void update(Routing.Rules rules) {
+    public void update(Routing.Rules rules)  {
         rules.get("/artefacts", this::getArtefacts)
-                .get("/artefact/{id}", (serverRequest, serverResponse) -> serverResponse.send("hey"))
-                .post("/class", (request, res) ->
-                        {
-                    System.out.println("REQUETE POST");
-                    uploadFile(request, res);
-
-                    /*
-                    RequestPredicate.create()
-                            .accepts(MediaType.APPLICATION_OCTET_STREAM)
-                            .thenApply((req, resp) -> {
-                                System.out.println("YOUPI");
-                                //a MODIFIER
-                                var s = req.path().absolute().toString();
-                                System.out.println("path : " + s);
-                                //req.content().readerContext().
-                                //A MODIFIER
-                            })
-                            .otherwise((req, resp) -> {
-                                System.err.println("ERROR ERROR");
-                            })
-                            .accept(request, res);
-
-                     */
-                }
-                );
+                .get("/artefact/{id}", this::getArtefactById)
+                .put("/index/{id}", this::startAnalyze)
+                .post("/class", this::insertArtefact);
     }
 
-    public void insertArtefact(){
-        dbClient.execute(exec -> exec
-                .createNamedInsert("insert-artefact")
-                .addParam("3.0.0")
-                .addParam("test")
-                .addParam("test")
-                .execute()).await();
+    public void startAnalyze(ServerRequest request, ServerResponse response){
+        var id = Integer.parseInt(request.path().param("id"));
+        try {
+            var artefact = dbClient.execute(exec -> exec.createNamedGet("select-artefact-by-id")
+                            .addParam("id", id).execute()
+                            .map(dbRow -> dbRow.get().as(Artefact.class))).get();
+            System.out.println(artefact);
+            new Analyzer(dbClient, Path.of(artefact.filePath()).resolve("classes.jar").toString()).launch();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getArtefacts(ServerRequest serverRequest, ServerResponse serverResponse) {
@@ -75,26 +57,65 @@ public class CloneService implements Service {
         }
     }
 
-
-    private void uploadFile(ServerRequest request, ServerResponse response) {
-        MediaType contentType = request.headers().contentType()
-                .filter(MediaType.MULTIPART_FORM_DATA::test)
+    public void insertArtefact(ServerRequest request, ServerResponse response) {
+        request.headers().contentType()
+                .filter(MediaType.MULTIPART_FORM_DATA)
                 .orElseThrow(() -> new BadRequestException("Invalid Content-Type"));
 
+        var path = createDir();
         request.content().asStream(ReadableBodyPart.class)
-                .forEach(part ->{
-                            if ("class".equals(part.name())) {
+                .forEach(part -> {
+                                var fileName = "sources".equals(part.name()) ? "sources.jar" : "classes.jar";
                                 part.content().map(DataChunk::data)
                                         .flatMapIterable(Arrays::asList)
-                                        .to(IoMulti.writeToFile(storage.create(part.filename()))
+                                        .to(IoMulti.writeToFile(createFile(path, fileName))
                                                 .executor(executor)
-                                                .build());
-                            } else {
-                                // when streaming unconsumed parts needs to be drained
-                                part.drain();
-                            }
+                                                .build()
+                                        );
                         }
-                    )
+                )
                 .onError(response::send);
+
+        dbClient.execute(exec -> exec
+                .createNamedInsert("insert-artefact")
+                .addParam("artefact")
+                .addParam(path.toString())
+                .execute()).await();
+
+        System.out.println("paath : " + path);
+    }
+
+    private Path createDir() {
+        try {
+            System.out.println("creating directory....");
+            return Files.createTempDirectory(Path.of("src/main/resources/jarFiles"),"");
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+
+    private Path createFile(Path path, String name) {
+        Path file = path.resolve(name);
+        if (!file.getParent().equals(path)) {
+            throw new BadRequestException("Invalid file name");
+        }
+        try {
+            Files.createFile(file);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+        return file;
+    }
+
+    private void getArtefactById(ServerRequest request, ServerResponse response) {
+        var id = Integer.parseInt(request.path().param("id"));
+        dbClient.execute(exec -> exec
+                        .createNamedGet("select-artefact-by-id")
+                        .addParam("id", id)
+                        .execute())
+                .thenAccept(maybeRow -> maybeRow
+                        .ifPresentOrElse(
+                                row -> response.send(List.of(row.as(Artefact.class))), () -> response.send("error")));
+
     }
 }

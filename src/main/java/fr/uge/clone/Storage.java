@@ -11,46 +11,24 @@ import io.helidon.webserver.NotFoundException;
 
 public class Storage {
 
-    private final Path storageDir;
+    private final Path path;
 
-    /**
-     * Create a new instance.
-     */
     public Storage() {
         try {
             System.out.println("creating directory....");
-            storageDir = Path.of("src/main/resources/fileuploads");
-            if (!Files.exists(storageDir)) {
-                Files.createDirectory(storageDir);
-                System.out.println("Directory created");
-            }
-
-            //storageDir = Files.createTempDirectory(Path.of("src/main/resources/"));
+            path = Files.createTempDirectory(Path.of("src/main/resources/jarFiles"),"");
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
     }
 
     public Path storageDir() {
-        return storageDir;
+        return path;
     }
-
-
-    public Stream<String> listFiles() {
-        try {
-            return Files.walk(storageDir)
-                    .filter(Files::isRegularFile)
-                    .map(storageDir::relativize)
-                    .map(java.nio.file.Path::toString);
-        } catch (IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
-    }
-
 
     public Path create(String fname) {
-        Path file = storageDir.resolve(fname);
-        if (!file.getParent().equals(storageDir)) {
+        Path file = path.resolve(fname);
+        if (!file.getParent().equals(path)) {
             throw new BadRequestException("Invalid file name");
         }
         try {
@@ -58,21 +36,8 @@ public class Storage {
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
+        System.out.println("path : " + file);
         return file;
     }
 
-
-    public Path lookup(String fname) {
-        Path file = storageDir.resolve(fname);
-        if (!file.getParent().equals(storageDir)) {
-            throw new BadRequestException("Invalid file name");
-        }
-        if (!Files.exists(file)) {
-            throw new NotFoundException("file not found");
-        }
-        if (!Files.isRegularFile(file)) {
-            throw new BadRequestException("Not a file");
-        }
-        return file;
-    }
 }

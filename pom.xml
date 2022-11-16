@@ -141,7 +141,7 @@
                     <configuration>
                         <nodeVersion>v19.0.0</nodeVersion>
                         <npmVersion>8.19.2</npmVersion>
-                        <workingDirectory>src/main/frontend</workingDirectory>
+                        <workingDirectory>src/main/app</workingDirectory>
                         <installDirectory>target</installDirectory>
                     </configuration>
                 </execution>
@@ -171,7 +171,7 @@
 
             <configuration>
                 <nodeVersion>v19.0.0</nodeVersion>
-                <workingDirectory>src/main/frontend</workingDirectory>
+                <workingDirectory>src/main/app</workingDirectory>
             </configuration>
 
         </plugin>
@@ -191,7 +191,7 @@
                         <outputDirectory>target/classes/static</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>src/main/frontend/build</directory>
+                                <directory>src/main/app/build</directory>
                                 <filtering>true</filtering>
                             </resource>
                         </resources>

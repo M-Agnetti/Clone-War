@@ -52,5 +52,5 @@ db:
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     select-artefact-by-id: "SELECT * FROM ARTEFACT WHERE id = :id"
-    insert-type: "INSERT INTO TEST VALUES(?, ?)"
     insert-artefact: "INSERT INTO Artefact(artefactId, filePath) VALUES(?, ?)"
+    insert-instruction: "INSERT INTO Instruction(hashValue, file, line, id) VALUES(?, ?, ?, ?)"

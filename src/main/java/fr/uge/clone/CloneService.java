@@ -39,7 +39,7 @@ public class CloneService implements Service {
                             .addParam("id", id).execute()
                             .map(dbRow -> dbRow.get().as(Artefact.class))).get();
             System.out.println(artefact);
-            new Analyzer(dbClient, Path.of(artefact.filePath()).resolve("classes.jar").toString()).launch();
+            new Analyzer(dbClient, artefact).launch();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -81,8 +81,6 @@ public class CloneService implements Service {
                 .addParam("artefact")
                 .addParam(path.toString())
                 .execute()).await();
-
-        System.out.println("paath : " + path);
     }
 
     private Path createDir() {

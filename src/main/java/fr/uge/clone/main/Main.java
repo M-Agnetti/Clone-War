@@ -4,16 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uge.clone.CloneService;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
-import io.helidon.media.common.MediaSupport;
 import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.multipart.MultiPartSupport;
-import io.helidon.media.multipart.ReadableBodyPart;
 import io.helidon.openapi.OpenAPISupport;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.staticcontent.StaticContentSupport;
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;

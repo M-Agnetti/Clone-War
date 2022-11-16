@@ -28,7 +28,7 @@ public class AsmParser {
     }
 
     public static void main(String[] args) throws IOException {
-        var map = parse("src/main/resources/jarFiles/10206324738319095331/classes.jar").entrySet().stream()
+        var map = parse("asm-3.1.jar").entrySet().stream()
                         .collect(Collectors.toMap(Map.Entry::getKey,
                             entry -> entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
                                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,

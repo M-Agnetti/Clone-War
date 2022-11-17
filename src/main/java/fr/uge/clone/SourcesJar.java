@@ -62,39 +62,42 @@ public class SourcesJar {
     }
 
     public static String getPomData2(String path, String pomPath, String elem){
-        Pattern test = Pattern.compile("<[^<>/]+>[^<>]+</[^<>/]+>");
-        Pattern groupId = Pattern.compile("^(<[^<>]+><[^<>]+>(<[^<>]+>[^<>]+</[^<>]+>|[^<>]+)+)(<" + elem + ">[^<>]+</" + elem + ">)");
+        if(path == null || pomPath == null){
+            return "<not specified>";
+        }
+        String result;
+        Pattern groupId = Pattern.compile("^(<[^<>]+><[^<>]+>)(<[^<>/]+>[^<>]+</[^<>/]+>)*(<parent>.*</parent>)*(<[^<>/]+>[^<>]+</[^<>/]+>)*<" + elem + ">[^<>]+</" + elem + ">");
         Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
+
         try(FileSystem zip = FileSystems.newFileSystem(Paths.get(path))) {
             Path fileInZip = zip.getPath(pomPath);
-            if(path == null){
-                return "<not specified>";
-            }
             var joiner = new StringJoiner("");
             try(var reader = Files.newBufferedReader(fileInZip)){
                 reader.lines().forEach(s -> { joiner.add(s); });
             }
             
-            /******************************************************************************/
             var s = joiner.toString().replaceAll("[ ]", "");
-            var matcher = test.matcher(s);
-
+            var matcher = groupId.matcher(s);
             while(matcher.find()){
-                System.err.println(s.substring(matcher.start(), matcher.end()));
-                System.out.println(matcher.group());
+                var m = groupId2.matcher(matcher.group());
+                m.find();
+                do {
+                    result = m.group().replaceAll("<" + elem + ">|</" + elem + ">", "");
+                } while(m.find());
+               return result;
             }
-            var m = groupId2.matcher(matcher.group());
-            m.find();
-            return m.group().replaceAll("(<" + elem + ">|</" + elem + ">)", "");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return "<not specified>";
     }
 
     public static void main(String[] args) throws IOException {
         //readFileFromJar("sources.jar", "fr/uge/test/Main", 6, 7);
-        var jarPath = "test/jackson-sources.jar";
+        var jarPath = "test/guava-sources.jar";
         var path = lookUpForPom(jarPath);
+        System.out.println("name : " + getPomData2(jarPath, path, "name"));
         System.out.println("artifactId : " + getPomData2(jarPath, path, "artifactId"));
         System.out.println("groupId : " + getPomData2(jarPath, path, "groupId"));
         System.out.println("version : " + getPomData2(jarPath, path, "version"));

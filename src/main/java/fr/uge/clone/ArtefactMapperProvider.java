@@ -5,6 +5,7 @@ import io.helidon.dbclient.DbMapper;
 import io.helidon.dbclient.DbRow;
 import io.helidon.dbclient.spi.DbMapperProvider;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.*;
 
@@ -22,27 +23,29 @@ public class ArtefactMapperProvider implements DbMapperProvider {
         @Override
         public Artefact read(DbRow row) {
             DbColumn id = row.column("ID");
-            DbColumn artefactId = row.column("ARTEFACTID");
-            DbColumn filePath = row.column("FILEPATH");
-            DbColumn addDate = row.column("ADDDATE");
+            DbColumn name = row.column("NAME");
+            DbColumn addDate = row.column("DATEADD");
             DbColumn analyzing = row.column("ANALYZING");
-            return new Artefact(id.as(Integer.class), artefactId.as(String.class), filePath.as(String.class),
-                    addDate.as(Date.class), analyzing.as(Boolean.class));
+            DbColumn url = row.column("URL");
+            return new Artefact(id.as(Integer.class), name.as(String.class), addDate.as(Date.class), analyzing.as(Integer.class),
+                    url.as(String.class));
         }
 
         @Override
         public Map<String, Object> toNamedParameters(Artefact value) {
             Map<String, Object> map = new HashMap<>();
-            map.put("artefactId", value.artefactId());
-            map.put("filePath", value.filePath());
+            map.put("ID", value.id());
+            map.put("NAME", value.name());
+            map.put("URL", value.url());
             return map;
         }
 
         @Override
         public List<Object> toIndexedParameters(Artefact value) {
             List<Object> list = new ArrayList<>();
-            list.add(value.artefactId());
-            list.add(value.filePath());
+            list.add(value.id());
+            list.add(value.name());
+            list.add(value.url());
             return list;
         }
     }

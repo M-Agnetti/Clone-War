@@ -38,8 +38,8 @@ const Artefact = () => {
                     <div className="bg-white rounded">
                         <div className="shadow-lg hover:shadow-xl transform transition duration-500 hover:scale-105 p-6 rounded">
 
-                            <span className="text-blue-500 block mb-5">{artefact.artefactId}</span>
-                            <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.addDate).toLocaleDateString("fr")}</h2>
+                            <span className="text-blue-500 block mb-5">{artefact.name}</span>
+                            <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.dateAdd).toLocaleDateString("fr")}</h2>
 
                             <Link to={`/`} >Revenir sur la page d'accueil</Link>
 

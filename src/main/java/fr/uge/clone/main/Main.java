@@ -20,12 +20,14 @@ public class Main {
 
 
         Config dbConfig = Config.create().get("db");
-/*
+
         DbClient dbClient = DbClient.create(dbConfig);
+/*
         dbClient.execute(exec -> exec
-                .namedDml("create-artefact"))
+                        .namedDml("create-instruction"))
                 .await();
-*/
+
+ */
 
         Routing routing = Routing.builder()
                 .register("/", new CloneService(DbClient.create(dbConfig)))

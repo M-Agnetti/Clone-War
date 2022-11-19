@@ -1,23 +1,23 @@
 package fr.uge.clone;
 
 import io.helidon.common.http.DataChunk;
-import io.helidon.common.http.MediaType;
-import io.helidon.common.reactive.IoMulti;
 import io.helidon.dbclient.DbClient;
+import io.helidon.dbclient.DbRow;
 import io.helidon.media.multipart.ReadableBodyPart;
 import io.helidon.webserver.*;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.zip.ZipFile;
 
 public class CloneService implements Service {
 
     private final DbClient dbClient;
-    private final Executor executor = Executors.newFixedThreadPool(1);
+    private final HashMap<String, byte[]> map = new HashMap<>();
 
     public CloneService(DbClient dbClient){
         Objects.requireNonNull(dbClient, "dbClient is null");
@@ -26,7 +26,10 @@ public class CloneService implements Service {
 
     @Override
     public void update(Routing.Rules rules)  {
-        rules.get("/artefacts", this::getArtefacts)
+        rules.get("/artefacts", (serverRequest, serverResponse) -> {
+                    insertArtefact2();
+                    getArtefacts(serverRequest, serverResponse);
+                })
                 .get("/artefact/{id}", this::getArtefactById)
                 .put("/index/{id}", this::startAnalyze)
                 .post("/class", this::insertArtefact);
@@ -57,30 +60,46 @@ public class CloneService implements Service {
         }
     }
 
+    public void insertArtefact2() {
+        if(map.size() == 2){
+            System.out.println(map);
+            dbClient.execute(exec -> exec.createNamedInsert("insert-jar")
+                    .addParam(new ByteArrayInputStream(map.get("classes")))
+                    .addParam(new ByteArrayInputStream(map.get("sources")))
+                    .execute()).await();
+            var res = dbClient.execute(exec -> exec.createNamedGet("get-last-jar")
+                            .execute()).await().get();
+            var id = res.column("IDJAR").as(Integer.class);
+            dbClient.execute(exec -> exec.createNamedInsert("insert-artefact")
+                    .addParam(id).addParam("name").addParam("url")
+                    .execute()).await();
+            var sources = res.column("SOURCES").as(Blob.class);
+            SourcesJar.getName(sources);
+            map.clear();
+        }
+    }
     public void insertArtefact(ServerRequest request, ServerResponse response) {
-        request.headers().contentType()
-                .filter(MediaType.MULTIPART_FORM_DATA)
-                .orElseThrow(() -> new BadRequestException("Invalid Content-Type"));
+         request.content().asStream(ReadableBodyPart.class)
+                    .forEach(part -> {
+                        var ok = part.name().equals("classes") || part.name().equals(("sources"));
+                        part.content().map(DataChunk::data)
+                                .flatMapIterable(Arrays::asList)
+                                .map(byteBuffer -> DataChunk.create(byteBuffer))
 
-        var path = createDir();
-        request.content().asStream(ReadableBodyPart.class)
-                .forEach(part -> {
-                                var fileName = "sources".equals(part.name()) ? "sources.jar" : "classes.jar";
-                                part.content().map(DataChunk::data)
-                                        .flatMapIterable(Arrays::asList)
-                                        .to(IoMulti.writeToFile(createFile(path, fileName))
-                                                .executor(executor)
-                                                .build()
-                                        );
-                        }
-                )
-                .onError(response::send);
-
-        dbClient.execute(exec -> exec
-                .createNamedInsert("insert-artefact")
-                .addParam("artefact")
-                .addParam(path.toString())
-                .execute()).await();
+                                .collect(HashMap<String, byte[]>::new, (mapChunk, chunk) -> {
+                                    mapChunk.merge(part.name(), chunk.bytes(), (v1, v2) -> {
+                                        var array = new byte[v1.length + v2.length];
+                                        System.arraycopy(v1, 0, array, 0, v1.length);
+                                        System.arraycopy(v2, 0, array, v1.length, v2.length);
+                                        return array;
+                                    });
+                                    chunk.release();
+                                })
+                                .forSingle(byteMap -> {
+                                    map.putAll(byteMap);
+                                })
+                                .exceptionally(response::send);
+                    });
     }
 
     private Path createDir() {

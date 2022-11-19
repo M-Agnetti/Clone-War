@@ -23,7 +23,7 @@ class App extends Component {
         const fileData = new FormData();
 
         fileData.append(
-            "class",
+            "classes",
             this.state.selectedFile1,
             this.state.selectedFile1.name
         );
@@ -38,13 +38,10 @@ class App extends Component {
             method: 'post',
             body: fileData
         });
-           // .then(res => res.json());
-        //this.setState({ selectedFile1: null, selectedFile2: null});
         window.location.reload();
     };
 
     render() {
-        console.log("hey");
         return (
             <div className="App">
                     <input type="file"  onChange={this.onFileChange1} required />

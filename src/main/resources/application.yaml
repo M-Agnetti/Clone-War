@@ -28,16 +28,26 @@ db:
     ping: "SET @HELIDON_PING=0"
     # Create database schema
     create-types: "CREATE TABLE TEST (id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL)"
-    create-artefact: " drop table if exists Artefact cascade;
+    create-artefact: " drop table if exists ARTEFACT cascade;
 
-    create table Artefact
-          (
-            id   INTEGER auto_increment  primary key,
-            artefactId CHARACTER VARYING(60)  not null,
-            filePath CHARACTER VARYING(200)  not null,
-            addDate DATE default NOW(),
-            analyzing    BOOLEAN default FALSE
-          );"
+    create table ARTEFACT
+    (
+        ID    INTEGER,
+        NAME CHARACTER VARYING(200) not null DEFAULT '',
+        DATEADD    DATE    default LOCALTIMESTAMP,
+        ANALYZING  INTEGER default 0,
+        URL        CHARACTER VARYING(200) DEFAULT '',
+        constraint ARTEFACT_PK
+            primary key (ID)
+    );"
+    create-jar: " drop table if exists ARTEFACT cascade;
+
+        create table JAR
+        (
+            IDJAR  INTEGER auto_increment primary key,
+            CLASSES      BINARY LARGE OBJECT ,
+            SOURCES    BINARY LARGE OBJECT 
+        );"
     create-instruction: "drop table if exists Instruction cascade;
     
     create table Instruction
@@ -52,5 +62,7 @@ db:
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     select-artefact-by-id: "SELECT * FROM ARTEFACT WHERE id = :id"
-    insert-artefact: "INSERT INTO Artefact(artefactId, filePath) VALUES(?, ?)"
+    insert-artefact: "INSERT INTO Artefact(ID, NAME, URL) VALUES(?, ?, ?)"
+    insert-jar: "INSERT INTO JAR(CLASSES, SOURCES) VALUES(?, ?)"
     insert-instruction: "INSERT INTO Instruction(hashValue, file, line, id) VALUES(?, ?, ?, ?)"
+    get-last-jar: "SELECT * FROM JAR ORDER BY IDJAR DESC LIMIT 1"

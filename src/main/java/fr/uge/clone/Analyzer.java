@@ -19,7 +19,7 @@ public class Analyzer {
 
     public void launch() {
         try {
-            var map = AsmParser.parse(Path.of(artefact.filePath()).resolve("classes.jar").toString());
+            var map = AsmParser.parse("test3.jar");
             System.out.println("launch analysis");
             map.forEach((fileName, mapAnalyse) -> {
                 mapAnalyse.forEach((line, bytecode) -> {

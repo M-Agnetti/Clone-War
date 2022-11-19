@@ -1,11 +1,19 @@
 package fr.uge.clone;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.LineNumberReader;
 import java.nio.file.*;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 public class SourcesJar {
 
@@ -24,44 +32,20 @@ public class SourcesJar {
         }
     }
 
-    public static String lookUpForPom(String jarPath) {
-        try(ZipFile zip = new ZipFile(jarPath)){
-            var e = zip.entries();
-            while (e.hasMoreElements()) {
-                var entry = e.nextElement();
-                if (entry.getName().endsWith("pom.xml")) {
-                    return entry.getName();
-                }
+    private static List<ZipEntry> lookUpForPom(InputStream input) {
+        List<ZipEntry> entries = new ArrayList<>();
+        try(var zip = new ZipInputStream(input)){
+            ZipEntry e;
+            while ((e = zip.getNextEntry()) != null) {
+                entries.add(e);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return entries;
     }
 
-    public static String getPomData(String path, String pomPath, String elem){
-        Pattern groupId = Pattern.compile("^(<[^<>]+>(<[^<>]+>[^<>]+</[^<>]+>|[^<>]+)+)(<" + elem + ">[^<>]+</" + elem + ">)");
-        Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
-        try(FileSystem zip = FileSystems.newFileSystem(Paths.get(path))) {
-            Path fileInZip = zip.getPath(pomPath);
-            if(path == null){
-                return "<not specified>";
-            }
-            var joiner = new StringJoiner("");
-            try(var reader = Files.newBufferedReader(fileInZip)){
-                reader.lines().forEach(s -> { joiner.add(s); });
-            }
-            var matcher = groupId.matcher(joiner.toString().replaceAll("[ ]", ""));
-            matcher.find();
-            var m = groupId2.matcher(matcher.group());
-            m.find();
-            return m.group().replaceAll("(<" + elem + ">|</" + elem + ">)", "");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static String getPomData2(String path, String pomPath, String elem){
+    private static String getPomData(String path, String pomPath, String elem){
         if(path == null || pomPath == null){
             return "<not specified>";
         }
@@ -93,14 +77,48 @@ public class SourcesJar {
         return "<not specified>";
     }
 
+    public static String getUrl(String jarPath){
+        return null;
+    }
+
+    public static String getArtifactId(String jarPath){
+        return null;
+    }
+
+    public static String getGroupId(String jarPath){
+        return null;
+    }
+
+    public static String getVersion(String jarPath){
+        return null;
+    }
+
+    public static void getName(Blob blob){
+        InputStream input = null;
+        try {
+            input = blob.getBinaryStream();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("heeey");
+        var list = lookUpForPom(input);
+        for(var entry:list){
+            System.out.println(entry.getName());
+        }
+        System.out.println("finiii");
+    }
+
     public static void main(String[] args) throws IOException {
         //readFileFromJar("sources.jar", "fr/uge/test/Main", 6, 7);
-        var jarPath = "test/guava-sources.jar";
-        var path = lookUpForPom(jarPath);
-        System.out.println("name : " + getPomData2(jarPath, path, "name"));
-        System.out.println("artifactId : " + getPomData2(jarPath, path, "artifactId"));
-        System.out.println("groupId : " + getPomData2(jarPath, path, "groupId"));
-        System.out.println("version : " + getPomData2(jarPath, path, "version"));
+        var jarPath = "test/jackson-sources.jar";
+        /*
+        System.out.println("name : " + getPomData(jarPath, path, "name"));
+        System.out.println("artifactId : " + getPomData(jarPath, path, "artifactId"));
+        System.out.println("groupId : " + getPomData(jarPath, path, "groupId"));
+        System.out.println("version : " + getPomData(jarPath, path, "version"));
+        System.out.println("url : " + getUrl(jarPath));
+
+         */
 
     }
 }

@@ -1,2 +1,5 @@
 Manifest-Version: 1.0
+Built-By: ceki
+Created-By: Apache Maven 3.5.2
+Build-Jdk: 1.8.0_121
 

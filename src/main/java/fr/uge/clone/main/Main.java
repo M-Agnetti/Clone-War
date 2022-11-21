@@ -8,6 +8,7 @@ import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.multipart.MultiPartSupport;
 import io.helidon.openapi.OpenAPISupport;
 import io.helidon.webserver.Routing;
+import io.helidon.webserver.SocketConfiguration;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.staticcontent.StaticContentSupport;
 import java.io.IOException;
@@ -22,12 +23,12 @@ public class Main {
         Config dbConfig = Config.create().get("db");
 
         DbClient dbClient = DbClient.create(dbConfig);
-/*
+
         dbClient.execute(exec -> exec
-                        .namedDml("create-instruction"))
+                        .namedDml("create-class-jar"))
                 .await();
 
- */
+
 
         Routing routing = Routing.builder()
                 .register("/", new CloneService(DbClient.create(dbConfig)))
@@ -42,6 +43,7 @@ public class Main {
                 .config(config)
                 .addMediaSupport(JacksonSupport.create(new ObjectMapper()))
                 .addMediaSupport(MultiPartSupport.create())
+                .addSocket(SocketConfiguration.builder().timeout(Long.MAX_VALUE, TimeUnit.HOURS).build())
                 .build();
         webServer.start()
                 .await(10, TimeUnit.SECONDS);

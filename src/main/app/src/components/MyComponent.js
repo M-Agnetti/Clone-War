@@ -49,6 +49,8 @@ class MyComponent extends React.Component {
                                             <span className="text-blue-500 block mb-5">{artefact.name}</span>
                                             <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.dateAdd).toLocaleDateString("fr")}</h2>
 
+                                            <a href={artefact.url} className="text-blue-500 block mb-5">{artefact.url}</a>
+
                                             <Link to={`/artefact/${artefact.id}`} >lien</Link>
                                                 <button
                                                         className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">

@@ -40,14 +40,19 @@ db:
         constraint ARTEFACT_PK
             primary key (ID)
     );"
-    create-jar: " drop table if exists ARTEFACT cascade;
+    create-source-jar: " drop table if exists SOURCESJAR cascade;
 
-        create table JAR
+        create table SOURCESJAR
         (
-            IDJAR  INTEGER auto_increment primary key,
-            CLASSES      BINARY LARGE OBJECT ,
-            SOURCES    BINARY LARGE OBJECT 
+            IDSOURCES  INTEGER,
+            SOURCES    LONGBLOB
         );"
+    create-class-jar: " drop table if exists CLASSJAR cascade;
+            create table CLASSJAR
+            (
+                IDCLASS  INTEGER auto_increment primary key,
+                CLASSES    LONGBLOB
+            );"
     create-instruction: "drop table if exists Instruction cascade;
     
     create table Instruction
@@ -59,10 +64,20 @@ db:
             id INTEGER,
             constraint fk foreign key (id) references Artefact (id)
           );"
+    create-metadata: "drop table if exists METADATA cascade;
+
+        create table METADATA
+              (
+                idMeta INTEGER,
+                groupId     CHARACTER VARYING(100) not null,
+                artifactId CHARACTER VARYING(100) not null,
+                version    CHARACTER VARYING(100) not null,
+              );"
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     select-artefact-by-id: "SELECT * FROM ARTEFACT WHERE id = :id"
     insert-artefact: "INSERT INTO Artefact(ID, NAME, URL) VALUES(?, ?, ?)"
-    insert-jar: "INSERT INTO JAR(CLASSES, SOURCES) VALUES(?, ?)"
+    insert-source-jar: "INSERT INTO SOURCESJAR(IDSOURCES, SOURCES) VALUES(?, ?)"
+    insert-class-jar: "INSERT INTO CLASSJAR(CLASSES) VALUES(?)"
     insert-instruction: "INSERT INTO Instruction(hashValue, file, line, id) VALUES(?, ?, ?, ?)"
-    get-last-jar: "SELECT * FROM JAR ORDER BY IDJAR DESC LIMIT 1"
+    get-last-class-jar: "SELECT * FROM CLASSJAR ORDER BY IDCLASS DESC LIMIT 1"

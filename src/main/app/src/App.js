@@ -10,6 +10,18 @@ class App extends Component {
         selectedFile2:null
     };
 
+    fetchData = async (fileData) => {
+        const response = await fetch("http://localhost:8080/class",
+            {
+                method: 'post',
+                body: fileData
+            })
+        if (!response.ok) {
+            throw new Error('Data coud not be fetched!')
+        } else {
+            return response.json()
+        }
+    }
 
     onFileChange1 = event => {
         this.setState({ selectedFile1: event.target.files[0] });
@@ -33,11 +45,14 @@ class App extends Component {
             this.state.selectedFile2,
             this.state.selectedFile2.name
         );
-
+/*
         fetch("http://localhost:8080/class",{
             method: 'post',
             body: fileData
         });
+
+ */
+        this.fetchData(fileData);
         window.location.reload();
     };
 

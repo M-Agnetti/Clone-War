@@ -5,7 +5,6 @@ import io.helidon.dbclient.DbMapper;
 import io.helidon.dbclient.DbRow;
 import io.helidon.dbclient.spi.DbMapperProvider;
 
-import java.sql.Blob;
 import java.sql.Date;
 import java.util.*;
 
@@ -27,7 +26,7 @@ public class ArtefactMapperProvider implements DbMapperProvider {
             DbColumn addDate = row.column("DATEADD");
             DbColumn analyzing = row.column("ANALYZING");
             DbColumn url = row.column("URL");
-            return new Artefact(id.as(Integer.class), name.as(String.class), addDate.as(Date.class), analyzing.as(Integer.class),
+            return new Artefact(id.as(Long.class), name.as(String.class), addDate.as(Date.class), analyzing.as(Integer.class),
                     url.as(String.class));
         }
 

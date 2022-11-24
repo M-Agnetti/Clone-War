@@ -23,16 +23,27 @@ public class Main {
         Config dbConfig = Config.create().get("db");
 
         DbClient dbClient = DbClient.create(dbConfig);
+/*
+        dbClient.execute(exec -> exec
+                .namedDml("create-jar")).await();
 
         dbClient.execute(exec -> exec
-                        .namedDml("create-class-jar"))
-                .await();
-
+                        .namedDml("create-jar")).await();
+        dbClient.execute(exec -> exec
+                        .namedDml("create-artefact")).await();
+        dbClient.execute(exec -> exec
+                        .namedDml("create-instruction")).await();
+        dbClient.execute(exec -> exec
+                        .namedDml("create-metadata")).await();
+*/
 
 
         Routing routing = Routing.builder()
                 .register("/", new CloneService(DbClient.create(dbConfig)))
                 .register("/", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html")
+                        .build())
+                .register("/home", StaticContentSupport.builder("/static")
                         .welcomeFileName("index.html")
                         .build())
                 .register(OpenAPISupport.create(dbConfig))

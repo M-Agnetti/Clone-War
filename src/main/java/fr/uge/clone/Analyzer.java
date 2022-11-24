@@ -3,30 +3,33 @@ package fr.uge.clone;
 import io.helidon.dbclient.DbClient;
 
 import java.io.IOException;
-import java.nio.file.Path;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Analyzer {
     private final DbClient dbClient;
-    private final Artefact artefact;
+    private final Blob blob;
+    private final long id;
 
-    public Analyzer(DbClient dbClient, Artefact artefact){
+    public Analyzer(DbClient dbClient, Blob blob, long id){
         Objects.requireNonNull(dbClient, "dbClient is null");
-        Objects.requireNonNull(artefact, "artefact is null");
+        Objects.requireNonNull(blob, "blob is null");
         this.dbClient = dbClient;
-        this.artefact = artefact;
+        this.blob = blob;
+        this.id = id;
     }
 
     public void launch() {
         try {
-            var map = AsmParser.parse("test3.jar");
-            System.out.println("launch analysis");
-            map.forEach((fileName, mapAnalyse) -> {
+            var map = AsmParser.parse(blob.getBinaryStream());
+            System.out.println(map);
+            /*map.forEach((fileName, mapAnalyse) -> {
                 mapAnalyse.forEach((line, bytecode) -> {
                     insertInstruction(hash(bytecode.toString()), fileName, line);
                 });
-            });
-        } catch (IOException e) {
+            });*/
+        } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -37,7 +40,7 @@ public class Analyzer {
                 .addParam(hashValue)
                 .addParam(file)
                 .addParam(nbLine)
-                .addParam(artefact.id())
+                .addParam(id)
                 .execute()).await();
     }
 

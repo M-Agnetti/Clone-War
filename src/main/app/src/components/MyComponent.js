@@ -1,6 +1,7 @@
 import React from 'react'
 import './MyComponent.css';
 import {Link} from "react-router-dom";
+import UploadFiles from "./UploadFiles";
 
 class MyComponent extends React.Component {
 
@@ -37,10 +38,14 @@ class MyComponent extends React.Component {
         return (
             <div>
 
-        <div className="min-h-screen bg-gray-400 flex justify-center items-center py-20">
-            <div className="container mx-auto p-12 bg-gray-100 rounded-xl">
+
+        <div className="bg-[url('/public/bg.jpg')] bg-no-repeat bg-cover bg-center flow-root justify-center min-h-screen bg-orange-600 flex justify-center items-center py-20">
+
+            <UploadFiles />
+
+            <div className="opacity-80 container mx-auto p-12 bg-gray-100 rounded-xl">
                 <h1 className="text-4xl font-mono from-current mb-8">Artefacts</h1>
-                <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4 sm:space-y-0">
+                <div className="content-around sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4 sm:space-y-0">
                         {
                         this.state.artefacts.map(artefact =>
                                 <div className="bg-white rounded">
@@ -51,10 +56,9 @@ class MyComponent extends React.Component {
 
                                             <a href={artefact.url} className="text-blue-500 block mb-5">{artefact.url}</a>
 
-                                            <Link to={`/artefact/${artefact.id}`} >lien</Link>
                                                 <button
                                                         className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">
-                                                    Read more
+                                                    <Link to={`/artefact/${artefact.id}`} >Read more</Link>
                                                     </button>
                                                 </div>
                                         </div>

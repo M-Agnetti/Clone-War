@@ -32,7 +32,7 @@ db:
 
     create table ARTEFACT
     (
-        ID    INTEGER,
+        ID    LONG,
         NAME CHARACTER VARYING(200) not null DEFAULT '',
         DATEADD    DATE    default LOCALTIMESTAMP,
         ANALYZING  INTEGER default 0,
@@ -40,24 +40,19 @@ db:
         constraint ARTEFACT_PK
             primary key (ID)
     );"
-    create-source-jar: " drop table if exists SOURCESJAR cascade;
 
-        create table SOURCESJAR
-        (
-            IDSOURCES  INTEGER,
-            SOURCES    LONGBLOB
-        );"
-    create-class-jar: " drop table if exists CLASSJAR cascade;
-            create table CLASSJAR
+    create-jar: " drop table if exists JAR cascade;
+            create table JAR
             (
-                IDCLASS  INTEGER auto_increment primary key,
-                CLASSES    LONGBLOB
+                IDJAR  LONG auto_increment primary key,
+                CLASSES    LONGBLOB,
+                SOURCES    LONGBLOB
             );"
     create-instruction: "drop table if exists Instruction cascade;
     
     create table Instruction
           (
-            idHash INTEGER auto_increment primary key,
+            idHash LONG auto_increment primary key,
             hashValue     INTEGER,
             file    CHARACTER VARYING(100) not null,
             line INTEGER,
@@ -68,16 +63,16 @@ db:
 
         create table METADATA
               (
-                idMeta INTEGER,
+                idMeta LONG,
                 groupId     CHARACTER VARYING(100) not null,
                 artifactId CHARACTER VARYING(100) not null,
-                version    CHARACTER VARYING(100) not null,
+                version    CHARACTER VARYING(100) not null
               );"
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
-    select-artefact-by-id: "SELECT * FROM ARTEFACT WHERE id = :id"
+    select-metadata-by-id: "SELECT * FROM METADATA WHERE idMeta = :id"
     insert-artefact: "INSERT INTO Artefact(ID, NAME, URL) VALUES(?, ?, ?)"
-    insert-source-jar: "INSERT INTO SOURCESJAR(IDSOURCES, SOURCES) VALUES(?, ?)"
-    insert-class-jar: "INSERT INTO CLASSJAR(CLASSES) VALUES(?)"
+    insert-jar: "INSERT INTO JAR(CLASSES, SOURCES) VALUES(?, ?)"
     insert-instruction: "INSERT INTO Instruction(hashValue, file, line, id) VALUES(?, ?, ?, ?)"
-    get-last-class-jar: "SELECT * FROM CLASSJAR ORDER BY IDCLASS DESC LIMIT 1"
+    insert-metadata: "INSERT INTO METADATA(IDMETA, GROUPID, ARTIFACTID, VERSION) VALUES(?, ?, ?, ?)"
+    get-last-jar: "SELECT * FROM JAR ORDER BY IDJAR DESC LIMIT 1"

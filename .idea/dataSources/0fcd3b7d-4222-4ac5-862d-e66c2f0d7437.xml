@@ -209,9 +209,9 @@
     <view id="198" parent="162" name="TRIGGERS"/>
     <view id="199" parent="162" name="VIEWS"/>
     <table id="200" parent="163" name="ARTEFACT"/>
-    <table id="201" parent="163" name="CLASSJAR"/>
-    <table id="202" parent="163" name="INSTRUCTION"/>
-    <table id="203" parent="163" name="SOURCESJAR"/>
+    <table id="201" parent="163" name="INSTRUCTION"/>
+    <table id="202" parent="163" name="JAR"/>
+    <table id="203" parent="163" name="METADATA"/>
     <column id="204" parent="165" name="CONSTANT_CATALOG">
       <DataType>CHARACTER VARYING|0s</DataType>
       <Position>1</Position>
@@ -2009,7 +2009,7 @@
       <Position>12</Position>
     </column>
     <column id="653" parent="200" name="ID">
-      <DataType>INTEGER|0s</DataType>
+      <DataType>BIGINT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
@@ -2043,81 +2043,96 @@
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="660" parent="201" name="IDCLASS">
+    <column id="660" parent="201" name="IDHASH">
       <ColumnKind>generated-stored</ColumnKind>
-      <DataType>INTEGER|0s</DataType>
+      <DataType>BIGINT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceInline>1</SequenceInline>
-      <SequenceSequenceIdentity>1(1)..2147483647</SequenceSequenceIdentity>
+      <SequenceSequenceIdentity>1(1)..9223372036854775807</SequenceSequenceIdentity>
     </column>
-    <column id="661" parent="201" name="CLASSES">
-      <DataType>BINARY LARGE OBJECT|0s</DataType>
-      <Position>2</Position>
-    </column>
-    <index id="662" parent="201" name="PRIMARY_KEY_5">
-      <ColNames>IDCLASS</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Unique>1</Unique>
-    </index>
-    <key id="663" parent="201" name="CONSTRAINT_5">
-      <ColNames>IDCLASS</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-    </key>
-    <column id="664" parent="202" name="IDHASH">
-      <ColumnKind>generated-stored</ColumnKind>
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <SequenceInline>1</SequenceInline>
-      <SequenceSequenceIdentity>1(1)..2147483647</SequenceSequenceIdentity>
-    </column>
-    <column id="665" parent="202" name="HASHVALUE">
+    <column id="661" parent="201" name="HASHVALUE">
       <DataType>INTEGER|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="666" parent="202" name="FILE">
+    <column id="662" parent="201" name="FILE">
       <DataType>CHARACTER VARYING(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="667" parent="202" name="LINE">
+    <column id="663" parent="201" name="LINE">
       <DataType>INTEGER|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="668" parent="202" name="ID">
+    <column id="664" parent="201" name="ID">
       <DataType>INTEGER|0s</DataType>
       <Position>5</Position>
     </column>
-    <foreign-key id="669" parent="202" name="FK">
+    <foreign-key id="665" parent="201" name="FK">
       <ColNames>ID</ColNames>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>restrict</OnUpdate>
       <RefKeyName>ARTEFACT_PK</RefKeyName>
       <RefTableName>ARTEFACT</RefTableName>
     </foreign-key>
-    <index id="670" parent="202" name="PRIMARY_KEY_9">
+    <index id="666" parent="201" name="PRIMARY_KEY_9">
       <ColNames>IDHASH</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="671" parent="202" name="FK_INDEX_9">
+    <index id="667" parent="201" name="FK_INDEX_9">
       <ColNames>ID</ColNames>
       <NameSurrogate>1</NameSurrogate>
     </index>
-    <key id="672" parent="202" name="CONSTRAINT_9">
+    <key id="668" parent="201" name="CONSTRAINT_9">
       <ColNames>IDHASH</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="673" parent="203" name="IDSOURCES">
-      <DataType>INTEGER|0s</DataType>
+    <column id="669" parent="202" name="IDJAR">
+      <ColumnKind>generated-stored</ColumnKind>
+      <DataType>BIGINT|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>1</Position>
+      <SequenceInline>1</SequenceInline>
+      <SequenceSequenceIdentity>1(3)..9223372036854775807</SequenceSequenceIdentity>
     </column>
-    <column id="674" parent="203" name="SOURCES">
+    <column id="670" parent="202" name="CLASSES">
       <DataType>BINARY LARGE OBJECT|0s</DataType>
       <Position>2</Position>
+    </column>
+    <column id="671" parent="202" name="SOURCES">
+      <DataType>BINARY LARGE OBJECT|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <index id="672" parent="202" name="PRIMARY_KEY_1">
+      <ColNames>IDJAR</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="673" parent="202" name="CONSTRAINT_1">
+      <ColNames>IDJAR</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="674" parent="203" name="IDMETA">
+      <DataType>BIGINT|0s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="675" parent="203" name="GROUPID">
+      <DataType>CHARACTER VARYING(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="676" parent="203" name="ARTIFACTID">
+      <DataType>CHARACTER VARYING(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="677" parent="203" name="VERSION">
+      <DataType>CHARACTER VARYING(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
     </column>
   </database-model>
 </dataSource>

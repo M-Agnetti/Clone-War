@@ -9,30 +9,81 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="solved the pom problem">
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/hacker.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/hacker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/hacker2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/hacker2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/hacker3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/Animation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/UploadFiles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaDataMapperProvider.java" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="solved the db problem + extracted and displays artifact data + set welcome animation">
+      <change afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classes1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fr/uge/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fr/uge/main/Person2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/canvasjs.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/canvasjs.react.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Clone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneDetector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneMapperProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/InstructionMapperProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/JarMapperProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/TP3.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/TP3_SAIDI_Soumia.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice2Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice3Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/Slice4Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/slice/SliceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/guava/guava-31.1-jre (1).jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/guava/guava-31.1-jre-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/jackson/jackson-2.9.4-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/jackson/jackson-2.9.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/sources1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/sources2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice2Test$Q1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice2Test$Q2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice2Test$Q3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice2Test$Q4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice2Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice3Test$Q1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice3Test$Q2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice3Test$Q3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice3Test$Q4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice3Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice4Test$Q1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice4Test$Q2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice4Test$Q3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice4Test$Q4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/Slice4Test.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/SliceTest$Q1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/SliceTest$Q2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/SliceTest$Q3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/SliceTest$Q4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/target/test-classes/fr/uge/slice/SliceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test8.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test9.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/0fcd3b7d-4222-4ac5-862d-e66c2f0d7437.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0fcd3b7d-4222-4ac5-862d-e66c2f0d7437.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_11_2022_15_37_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_11_2022_15_37__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/UploadFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/UploadFiles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Artefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Artefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Instruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Jar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Jar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" afterDir="false" />
@@ -50,9 +101,9 @@
       <list>
         <option value="CSS File" />
         <option value="Swagger" />
+        <option value="JavaScript File" />
         <option value="Record" />
         <option value="Class" />
-        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -223,7 +274,15 @@
       <workItem from="1669119365981" duration="28946000" />
       <workItem from="1669198489568" duration="20158000" />
       <workItem from="1669275023693" duration="1740000" />
-      <workItem from="1669292942047" duration="2871000" />
+      <workItem from="1669292942047" duration="3326000" />
+      <workItem from="1669890888761" duration="632000" />
+      <workItem from="1670075660656" duration="1493000" />
+      <workItem from="1670259708765" duration="1156000" />
+      <workItem from="1670775473054" duration="8815000" />
+      <workItem from="1671727313172" duration="15791000" />
+      <workItem from="1671794980122" duration="32277000" />
+      <workItem from="1671870914970" duration="9702000" />
+      <workItem from="1671881323301" duration="22272000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -449,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669057958528</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="solved the db problem + extracted and displays artifact data + set welcome animation">
+      <created>1669296983227</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1669296983227</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,6 +552,7 @@
     <MESSAGE value="target jar&amp;" />
     <MESSAGE value="changed completely the database, added the jar files to db as Blob..." />
     <MESSAGE value="solved the pom problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="solved the pom problem" />
+    <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
+    <option name="LAST_COMMIT_MESSAGE" value="solved the db problem + extracted and displays artifact data + set welcome animation" />
   </component>
 </project>

@@ -10,7 +10,6 @@ class MyComponent extends React.Component {
         this.state = {
             artefacts: []
         };
-        this.button = false;
     }
 
     componentDidMount(){
@@ -30,20 +29,15 @@ class MyComponent extends React.Component {
         });
     }
 
-    nextPath(path) {
-        this.props.history.push(path);
-    }
 
     render() {
         return (
             <div>
-
-
-        <div className="bg-[url('/public/bg.jpg')] bg-no-repeat bg-cover bg-center flow-root justify-center min-h-screen bg-orange-600 flex justify-center items-center py-20">
+                <div className="bg-[url('/public/hacker2.jpg')] bg-no-repeat bg-cover bg-center flow-root justify-center min-h-screen bg-orange-600 flex justify-center items-center py-20">
 
             <UploadFiles />
 
-            <div className="opacity-80 container mx-auto p-12 bg-gray-100 rounded-xl">
+            <div className="container mx-auto p-12 bg-gray-100 rounded-xl">
                 <h1 className="text-4xl font-mono from-current mb-8">Artefacts</h1>
                 <div className="content-around sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4 sm:space-y-0">
                         {

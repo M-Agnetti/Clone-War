@@ -5,9 +5,10 @@ import io.helidon.dbclient.DbClient;
 import io.helidon.webserver.*;
 
 import java.io.ByteArrayInputStream;
-import java.sql.Blob;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
 
 public class CloneService implements Service {
 
@@ -23,6 +24,7 @@ public class CloneService implements Service {
     public void update(Routing.Rules rules)  {
         rules.get("/artefacts", this::getArtefacts)
                 .get("/artefact/{id}", this::getArtefactById)
+                .get("/clone/{id}", this::getCloneSource)
                 .post("/post/{type}", this::insertArtefact)
         .post("/class/UploadComplete", this::completeInsertion);
     }
@@ -47,21 +49,21 @@ public class CloneService implements Service {
                 .execute()).await();
 
         var lastJar = dbClient.execute(exec -> exec.createNamedGet("get-last-jar")
-                .execute()).await().get();
-        var id = lastJar.column("IDJAR").as(Long.class);
-        var sources = lastJar.column("SOURCES").as(Blob.class);
-        var classes = lastJar.column("CLASSES").as(Blob.class);
-        var dataMap = SourcesJar.getAllData(sources);
+                .execute()).await().get().as(Jar.class);
+        var dataMap = SourcesJar.getAllData(lastJar.sources());
 
         dbClient.execute(exec -> exec.createNamedInsert("insert-artefact")
-                .addParam(id).addParam(dataMap.get("name")).addParam(dataMap.get("url"))
+                .addParam(lastJar.idJar()).addParam(dataMap.get("name")).addParam(dataMap.get("url"))
                 .execute()).await();
         dbClient.execute(exec -> exec.createNamedInsert("insert-metadata")
-                .addParam(id).addParam(dataMap.get("groupId")).addParam(dataMap.get("artifactId"))
+                .addParam(lastJar.idJar()).addParam(dataMap.get("groupId")).addParam(dataMap.get("artifactId"))
                 .addParam(dataMap.get("version")).execute()).await();
 
         map.clear();
-        response.send(Http.Status.OK_200).thenAccept(__ -> new Analyzer(dbClient, classes, id).launch());
+        response.send(Http.Status.OK_200).onComplete(() -> {
+            new Analyzer(dbClient, lastJar.classes(), lastJar.idJar()).launch();
+            new CloneDetector(dbClient, lastJar.idJar()).detect();
+        });
 
     }
 
@@ -92,4 +94,63 @@ public class CloneService implements Service {
                                 row -> response.send(List.of(row.as(MetaData.class))), () -> response.send("error")));
 
     }
+
+
+    private Jar getJarById(long id){
+        return dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
+                .addParam("id", id)
+                .execute()).await().get().as(Jar.class);
+    }
+
+    private Jar getJarByIdHash(long idHash){
+        var id = dbClient.execute(exec -> exec.createNamedGet("select-art-by-idHash").addParam("id", idHash)
+                .execute().map(dbRow -> dbRow.get().column("ID").as(Long.class))).await();
+        return getJarById(id);
+    }
+
+    private void getCloneSource(ServerRequest request, ServerResponse response){
+        var id = Integer.parseInt(request.path().param("id"));
+        System.out.println("id : " + id);
+        var list = new ArrayList<List<List<List<String>>>>();
+        try {
+            var res = dbClient.execute(dbExecute -> dbExecute.createNamedQuery("get-clone-of-art")
+                    .addParam("id1", id).addParam("id2", id).execute()
+                    .map(dbRow -> dbRow.as(Clone.class))).collectList().get();
+
+            var map = res.stream().collect(Collectors.groupingBy(clone -> clone.idClone(), Collectors.toList()));
+            map.entrySet().forEach(clone -> {
+                var jar1 = getJarByIdHash(clone.getValue().get(0).id1());
+                var jar2 = getJarByIdHash(clone.getValue().get(0).id2());
+
+                /************************************************************************/
+                var id1instr1 = dbClient.execute(exec -> exec.createNamedGet("select-art-by-idHash")
+                                .addParam("id", clone.getValue().get(0).id1())
+                        .execute().map(dbRow -> dbRow.get().as(Instruction.class))).await();
+                var id2instr1 = dbClient.execute(exec -> exec.createNamedGet("select-art-by-idHash")
+                        .addParam("id", clone.getValue().get(0).id2())
+                        .execute().map(dbRow -> dbRow.get().as(Instruction.class))).await();
+
+                var id1instr2 = clone.getValue().size() == 1 ? id1instr1 :
+                        dbClient.execute(exec -> exec.createNamedGet("select-art-by-idHash")
+                        .addParam("id", clone.getValue().get(1).id1())
+                        .execute().map(dbRow -> dbRow.get().as(Instruction.class))).await();
+
+                var id2instr2 = clone.getValue().size() == 1 ? id2instr1 :
+                        dbClient.execute(exec -> exec.createNamedGet("select-art-by-idHash")
+                                .addParam("id", clone.getValue().get(1).id2())
+                                .execute().map(dbRow -> dbRow.get().as(Instruction.class))).await();
+
+
+                list.add(List.of(SourcesJar.extractLines(jar1.sources(), id1instr1.file(), id1instr1.line(), id1instr2.line()),
+                                SourcesJar.extractLines(jar2.sources(), id2instr1.file(), id2instr1.line(), id2instr2.line())));
+
+            });
+
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        response.send(list);
+    }
+
+
 }

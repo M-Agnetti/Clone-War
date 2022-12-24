@@ -8,6 +8,7 @@ import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.multipart.MultiPartSupport;
 import io.helidon.openapi.OpenAPISupport;
 import io.helidon.webserver.Routing;
+import io.helidon.webserver.Service;
 import io.helidon.webserver.SocketConfiguration;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.staticcontent.StaticContentSupport;
@@ -28,15 +29,16 @@ public class Main {
                 .namedDml("create-jar")).await();
 
         dbClient.execute(exec -> exec
-                        .namedDml("create-jar")).await();
-        dbClient.execute(exec -> exec
                         .namedDml("create-artefact")).await();
         dbClient.execute(exec -> exec
                         .namedDml("create-instruction")).await();
         dbClient.execute(exec -> exec
                         .namedDml("create-metadata")).await();
-*/
 
+        dbClient.execute(exec -> exec
+                .namedDml("create-clone")).await();
+
+*/
 
         Routing routing = Routing.builder()
                 .register("/", new CloneService(DbClient.create(dbConfig)))

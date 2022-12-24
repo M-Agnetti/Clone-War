@@ -2,5 +2,5 @@ package fr.uge.clone;
 
 import java.sql.Blob;
 
-public record Jar(Blob classes, Blob sources) {
+public record Jar(long idJar, Blob classes, Blob sources) {
 }

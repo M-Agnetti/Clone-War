@@ -1,6 +1,5 @@
 package fr.uge.clone;
 import java.io.*;
-import java.nio.file.*;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.*;
@@ -10,26 +9,29 @@ import java.util.zip.ZipInputStream;
 
 public class SourcesJar {
 
-    public static void readFileFromJar(String jarPath, String filePath, int startLine, int endLine) throws IOException {
-        try(FileSystem zip = FileSystems.newFileSystem(Paths.get(jarPath))) {
-            Path fileInZip = zip.getPath(filePath + ".java");
-            try(var reader = Files.newBufferedReader(fileInZip) ;
-                var lineNumberReader = new LineNumberReader(reader)){
-                    String s;
-                    while((s = lineNumberReader.readLine()) != null){
-                        if(lineNumberReader.getLineNumber() >= 6 && lineNumberReader.getLineNumber() <= endLine){
-                            System.out.println(s);
-                        }
-                    }
+
+    public static List<List<String>> extractLines(Blob blob, String fileName, int startLine, int endLine) {
+        Objects.requireNonNull(blob);
+        Objects.requireNonNull(fileName);
+        try {
+            var input = lookUpForFile(blob.getBinaryStream(), fileName + ".java");
+            try(var reader = new BufferedReader(new InputStreamReader(input))) {
+                return List.of(
+                        reader.lines().skip(Math.max(0, startLine)).limit(3).toList(),
+                        reader.lines().skip(startLine - 1).limit(endLine - startLine + 1).toList(),
+                        reader.lines().skip(endLine).limit(3).toList()
+                );
             }
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private static InputStream lookUpForPom(InputStream input) {
+    private static InputStream lookUpForFile(InputStream input, String file) {
         try(var zip = new ZipInputStream(input)){
             ZipEntry e;
             while ((e = zip.getNextEntry()) != null) {
-                if(e.getName().endsWith("pom.xml")){
+                if(e.getName().endsWith(file)){
                     return new ByteArrayInputStream(zip.readAllBytes());
                 }
             }
@@ -49,28 +51,19 @@ public class SourcesJar {
         }
     }
 
-    private static String getPomData(String pom, String elem){
-        String result;
-        Pattern groupId = Pattern.compile("^(<[^<>]+><[^<>]+>)(<[^<>/]+>[^<>]+</[^<>/]+>)*(<parent>.*</parent>)*(<[^<>/]+>[^<>]+</[^<>/]+>)*<" + elem + ">[^<>]+</" + elem + ">");
-        Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
-
-        var matcher = groupId.matcher(pom);
-        while (matcher.find()) {
-            var m = groupId2.matcher(matcher.group());
-            m.find();
-            do {
-                result = m.group().replaceAll("<" + elem + ">|</" + elem + ">", "");
-            } while (m.find());
-            return result;
-        }
-        return null;
-    }
-
     private static String getPomDataParent(String pom, String elem){
-        String result;
         Pattern groupId = Pattern.compile("<parent>.*</parent>");
-        Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
+        return getResultFromPattern(pom, elem, groupId);
+    }
 
+    private static String getPomData(String pom, String elem){
+        Pattern groupId = Pattern.compile("^(<[^<>]+>)(<[^<>]+>)*(<[^<>/]+>[^<>]+</[^<>/]+>)*(<parent>.*</parent>)*(<[^<>/]+>[^<>]+</[^<>/]+>)*<" + elem + ">[^<>]+</" + elem + ">");
+        return getResultFromPattern(pom, elem, groupId);
+    }
+
+    private static String getResultFromPattern(String pom, String elem, Pattern groupId){
+        String result;
+        Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
         var matcher = groupId.matcher(pom);
         while (matcher.find()) {
             var m = groupId2.matcher(matcher.group());
@@ -82,6 +75,7 @@ public class SourcesJar {
         }
         return null;
     }
+
 
     private static String getUrl(String pom){
         var url = getPomData(pom, "url");
@@ -90,7 +84,7 @@ public class SourcesJar {
 
     private static String getName(String pom){
         var name = getPomData(pom, "name");
-        return name != null ? name : getPomData(pom, "artifactId");
+        return name != null ? name : getArtifactId(pom);
     }
 
     private static String getGroupId(String pom){
@@ -112,7 +106,7 @@ public class SourcesJar {
         String pom;
         var map = new HashMap<String, String>();
         try {
-            pom = getStringFromPom(lookUpForPom(blob.getBinaryStream()));
+            pom = getStringFromPom(lookUpForFile(blob.getBinaryStream(), "pom.xml"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -121,7 +115,6 @@ public class SourcesJar {
         map.put("artifactId", getArtifactId(pom));
         map.put("groupId", getGroupId(pom));
         map.put("version", getVersion(pom));
-        System.out.println(pom);
         return map;
     }
 

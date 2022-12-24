@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 const chunkSize = 5000;
 
@@ -14,7 +13,6 @@ function UploadFiles() {
     const [progress, setProgress] = useState(0)
     const [fileSize, setFileSize] = useState(0)
     const [chunkCount, setChunkCount] = useState(0)
-    const navigate = useNavigate();
 
 
     const resetChunkProperties = () => {
@@ -32,18 +30,14 @@ function UploadFiles() {
     }
 
     const getFileContext = (_file) => {
-        console.log("GET FILE CONTEXT");
         resetChunkProperties();
         setFileSize(_file.size)
-        console.log("file size : " + _file.size);
         const _totalCount = _file.size % chunkSize == 0 ? _file.size / chunkSize : Math.floor(_file.size / chunkSize) + 1; // Total count of chunks will have been upload to finish the file
         setChunkCount(_totalCount)
         setFileToBeUpload(_file)
-        console.log("chunkSize : " + chunkSize + " chunkCount : " + chunkCount);
     }
 
     const uploadChunk = async (chunk) => {
-        console.log("UPLOAD CHUNK " + typeJar);
         try {
             const response = await fetch("http://localhost:8080/post/" + typeJar,
                 {
@@ -53,18 +47,15 @@ function UploadFiles() {
                 })
             const data = response.data;
             if (response.ok) {
-                console.log("UPLOAD CHUNK RESPONSE OK ");
                 setBeginingOfTheChunk(endOfTheChunk);
                 setEndOfTheChunk(endOfTheChunk + chunkSize);
                 if (counter === chunkCount) {
                     if(typeJar === "classes"){
-                        console.log("fini avec le file 1, on commence le file 2 ");
                         setTypeJar("sources");
                         setFileToBeUpload(file2);
                         getFileContext(file2);
                     }
                     else{
-                        console.log('Process is complete, counter', counter)
                         await uploadCompleted();
                     }
                     //console.log('Process is complete, counter', counter)
@@ -82,7 +73,6 @@ function UploadFiles() {
     }
 
     const uploadCompleted = async () => {
-        console.log("UPLOAD COMPLETE");
         setFileToBeUpload(null);
         const response = await fetch("http://localhost:8080/class/UploadComplete", {
             method: 'post'
@@ -95,10 +85,7 @@ function UploadFiles() {
 
     useEffect(() => {
         if (fileToBeUpload != null && fileSize > 0) {
-            console.log("USE EFFECT");
-            console.log("counter : " + counter + " chunkCount : " + chunkCount);
             setCounter(counter + 1);
-            console.log("counter : " + counter);
             if (counter <= chunkCount) {
                 let chunk = fileToBeUpload.slice(beginingOfTheChunk, endOfTheChunk);
                 uploadChunk(chunk);
@@ -108,8 +95,6 @@ function UploadFiles() {
 
 
     const onFileUpload = () => {
-        console.log("ON FILE UPLOAD");
-        console.log("type : " + typeJar);
         setTypeJar("classes");
         getFileContext(file1);
     };
@@ -147,22 +132,25 @@ function UploadFiles() {
     }
 
     return (
-        <div className="block justify-center">
+        <div>
+            <div className="container mx-auto p-12 bg-gray-100 rounded-xl mb-8 px-4 py-4">
 
-            <input
-                className="block w-6/12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                aria-describedby="file_input_help" id="file_input" type="file" onChange={getFile1}/>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JAR.</p>
+                <input
+                    className="block w-6/12 text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    aria-describedby="file_input_help" id="file_input" type="file" onChange={getFile1}/>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JAR.</p>
 
 
-            <input
-                className="block w-6/12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                aria-describedby="file_input_help" id="file_input" type="file" onChange={getFile2} />
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JAR.</p>
+                <input
+                    className="block w-6/12 text-sm text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    aria-describedby="file_input_help" id="file_input" type="file" onChange={getFile2} />
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JAR.</p>
 
-            <DisplayUpload />
+                <DisplayUpload />
 
+            </div>
         </div>
+
     );
 }
 

@@ -1,5 +1,7 @@
 package fr.uge.clone;
 
+import io.helidon.config.Config;
+import io.helidon.dbclient.DbClient;
 import org.objectweb.asm.*;
 
 import java.io.ByteArrayInputStream;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -27,7 +30,16 @@ public class AsmParser {
         return null;
     }
 
-    /*public static void main(String[] args) throws IOException {
+    private static List<Integer> getListOpcode(int opcode, String arg){
+        var list = new ArrayList<>(List.of(opcode));
+        for(var i = 0 ; i < arg.length() ; i++){
+            list.add((int)arg.charAt(i));
+        }
+        return list;
+    }
+
+    public static void main(String[] args) throws IOException, SQLException {
+        /*
         var map = parse("asm-3.1.jar").entrySet().stream()
                         .collect(Collectors.toMap(Map.Entry::getKey,
                             entry -> entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
@@ -40,12 +52,24 @@ public class AsmParser {
             System.out.println(key + ": ");
             System.out.println(value);
         });
+
+         */
+
+        Config dbConfig = Config.create().get("db");
+
+        DbClient dbClient = DbClient.create(dbConfig);
+        var lastJar = dbClient.execute(exec -> exec.createNamedGet("get-last-jar")
+                .execute()).await().get();
+        var sources = lastJar.column("SOURCES").as(Blob.class);
+        var classes = lastJar.column("CLASSES").as(Blob.class);
+        var map = AsmParser.parse(classes.getBinaryStream());
+        System.out.println(map);
     }
 
-     */
 
-    public static Map<String, Map<Integer, StringJoiner>> parse(InputStream input) throws IOException {
-        final Map<String, Map<Integer, StringJoiner>> map = new HashMap<>();
+
+    public static Map<String, Map<Integer, List<List<Integer>>>> parse(InputStream input) throws IOException {
+        final Map<String, Map<Integer, List<List<Integer>>>> map = new HashMap<>();
 
         try(var zip = new ZipInputStream(input)){
             ZipEntry e;
@@ -99,16 +123,16 @@ public class AsmParser {
                                         @Override
                                         public void visitInsn(int opcode) {
                                             var s = getOpcode(opcode);
-                                            var opName = s.endsWith("RETURN") ? "RETURN" : s;
+                                            opcode = s.endsWith("RETURN") ? 177 : opcode;
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
-                                            //System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
+                                           // System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
                                         }
 
                                         @Override
                                         public void visitIntInsn(int opcode, int operand){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode, operand));
                                             //System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand + " | line " + lineNumber);
                                         }
 
@@ -117,30 +141,31 @@ public class AsmParser {
                                             var s = getOpcode(opcode);
                                             var opName = s.endsWith("LOAD") ? "LOAD" : s.startsWith("V") ? "STORE" : s;
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName + " " + var);
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
                                             //System.err.println("    visitVarInsn : " + getOpcode(opcode) + " " + var + " | line " + lineNumber);
                                         }
 
                                         @Override
                                         public void visitTypeInsn(int opcode, String desc){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
                                             //System.err.println("    visitTypeInsn : " + getOpcode(opcode)  + " | line " + lineNumber);
                                         }
 
                                         @Override
                                         public void visitFieldInsn(int opc, String owner, String name, String desc){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opc));
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opc));
                                             //System.err.println("    visitFieldInsn : " + getOpcode(opc) + " " + name);
                                         }
 
                                         @Override
                                         public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
                                             var s = getOpcode(opcode);
-                                            var opName = s.endsWith("SPECIAL") ? s : (s + " " + name);
+                                            var list = s.endsWith("SPECIAL") ? List.of(opcode) : getListOpcode(opcode, name);
+                                           // var opName = s.endsWith("SPECIAL") ? s : (s + " " + name);
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(opName);
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(list);
                                             //System.err.println("    " + getOpcode(opcode) + " " + name + " | line " + lineNumber);
                                         }
 
@@ -149,14 +174,16 @@ public class AsmParser {
                                         @Override
                                         public void visitIincInsn(int var, int increment){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
+
+                                                    //.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
+                                            .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(var, increment));
                                             //System.err.println("visitIincInsn : " + var + " " + increment + " | line " + lineNumber);
                                         }
 
                                         @Override
                                         public void visitJumpInsn(int opcode, Label label){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add(getOpcode(opcode));
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
                                             //System.err.println("    visitJumpInsn : " + getOpcode(opcode) + " " + label.toString()
                                             //   + " | line " + lineNumber);
                                         }
@@ -164,7 +191,8 @@ public class AsmParser {
                                         @Override
                                         public void visitLdcInsn(Object cst){
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
+                                                    //.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
+                                            .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(Opcodes.LDC));
                                             //System.err.println("    visitLdcInsn : LDC " + cst.toString() + " | line " + lineNumber);
                                         }
 

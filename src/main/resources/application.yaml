@@ -56,7 +56,7 @@ db:
             hashValue     INTEGER,
             file    CHARACTER VARYING(100) not null,
             line INTEGER,
-            id INTEGER,
+            id LONG,
             constraint fk foreign key (id) references Artefact (id)
           );"
     create-metadata: "drop table if exists METADATA cascade;
@@ -68,6 +68,17 @@ db:
                 artifactId CHARACTER VARYING(100) not null,
                 version    CHARACTER VARYING(100) not null
               );"
+    create-clone: "drop table if exists CLONE cascade;
+
+            create table CLONE
+                  (
+                    idClone LONG auto_increment,
+                    id1   LONG,
+                    id2 LONG,
+                    constraint CLONE_pk primary key (idClone, id1, id2),
+                    constraint FK_CLONE1 foreign key (id1) references INSTRUCTION (idHash),
+                    constraint FK_CLONE2 foreign key (id2) references INSTRUCTION (idHash)
+                  );"
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     select-metadata-by-id: "SELECT * FROM METADATA WHERE idMeta = :id"
@@ -75,4 +86,13 @@ db:
     insert-jar: "INSERT INTO JAR(CLASSES, SOURCES) VALUES(?, ?)"
     insert-instruction: "INSERT INTO Instruction(hashValue, file, line, id) VALUES(?, ?, ?, ?)"
     insert-metadata: "INSERT INTO METADATA(IDMETA, GROUPID, ARTIFACTID, VERSION) VALUES(?, ?, ?, ?)"
+    insert-clone: "INSERT INTO CLONE(ID1, ID2) VALUES(?, ?)"
+    insert-clone-id: "INSERT INTO CLONE(IDCLONE, ID1, ID2) VALUES(?, ?, ?)"
     get-last-jar: "SELECT * FROM JAR ORDER BY IDJAR DESC LIMIT 1"
+    select-jar-by-id: "SELECT * FROM JAR WHERE IDJAR = :id"
+    select-all-hash: "SELECT * FROM INSTRUCTION WHERE ID != :id"
+    select-hash-by-id: "SELECT * FROM INSTRUCTION WHERE ID = :id"
+    select-art-by-idHash: "SELECT * FROM INSTRUCTION NATURAL JOIN ARTEFACT WHERE IDHASH = :id"
+    select-hash-by-idHash: "SELECT * FROM INSTRUCTION WHERE IDHASH = :id"
+    get-last-clone-id: "SELECT IDCLONE FROM CLONE ORDER BY IDCLONE DESC LIMIT 1"
+    get-clone-of-art: "SELECT * FROM INSTRUCTION AS H1 JOIN CLONE JOIN INSTRUCTION AS H2 WHERE ID1 = H1.IDHASH AND ID2 = H2.IDHASH AND (H1.ID = :id1 or H2.ID = :id2)"

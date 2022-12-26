@@ -3,3 +3,4 @@ fr.uge.clone.MetaDataMapperProvider
 fr.uge.clone.InstructionMapperProvider
 fr.uge.clone.CloneMapperProvider
 fr.uge.clone.JarMapperProvider
+fr.uge.clone.ScoreMapperProvider

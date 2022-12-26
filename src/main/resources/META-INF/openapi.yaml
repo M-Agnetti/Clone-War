@@ -1,0 +1,13 @@
+openapi: 3.0.3
+info:
+  title: Clone War
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'http://localhost8080'
+    description: Local server
+paths:
+  "/artefacts":
+    get:
+      description:
+  

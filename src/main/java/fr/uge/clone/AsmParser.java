@@ -1,15 +1,11 @@
 package fr.uge.clone;
 
-import io.helidon.config.Config;
-import io.helidon.dbclient.DbClient;
 import org.objectweb.asm.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -38,35 +34,6 @@ public class AsmParser {
         return list;
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
-        /*
-        var map = parse("asm-3.1.jar").entrySet().stream()
-                        .collect(Collectors.toMap(Map.Entry::getKey,
-                            entry -> entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
-                                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                                            (e1, e2) -> e1,
-                                            LinkedHashMap::new
-                                    )
-                        )));
-        map.forEach((key, value) -> {
-            System.out.println(key + ": ");
-            System.out.println(value);
-        });
-
-         */
-
-        Config dbConfig = Config.create().get("db");
-
-        DbClient dbClient = DbClient.create(dbConfig);
-        var lastJar = dbClient.execute(exec -> exec.createNamedGet("get-last-jar")
-                .execute()).await().get();
-        var sources = lastJar.column("SOURCES").as(Blob.class);
-        var classes = lastJar.column("CLASSES").as(Blob.class);
-        var map = AsmParser.parse(classes.getBinaryStream());
-        System.out.println(map);
-    }
-
-
 
     public static Map<String, Map<Integer, List<List<Integer>>>> parse(InputStream input) throws IOException {
         final Map<String, Map<Integer, List<List<Integer>>>> map = new HashMap<>();
@@ -74,7 +41,7 @@ public class AsmParser {
         try(var zip = new ZipInputStream(input)){
             ZipEntry e;
             while ((e = zip.getNextEntry()) != null) {
-                if (!e.getName().endsWith(".class")) {
+                if (!e.getName().endsWith(".class") || e.getName().contains("$")) {
                     continue;
                 }
 

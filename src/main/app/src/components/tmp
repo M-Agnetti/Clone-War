@@ -1,0 +1,218 @@
+import React, {useEffect, useState} from 'react'
+import './MyComponent.css';
+import {Link, useParams} from "react-router-dom";
+import UploadFiles from "./UploadFiles";
+import CanvasJSReact from './canvasjs.react';
+
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+
+const MyComponent = () => {
+
+    const [artefacts, setArtefacts] = useState([]);
+    const [scores, setScores] = useState([]);
+    const [artScores, setArtScores] = useState([]);
+    const [complete, setComplete] = useState(false);
+
+    const [options, setOptions] = useState([])
+        /*{
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: "Highest scores"
+        },
+        axisX:{
+            title:"Artifacts",
+        },
+        axisY:{
+            title:"Pourcentage",
+        },
+        data: [
+            {
+                // Change type to "doughnut", "line", "splineArea", etc.
+                type: "column",
+                dataPoints: [
+                    { label: "Art1",  y: 10 }
+                ]
+
+            }
+        ]
+
+    });*/
+
+    async function getScore(id){
+        await fetch('http://localhost:8080/scores/' + id,{
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            'credentials': 'same-origin'
+        })
+            .then(res => res.json())
+            .then(data => {
+                scores.push(data);
+                setScores(scores);
+            })
+            .catch(err => console.log(err));
+    }
+
+    async function fetchs() {
+        await fetch('http://localhost:8080/artefacts',{
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+            },
+            'credentials': 'same-origin'
+        }).then(res => res.json())
+            .then((data) => {
+                setArtefacts(data);
+                data.map(elem => {
+                    getScore(elem.id);
+                })
+            })
+            .catch(err => console.log(err)).finally(() => setComplete(true));
+
+
+    }
+
+
+    useEffect(()=> {
+        fetchs();
+    },[]);
+
+    async function changeOptions(id){
+        await getScore(id);
+        console.log("scores");
+        console.log(scores);
+        let points = [];
+        for (let i = 0; i < scores.length ; i++) {
+            points.push({label: "test", y:scores.at(i)});
+        }
+
+        setOptions({
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Highest scores"
+            },
+            axisX:{
+                title:"Artifacts",
+            },
+            axisY:{
+                title:"Pourcentage",
+            },
+            data: [
+                {
+                    // Change type to "doughnut", "line", "splineArea", etc.
+                    type: "column",
+                    dataPoints: [
+                        { label: "Art1",  y: 10 }
+                    ]
+                }
+            ]
+        });
+    }
+
+    if(complete){
+
+        console.log("complete");
+        console.log("artefacts");
+        console.log(artefacts);
+        console.log(scores);
+        for (let i = 0; i < scores.length ; i++) {
+            console.log(scores.at(i));
+            console.log("heeey");
+            let points = [];
+            let tmp = {
+                animationEnabled: true,
+                theme: "light2",
+                title: {
+                    text: "Highest scores"
+                },
+                axisX:{
+                    title:"Artifacts",
+                },
+                axisY:{
+                    title:"Pourcentage",
+                },
+                data: [
+                    {
+                        // Change type to "doughnut", "line", "splineArea", etc.
+                        type: "column",
+                        dataPoints: [
+                            { label: "test",  y: 10 }
+                        ]
+                    }
+                ]
+            };
+            options.push(tmp);
+            console.log(options);
+        }
+
+    }
+
+    return (
+        <div>
+            <div className="bg-[url('/public/hacker2.jpg')] bg-no-repeat bg-cover bg-center flow-root justify-center min-h-screen bg-orange-600 flex justify-center items-center py-20">
+
+                <UploadFiles />
+
+                <div className="container mx-auto p-12 bg-gray-100 rounded-xl">
+                    <h1 className="text-4xl font-mono from-current mb-8">Artefacts</h1>
+                    <div className="content-around sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 space-y-4 sm:space-y-0">
+                        {
+                            artefacts.map(artefact =>
+
+                                <div className="bg-white rounded">
+
+                                    <div className="shadow-lg hover:shadow-xl transform transition duration-500 hover:scale-105 p-6 rounded">
+
+                                        <span className="text-blue-500 block mb-5">{artefact.name}</span>
+                                        <h2 className="text-xl font-medium text-gray-700">{new Date(artefact.dateAdd).toLocaleDateString("fr")}</h2>
+
+                                        <a href={artefact.url} className="text-blue-500 block mb-5">{artefact.url}</a>
+
+                                        <button
+                                            className="mt-12 w-full text-center bg-yellow-400 py-2 rounded-lg">
+                                            <Link to={`/artefact/${artefact.id}`} >Read more</Link>
+                                        </button>
+                                        <div className="mb-8 shadow-lg">
+
+                                            <CanvasJSChart options = {{
+                                                animationEnabled: true,
+                                                theme: "light2",
+                                                title: {
+                                                    text: "Highest scores"
+                                                },
+                                                axisX:{
+                                                    title:"Artifacts",
+                                                },
+                                                axisY:{
+                                                    title:"Pourcentage",
+                                                },
+                                                data: [
+                                                    {
+                                                        // Change type to "doughnut", "line", "splineArea", etc.
+                                                        type: "column",
+                                                        dataPoints: [
+                                                            { label: "test",  y: 10 }
+                                                        ]
+                                                    }
+                                                ]
+                                            }} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default MyComponent

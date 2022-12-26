@@ -6,6 +6,7 @@ import io.helidon.dbclient.DbClient;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Analyzer {
@@ -55,6 +56,7 @@ public class Analyzer {
     }
 
     public void launch() {
+        System.out.println("LAUNCH");
         try {
             var map = AsmParser.parse(blob.getBinaryStream());
             map.entrySet().stream().forEach(entry -> {

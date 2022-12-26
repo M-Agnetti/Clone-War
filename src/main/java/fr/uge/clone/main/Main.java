@@ -1,6 +1,7 @@
 package fr.uge.clone.main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.uge.clone.CloneController;
 import fr.uge.clone.CloneService;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
@@ -18,13 +19,33 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    private static Routing buildRouting(Config config){
+        return Routing.builder()
+                .register("/", new CloneService(DbClient.create(config)))
+                .register("/", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
+                .register("/home", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
+                .register(OpenAPISupport.create(config))
+                .build();
+    }
+
+    private static WebServer createServer(Config config, Routing routing) {
+        return WebServer.builder(routing)
+                .config(config)
+                .addMediaSupport(JacksonSupport.create(new ObjectMapper()))
+                .addMediaSupport(MultiPartSupport.create())
+                .addSocket(SocketConfiguration.builder().timeout(Long.MAX_VALUE, TimeUnit.HOURS).build())
+                .build();
+    }
+
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
-
+/*
         Config dbConfig = Config.create().get("db");
 
         DbClient dbClient = DbClient.create(dbConfig);
-/*
+
         dbClient.execute(exec -> exec
                 .namedDml("create-jar")).await();
 
@@ -38,29 +59,13 @@ public class Main {
         dbClient.execute(exec -> exec
                 .namedDml("create-clone")).await();
 
+        dbClient.execute(exec -> exec
+                .namedDml("create-score")).await();
 */
 
-        Routing routing = Routing.builder()
-                .register("/", new CloneService(DbClient.create(dbConfig)))
-                .register("/", StaticContentSupport.builder("/static")
-                        .welcomeFileName("index.html")
-                        .build())
-                .register("/home", StaticContentSupport.builder("/static")
-                        .welcomeFileName("index.html")
-                        .build())
-                .register(OpenAPISupport.create(dbConfig))
-                .build();
-
-        Config config = Config.create().get("server");
-        WebServer webServer = WebServer.builder(routing)
-                .config(config)
-                .addMediaSupport(JacksonSupport.create(new ObjectMapper()))
-                .addMediaSupport(MultiPartSupport.create())
-                .addSocket(SocketConfiguration.builder().timeout(Long.MAX_VALUE, TimeUnit.HOURS).build())
-                .build();
-        webServer.start()
-                .await(10, TimeUnit.SECONDS);
-
+        Routing routing = buildRouting(Config.create().get("db"));
+        WebServer webServer = createServer(Config.create().get("server"), routing);
+        webServer.start().await(10, TimeUnit.SECONDS);
         System.out.println("Server started at: http://localhost:" + webServer.port());
 
     }

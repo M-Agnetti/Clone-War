@@ -17,9 +17,9 @@ public class SourcesJar {
             var input = lookUpForFile(blob.getBinaryStream(), fileName + ".java");
             try(var reader = new BufferedReader(new InputStreamReader(input))) {
                 return List.of(
-                        reader.lines().skip(Math.max(0, startLine)).limit(3).toList(),
-                        reader.lines().skip(startLine - 1).limit(endLine - startLine + 1).toList(),
-                        reader.lines().skip(endLine).limit(3).toList()
+                        //reader.lines().skip(Math.max(0, startLine)).limit(3).toList(),
+                        reader.lines().skip(startLine - 1).limit(endLine - startLine + 1).toList()
+                        //reader.lines().skip(endLine).limit(3).toList()
                 );
             }
         } catch (SQLException | IOException e) {

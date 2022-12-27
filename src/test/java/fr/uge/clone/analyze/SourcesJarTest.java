@@ -1,8 +1,8 @@
-package fr.uge.clone;
+package fr.uge.clone.analyze;
 
 import org.junit.jupiter.api.Nested;
 
-public class AsmParserTest {
+public class SourcesJarTest {
   @Nested
   public class Construction {
 

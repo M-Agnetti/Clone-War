@@ -1,4 +1,4 @@
-package fr.uge.clone;
+package fr.uge.clone.mapper;
 
 import org.junit.jupiter.api.Nested;
 

@@ -1,4 +1,4 @@
-package fr.uge.clone;
+package fr.uge.clone.service;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

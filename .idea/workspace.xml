@@ -9,10 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="documentation + open api">
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="envoi des meilleurs score + affichage des graphes des meilleurs scores">
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/ArtefactTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/InstructionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/JarTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/MetaDataTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/ScoreTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/AnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/ArtefactMapperProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/mapper/ArtefactMapperProviderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/AsmParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AsmParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/CloneServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/service/CloneServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/SourcesJarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/SourcesJarTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/StorageTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +40,9 @@
         <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="OpenAPI" />
-        <option value="Class" />
         <option value="Record" />
         <option value="Swagger" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -98,16 +113,37 @@
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\META-INF" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="fr.uge.clone.mapper" />
+      <recent name="fr.uge.clone.service" />
+      <recent name="fr.uge.clone.analyze" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn package" />
-      <command value="mvn clean package" />
       <command value="mvn clean" />
+      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="C:\Users\soumi\IntellijProjects\nouveau\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yaml" />
+      <method v="2" />
+    </configuration>
     <configuration name="clone.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/clone.jar" />
       <method v="2" />
@@ -128,26 +164,9 @@
     <configuration name="tailwind.config.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/main/app/tailwind.config.js" working-dir="$PROJECT_DIR$/src/main/app">
       <method v="2" />
     </configuration>
-    <configuration default="true" type="SwaggerCodegen">
-      <option name="activeConfigurationType" value="FILE" />
-      <option name="configurationPath" value="" />
-      <option name="customJreEnabled" value="false" />
-      <option name="customTemplatesPath" value="" />
-      <option name="enableDebugLogging" value="false" />
-      <option name="generateToPath" value="C:\Users\soumi\IntellijProjects\nouveau\gen" />
-      <option name="generationParameters">
-        <list />
-      </option>
-      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
-      <option name="jdkPath" value="" />
-      <option name="language" value="java" />
-      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yaml" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JAR Application.clone.jar" />
-        <item itemvalue="Node.js.tailwind.config.js" />
       </list>
     </recent_temporary>
   </component>
@@ -218,7 +237,6 @@
       <workItem from="1671958427065" duration="43018000" />
       <workItem from="1672063275000" duration="16091000" />
       <workItem from="1672084496319" duration="6770000" />
-      <workItem from="1672130350447" duration="385000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -465,14 +483,7 @@
       <option name="project" value="LOCAL" />
       <updated>1672073763590</updated>
     </task>
-    <task id="LOCAL-00036" summary="documentation + open api">
-      <created>1672130547675</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1672130547675</updated>
-    </task>
-    <option name="localTasksCounter" value="37" />
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +523,6 @@
     <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
     <MESSAGE value="hash + detection des clones + affichage des clones dans le front" />
     <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
-    <MESSAGE value="documentation + open api" />
-    <option name="LAST_COMMIT_MESSAGE" value="documentation + open api" />
+    <option name="LAST_COMMIT_MESSAGE" value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
   </component>
 </project>

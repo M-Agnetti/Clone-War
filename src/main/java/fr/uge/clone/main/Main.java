@@ -25,7 +25,8 @@ public class Main {
                         .welcomeFileName("index.html").build())
                 .register("/home", StaticContentSupport.builder("/static")
                         .welcomeFileName("index.html").build())
-                .register(OpenAPISupport.create(config))
+                .register("/openapi", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
                 .build();
     }
 
@@ -40,7 +41,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
-/*
+
         Config dbConfig = Config.create().get("db");
 
         DbClient dbClient = DbClient.create(dbConfig);
@@ -60,7 +61,7 @@ public class Main {
 
         dbClient.execute(exec -> exec
                 .namedDml("create-score")).await();
-*/
+
 
         Routing routing = buildRouting(Config.create().get("db"));
         WebServer webServer = createServer(Config.create().get("server"), routing);

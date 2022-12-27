@@ -108,7 +108,7 @@ public class AsmParser {
                                             var s = getOpcode(opcode);
                                             var opName = s.endsWith("LOAD") ? "LOAD" : s.startsWith("V") ? "STORE" : s;
                                             map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
+                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode, var));
                                             //System.err.println("    visitVarInsn : " + getOpcode(opcode) + " " + var + " | line " + lineNumber);
                                         }
 
@@ -175,6 +175,7 @@ public class AsmParser {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //System.out.println(map);
         return map;
     }
 

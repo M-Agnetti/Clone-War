@@ -187,4 +187,14 @@ public class CloneRepository {
                 .addParam("id", id).execute()).await().get().column("NB").as(Long.class);
     }
 
+    /**
+     *
+     * @param idHash
+     * @return
+     */
+    public Jar selectJarByIdHash(long idHash){
+        var id = selectInstrById(idHash).id();
+        return selectJarById(id);
+    }
+
 }

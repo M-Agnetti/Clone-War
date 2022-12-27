@@ -6,7 +6,6 @@ import fr.uge.clone.analyze.Analyzer;
 import fr.uge.clone.analyze.CloneDetector;
 import fr.uge.clone.model.Clone;
 import fr.uge.clone.model.CloneArtefact;
-import fr.uge.clone.model.Jar;
 import io.helidon.common.http.Http;
 import io.helidon.dbclient.DbClient;
 import io.helidon.webserver.*;
@@ -29,6 +28,10 @@ public class CloneService implements Service {
         this.repository = new CloneRepository(dbClient);
     }
 
+    /**
+     *
+     * @param rules
+     */
     @Override
     public void update(Routing.Rules rules)  {
         rules.get("/artefacts", this::getArtefacts)
@@ -37,14 +40,14 @@ public class CloneService implements Service {
                 .get("/scores/{id}", this::getBestScoresById)
                 .get("/allscores", this::getAllBestScores)
                 .post("/post/{type}", this::insertArtefact)
-        .post("/class/UploadComplete", this::completeInsertion);
+                .post("/class/UploadComplete", this::completeInsertion);
     }
 
 
     /**
      *
-     * @param serverRequest
-     * @param serverResponse
+     * @param serverRequest the server request
+     * @param serverResponse the server response
      */
     public void getArtefacts(ServerRequest serverRequest, ServerResponse serverResponse) {
         serverResponse.send(repository.selectAllArtefacts());
@@ -52,8 +55,8 @@ public class CloneService implements Service {
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     public void completeInsertion(ServerRequest request, ServerResponse response){
         repository.insertJar(new ByteArrayInputStream(map.get("classes")), new ByteArrayInputStream(map.get("sources")));
@@ -65,19 +68,20 @@ public class CloneService implements Service {
         repository.insertArtefact(lastJar.idJar(), dataMap.get("name"), dataMap.get("url"));
         repository.insertMetadata(lastJar.idJar(), dataMap.get("groupId"), dataMap.get("artifactId"), dataMap.get("version"));
 
-        response.send(Http.Status.OK_200).thenAcceptAsync(r -> {
-            new Analyzer(dbClient, lastJar.classes(), lastJar.idJar()).launch();
-            System.out.println("idJar2 : " + lastJar.idJar());
-            new CloneDetector(dbClient, lastJar.idJar()).detect();
-        });
+        response.send(Http.Status.OK_200);
+
+        System.out.println("complete insertion sent");
+        new Analyzer(dbClient, lastJar.classes(), lastJar.idJar()).launch();
+        System.out.println("idJar2 : " + lastJar.idJar());
+        new CloneDetector(dbClient, lastJar.idJar()).detect();
 
     }
 
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     public void insertArtefact(ServerRequest request, ServerResponse response) {
         var type = request.path().param("type");
@@ -96,8 +100,8 @@ public class CloneService implements Service {
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     private void getArtefactById(ServerRequest request, ServerResponse response) {
         var id = Integer.parseInt(request.path().param("id"));
@@ -106,21 +110,10 @@ public class CloneService implements Service {
         response.send(metadata.isEmpty() ? "error" : List.of(metadata.get()));
     }
 
-
     /**
      *
-     * @param idHash
-     * @return
-     */
-    private Jar getJarByIdHash(long idHash){
-        var id = repository.selectInstrById(idHash).id();
-        return repository.selectJarById(id);
-    }
-
-    /**
-     *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     private void getAllBestScores(ServerRequest request, ServerResponse response) {
         var artefacts = repository.selectAllArtefacts();
@@ -134,8 +127,8 @@ public class CloneService implements Service {
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     private void getBestScoresById(ServerRequest request, ServerResponse response) {
         var id = Integer.parseInt(request.path().param("id"));
@@ -147,8 +140,8 @@ public class CloneService implements Service {
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     private void getBestScoresArtefacts(ServerRequest request, ServerResponse response) {
         var id = Integer.parseInt(request.path().param("id"));
@@ -158,8 +151,8 @@ public class CloneService implements Service {
 
     /**
      *
-     * @param request
-     * @param response
+     * @param request the server request
+     * @param response the server response
      */
     private void getCloneSource(ServerRequest request, ServerResponse response){
         var id = Integer.parseInt(request.path().param("id"));
@@ -171,8 +164,8 @@ public class CloneService implements Service {
 
             var map = res.stream().collect(Collectors.groupingBy(clone -> clone.idClone(), Collectors.toList()));
             map.entrySet().forEach(clone -> {
-                var jar1 = getJarByIdHash(clone.getValue().get(0).id1());
-                var jar2 = getJarByIdHash(clone.getValue().get(0).id2());
+                var jar1 = repository.selectJarByIdHash(clone.getValue().get(0).id1());
+                var jar2 = repository.selectJarByIdHash(clone.getValue().get(0).id2());
 
                 /************************************************************************/
                 var id1instr1 = repository.selectInstrById(clone.getValue().get(0).id1());

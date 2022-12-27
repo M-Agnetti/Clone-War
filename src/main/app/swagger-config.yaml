@@ -1,0 +1,15 @@
+swagger: "2.0"
+info:
+  title: Clone-War
+  description: Title
+  version: 1.0.0
+host: http://localhost:8080
+schemes:
+  - http
+paths:
+  "/artefacts":
+    get:
+      description: Returns all the artifacts
+      responses:
+        '200':
+          description: A list of pets.

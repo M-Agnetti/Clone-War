@@ -21,23 +21,23 @@ public class Analyzer {
         DbClient dbClient = DbClient.create(dbConfig);
 
         var jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 6)
+                .addParam("id", 1)
                 .execute()).await().get().as(Jar.class);
         var map = AsmParser.parse(jar.classes().getBinaryStream());
         System.out.println(map);
         System.err.println("------------------------------------------------------------------------------");
 
         var a = new Analyzer(dbClient, jar.classes(), jar.idJar());
-        System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
+        //System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
         a.launch();
 
         System.out.println("/************************************************************************************************/\n\n");
-        System.out.println("                                          JAR 2                                ");
-        System.out.println("\n/************************************************************************************************/");
+        //System.out.println("                                          JAR 2                                ");
+        //System.out.println("\n/************************************************************************************************/");
 
 
         jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 7)
+                .addParam("id", 4)
                 .execute()).await().get().as(Jar.class);
         System.err.println("------------------------------------------------------------------------------");
 
@@ -71,19 +71,19 @@ public class Analyzer {
                         });
 
                 //analyse pour chaque fichier
-                System.out.println(hashs);
+                //System.out.println("\n\n" + hashs);
 
                 var sub = hashs.subList(0, Math.min(WIN_SIZE, hashs.size()))
                         .stream().mapToInt(Map.Entry::getValue).boxed().toList();
                 int h = hash(sub);
                 insertInstruction(h, entry.getKey(), hashs.get(0).getKey());
-                System.out.println("LINE1 : " + hashs.get(0).getKey() + " | " + hashs.subList(0, Math.min(WIN_SIZE, hashs.size())) +  " | hashValue : " + h);
+                //System.out.println("LINE1 : " + hashs.get(0).getKey() + " | " + hashs.subList(0, Math.min(WIN_SIZE, hashs.size())) +  " | hashValue : " + h);
                 for(var i = 1 ; i + WIN_SIZE <= hashs.size() ; i++){
                     //h = h - hashs.get(i-1).getValue() + hashs.get(i + WIN_SIZE - 1).getValue();
-                    System.out.println("line : " + hashs.get(i).getKey() + " | " + hashs.subList(i, i+WIN_SIZE));
+                    //System.out.println("line : " + hashs.get(i).getKey() + " | " + hashs.subList(i, i+WIN_SIZE));
 
                     h = nextHash(h, hashs.get(i-1).getValue(), hashs.get(i + WIN_SIZE - 1).getValue());
-                    System.out.println("next hash : " + h);
+                    //System.out.print(" | next hash : " + h);
                     insertInstruction(h, entry.getKey(), hashs.get(i).getKey());
                 }
 
@@ -123,7 +123,7 @@ public class Analyzer {
         for(i = 2 ; i < list.size() ; i++){
             h = h - list.get(i-2).getValue() + list.get(i).getValue();
         }
-        return h % 4391;
+        return h;
     }
 
     private static int hash(List<Integer> list){
@@ -132,26 +132,16 @@ public class Analyzer {
         for(var i = 0 ; i < list.size() ; i++){
             h += (Math.pow(p, WIN_SIZE - 1 - i) * list.get(i));
         }
-        System.out.println("hash : " + (h%563));
-        return h % 563;
+        //System.out.println("hash : " + h);
+        //return h % 563;
+        return h;
     }
 
     private static int nextHash(int hash, int previous, int next){
         int p = 5;
-        return ( (hash - previous * (int)Math.pow(p, WIN_SIZE - 1)) * p + next) % 563;
+        return ( (hash - previous * (int)Math.pow(p, WIN_SIZE - 1)) * p + next);
+       // return ( (hash - previous * (int)Math.pow(p, WIN_SIZE - 1)) * p + next) % 563;
         //( ( H - c1ak-1 ) * a + ck+1a0 ) % m
     }
-/*
-    private static int hash(String s){
-        var key = 7;
-        var m = 52631; //large prime number
-        long sumHash = 0;
-        for(var i = 0 ; i < s.length() ; i++){
-            var n = ((int)s.charAt(i)) * (long)Math.pow(key, i);
-            sumHash += n;
-        }
-        return (int)(Math.abs(sumHash) % m);
-    }
 
- */
 }

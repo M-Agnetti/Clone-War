@@ -9,25 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="envoi des meilleurs score + affichage des graphes des meilleurs scores">
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/ArtefactTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/InstructionTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/JarTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/MetaDataTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/ScoreTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="Model tests">
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/CloneDetectorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/AnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/ArtefactMapperProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/mapper/ArtefactMapperProviderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/AsmParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AsmParserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/CloneServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/service/CloneServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/SourcesJarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/SourcesJarTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/StorageTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AsmParserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/service/CloneServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/service/CloneServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +116,7 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.clone.jar">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="SwaggerCodegen">
       <option name="activeConfigurationType" value="FILE" />
       <option name="configurationPath" value="" />
@@ -143,6 +132,19 @@
       <option name="language" value="java" />
       <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yaml" />
       <method v="2" />
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.uge.clone.main.Main" />
+      <module name="clone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.uge.clone.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="clone.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/clone.jar" />
@@ -166,6 +168,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JAR Application.clone.jar" />
       </list>
     </recent_temporary>
@@ -483,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672073763590</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Model tests">
+      <created>1672146242813</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1672146242813</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,6 +533,7 @@
     <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
     <MESSAGE value="hash + detection des clones + affichage des clones dans le front" />
     <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
-    <option name="LAST_COMMIT_MESSAGE" value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
+    <MESSAGE value="Model tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Model tests" />
   </component>
 </project>

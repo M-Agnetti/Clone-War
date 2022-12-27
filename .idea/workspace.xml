@@ -9,39 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="envoi des meilleurs score + affichage des graphes des meilleurs scores">
-      <change afterPath="$PROJECT_DIR$/seq-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/seq.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clone.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Artefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Artefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/ArtefactMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Clone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Clone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneArtefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/CloneMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Instruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/InstructionMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/InstructionMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Jar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Jar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/JarMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/JarMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/MetaData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaDataMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/MetaDataMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Score.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ScoreMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/ScoreMapperProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="documentation + open api">
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/openapi.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,8 +103,8 @@
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn package" />
-      <command value="mvn clean" />
       <command value="mvn clean package" />
+      <command value="mvn clean" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
@@ -247,6 +218,7 @@
       <workItem from="1671958427065" duration="43018000" />
       <workItem from="1672063275000" duration="16091000" />
       <workItem from="1672084496319" duration="6770000" />
+      <workItem from="1672130350447" duration="385000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -493,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672073763590</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="documentation + open api">
+      <created>1672130547675</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1672130547675</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,6 +512,7 @@
     <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
     <MESSAGE value="hash + detection des clones + affichage des clones dans le front" />
     <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
-    <option name="LAST_COMMIT_MESSAGE" value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
+    <MESSAGE value="documentation + open api" />
+    <option name="LAST_COMMIT_MESSAGE" value="documentation + open api" />
   </component>
 </project>

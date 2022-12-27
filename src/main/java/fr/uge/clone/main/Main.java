@@ -1,7 +1,7 @@
 package fr.uge.clone.main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.uge.clone.controller.CloneService;
+import fr.uge.clone.service.CloneService;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 import io.helidon.media.jackson.JacksonSupport;
@@ -11,7 +11,6 @@ import io.helidon.webserver.Routing;
 import io.helidon.webserver.SocketConfiguration;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.staticcontent.StaticContentSupport;
-import org.eclipse.microprofile.openapi.models.OpenAPI;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;

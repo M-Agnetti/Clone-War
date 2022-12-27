@@ -1,4 +1,4 @@
-package fr.uge.clone.controller;
+package fr.uge.clone.service;
 
 import fr.uge.clone.repository.CloneRepository;
 import fr.uge.clone.analyze.SourcesJar;
@@ -11,7 +11,6 @@ import io.helidon.common.http.Http;
 import io.helidon.dbclient.DbClient;
 import io.helidon.webserver.*;
 
-import java.beans.BeanProperty;
 import java.io.ByteArrayInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;

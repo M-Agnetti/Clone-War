@@ -1,5 +1,6 @@
-package fr.uge.clone;
+package fr.uge.clone.mapper;
 
+import fr.uge.clone.model.Score;
 import io.helidon.dbclient.DbColumn;
 import io.helidon.dbclient.DbMapper;
 import io.helidon.dbclient.DbRow;

@@ -1,4 +1,4 @@
-package fr.uge.clone;
+package fr.uge.clone.analyze;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;

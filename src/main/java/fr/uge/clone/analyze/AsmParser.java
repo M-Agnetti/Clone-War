@@ -1,4 +1,4 @@
-package fr.uge.clone;
+package fr.uge.clone.analyze;
 
 import org.objectweb.asm.*;
 

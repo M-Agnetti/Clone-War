@@ -1,6 +1,6 @@
-fr.uge.clone.ArtefactMapperProvider
-fr.uge.clone.MetaDataMapperProvider
-fr.uge.clone.InstructionMapperProvider
-fr.uge.clone.CloneMapperProvider
-fr.uge.clone.JarMapperProvider
-fr.uge.clone.ScoreMapperProvider
+fr.uge.clone.mapper.ArtefactMapperProvider
+fr.uge.clone.mapper.MetaDataMapperProvider
+fr.uge.clone.mapper.InstructionMapperProvider
+fr.uge.clone.mapper.CloneMapperProvider
+fr.uge.clone.mapper.JarMapperProvider
+fr.uge.clone.mapper.ScoreMapperProvider

@@ -1,4 +1,4 @@
-package fr.uge.clone;
+package fr.uge.clone.model;
 
 import java.util.Objects;
 

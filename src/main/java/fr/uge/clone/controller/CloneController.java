@@ -1,7 +1,5 @@
-package fr.uge.clone;
-
+package fr.uge.clone.controller;
 import io.helidon.dbclient.DbClient;
-
 import java.util.Objects;
 
 public class CloneController {

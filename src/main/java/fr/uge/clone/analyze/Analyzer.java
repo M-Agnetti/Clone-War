@@ -1,12 +1,12 @@
-package fr.uge.clone;
+package fr.uge.clone.analyze;
 
+import fr.uge.clone.model.Jar;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Analyzer {
@@ -21,7 +21,7 @@ public class Analyzer {
         DbClient dbClient = DbClient.create(dbConfig);
 
         var jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 15)
+                .addParam("id", 6)
                 .execute()).await().get().as(Jar.class);
         var map = AsmParser.parse(jar.classes().getBinaryStream());
         System.out.println(map);
@@ -31,19 +31,19 @@ public class Analyzer {
         System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
         a.launch();
 
+        System.out.println("/************************************************************************************************/\n\n");
+        System.out.println("                                          JAR 2                                ");
+        System.out.println("\n/************************************************************************************************/");
 
-        /************************************************************************************************/
 
         jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 9)
+                .addParam("id", 7)
                 .execute()).await().get().as(Jar.class);
         System.err.println("------------------------------------------------------------------------------");
 
         a = new Analyzer(dbClient, jar.classes(), jar.idJar());
         System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
         a.launch();
-
-
 
     }
 
@@ -71,15 +71,22 @@ public class Analyzer {
                         });
 
                 //analyse pour chaque fichier
+                System.out.println(hashs);
 
-                int h = hashs.subList(0, Math.min(WIN_SIZE, hashs.size())).stream().mapToInt(Map.Entry::getValue).sum();
+                var sub = hashs.subList(0, Math.min(WIN_SIZE, hashs.size()))
+                        .stream().mapToInt(Map.Entry::getValue).boxed().toList();
+                int h = hash(sub);
                 insertInstruction(h, entry.getKey(), hashs.get(0).getKey());
-                //System.out.println("LINE1 : " + hashs.get(0).getKey() + " | " + hashs.subList(0, Math.min(WIN_SIZE, hashs.size())) +  " | hashValue : " + h);
+                System.out.println("LINE1 : " + hashs.get(0).getKey() + " | " + hashs.subList(0, Math.min(WIN_SIZE, hashs.size())) +  " | hashValue : " + h);
                 for(var i = 1 ; i + WIN_SIZE <= hashs.size() ; i++){
-                    h = h - hashs.get(i-1).getValue() + hashs.get(i + WIN_SIZE - 1).getValue();
-                    //System.out.println("line : " + hashs.get(i).getKey() + " | " + hashs.subList(i, i+WIN_SIZE) +  " | hashValue : " + h);
+                    //h = h - hashs.get(i-1).getValue() + hashs.get(i + WIN_SIZE - 1).getValue();
+                    System.out.println("line : " + hashs.get(i).getKey() + " | " + hashs.subList(i, i+WIN_SIZE));
+
+                    h = nextHash(h, hashs.get(i-1).getValue(), hashs.get(i + WIN_SIZE - 1).getValue());
+                    System.out.println("next hash : " + h);
                     insertInstruction(h, entry.getKey(), hashs.get(i).getKey());
                 }
+
             });
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
@@ -119,13 +126,20 @@ public class Analyzer {
         return h % 4391;
     }
 
-    private static int hash(List<Map.Entry<Integer, Integer>> list){
+    private static int hash(List<Integer> list){
         int h = 0;
-        int p = 7; //clé de hachage
+        int p = 5; //clé de hachage
         for(var i = 0 ; i < list.size() ; i++){
-            h += (Math.pow(13, i) * list.get(i).getValue());
+            h += (Math.pow(p, WIN_SIZE - 1 - i) * list.get(i));
         }
+        System.out.println("hash : " + (h%563));
         return h % 563;
+    }
+
+    private static int nextHash(int hash, int previous, int next){
+        int p = 5;
+        return ( (hash - previous * (int)Math.pow(p, WIN_SIZE - 1)) * p + next) % 563;
+        //( ( H - c1ak-1 ) * a + ck+1a0 ) % m
     }
 /*
     private static int hash(String s){

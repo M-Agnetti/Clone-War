@@ -9,75 +9,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="hash + detection des clones + affichage des clones dans le front">
-      <change afterPath="$PROJECT_DIR$/openapi/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/CustomConstructor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ExpandedTypeDescription.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ImplTypeDescription.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIMediaType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ParserHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/Serializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/OpenAPIConfigImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/helidon/native-image/reflection-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/native-image/io.helidon.openapi/helidon-openapi/native-image.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/OpenAPIConfigTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/ParserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/SerializerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestAdditionalProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestOpenAPIMediaTypesDescribedCorrectly.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/openapi-greeting.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/openapi-time-server.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/petstore.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/petstore.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/serverCORSRestricted.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/serverNoCORS.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/serverTest.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/simple.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/withBooleanAddlProps.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi/src/test/resources/withSchemaAddlProps.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneArtefact.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Score.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ScoreMapperProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/META-INF/maven/com.mastfrog/jackson/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/META-INF/maven/com.mastfrog/jackson/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/DurationSerializationMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/JacksonConfigurer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/JacksonModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/JavaTimeConfigurer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/LocaleJacksonConfigurer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/OptionalJavaUtilSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/OptionalSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/TimeSerializationMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/jackson/com/mastfrog/jackson/WrapperJacksonConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0fcd3b7d-4222-4ac5-862d-e66c2f0d7437.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0fcd3b7d-4222-4ac5-862d-e66c2f0d7437.xml" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="envoi des meilleurs score + affichage des graphes des meilleurs scores">
+      <change afterPath="$PROJECT_DIR$/seq-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/seq.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_33.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/Animation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/Animation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/PostList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Artefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Artefact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ArtefactMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/ArtefactMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Clone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Clone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneArtefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/CloneMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/controller/CloneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Instruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/InstructionMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/InstructionMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Jar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Jar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/JarMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/JarMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/MetaData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/MetaDataMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/MetaDataMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/ScoreMapperProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/mapper/ScoreMapperProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/openapi.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/io.helidon.dbclient.spi.DbMapperProvider" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/openapi.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
     </list>
@@ -91,10 +53,10 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Swagger" />
         <option value="OpenAPI" />
         <option value="Class" />
         <option value="Record" />
+        <option value="Swagger" />
       </list>
     </option>
   </component>
@@ -161,17 +123,17 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\" />
+      <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\services" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\META-INF" />
-      <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\services" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn package" />
-      <command value="mvn clean package" />
       <command value="mvn clean" />
+      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
@@ -208,7 +170,7 @@
       <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
       <option name="jdkPath" value="" />
       <option name="language" value="java" />
-      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yml" />
+      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yaml" />
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -283,7 +245,8 @@
       <workItem from="1671881323301" duration="24217000" />
       <workItem from="1671912582869" duration="7779000" />
       <workItem from="1671958427065" duration="43018000" />
-      <workItem from="1672063275000" duration="9578000" />
+      <workItem from="1672063275000" duration="16091000" />
+      <workItem from="1672084496319" duration="6770000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -523,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671910862157</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="envoi des meilleurs score + affichage des graphes des meilleurs scores">
+      <created>1672073763590</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1672073763590</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,6 +532,7 @@
     <MESSAGE value="solved the pom problem" />
     <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
     <MESSAGE value="hash + detection des clones + affichage des clones dans le front" />
-    <option name="LAST_COMMIT_MESSAGE" value="hash + detection des clones + affichage des clones dans le front" />
+    <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
+    <option name="LAST_COMMIT_MESSAGE" value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
   </component>
 </project>

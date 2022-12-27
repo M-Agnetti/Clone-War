@@ -1,5 +1,6 @@
-package fr.uge.clone;
+package fr.uge.clone.analyze;
 
+import fr.uge.clone.model.Instruction;
 import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 import io.helidon.dbclient.DbRow;
@@ -118,9 +119,14 @@ public class CloneDetector {
                     var idClone = getLastCloneId();
 
                     for(i++, j++; i < currents.size() && j < instr.size();  i++, j++)  {
-                        if(!currents.get(i - 1).file().equals(currents.get(i).file()) || !instr.get(j - 1).file().equals(instr.get(j).file())) {
+                        if(!currents.get(i - 1).file().equals(currents.get(i).file()) || !instr.get(j - 1).file().equals(instr.get(j).file())
+                            ) {
                             break;
                         }
+                        if(currents.get(i).hash() != instr.get(j).hash()) {
+                            break;
+                        }
+
                     }
                     insertCloneSucc(idClone, currents.get(i-1).idHash(), instr.get(j-1).idHash());
                     break;

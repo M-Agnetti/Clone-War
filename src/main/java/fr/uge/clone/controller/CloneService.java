@@ -1,9 +1,17 @@
-package fr.uge.clone;
+package fr.uge.clone.controller;
 
+import fr.uge.clone.repository.CloneRepository;
+import fr.uge.clone.analyze.SourcesJar;
+import fr.uge.clone.analyze.Analyzer;
+import fr.uge.clone.analyze.CloneDetector;
+import fr.uge.clone.model.Clone;
+import fr.uge.clone.model.CloneArtefact;
+import fr.uge.clone.model.Jar;
 import io.helidon.common.http.Http;
 import io.helidon.dbclient.DbClient;
 import io.helidon.webserver.*;
 
+import java.beans.BeanProperty;
 import java.io.ByteArrayInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;

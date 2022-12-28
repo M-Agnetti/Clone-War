@@ -9,53 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="jar de test">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_activation_jakarta_activation_2_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_config_helidon_config_mp_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_config_helidon_config_testing_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_config_helidon_config_yaml_mp_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_integrations_openapi_ui_helidon_integrations_openapi_ui_2_5_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_jersey_helidon_jersey_client_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_microprofile_tests_helidon_microprofile_tests_junit5_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_helidon_service_common_helidon_service_common_rest_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_smallrye_smallrye_open_api_ui_2_0_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_el_jakarta_el_api_4_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_enterprise_jakarta_enterprise_cdi_api_3_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_inject_jakarta_inject_api_2_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_interceptor_jakarta_interceptor_api_2_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_ws_rs_jakarta_ws_rs_api_3_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_3_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_osgi_resource_locator_1_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_client_3_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_core_jersey_common_3_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_inject_jersey_hk2_3_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_all_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_28_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_30.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/public/swagger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/SwaggerOpenApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/src/components/swagger.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/app/swagger-config.yaml" afterDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/clone.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/UploadFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/UploadFiles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/swagger-config.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/openapi.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/services/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/openapi.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
     </list>
@@ -103,6 +63,7 @@
     <hideBySeverity>
       <option value="300" />
     </hideBySeverity>
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2GrTigwP2nmTVv8jc1j0uQneBek" />
   <component name="ProjectLevelVcsManager">
@@ -149,8 +110,8 @@
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn package" />
-      <command value="mvn clean package" />
       <command value="mvn clean" />
+      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunManager" selected="JAR Application.clone.jar">
@@ -267,7 +228,8 @@
       <workItem from="1672130350447" duration="385000" />
       <workItem from="1672140225457" duration="70000" />
       <workItem from="1672142519965" duration="17860000" />
-      <workItem from="1672162643466" duration="9585000" />
+      <workItem from="1672162643466" duration="11947000" />
+      <workItem from="1672247012704" duration="2817000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -528,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672140284810</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json">
+      <created>1672172768303</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1672172768303</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,6 +539,7 @@
     <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
     <MESSAGE value="documentation + open api" />
     <MESSAGE value="jar de test" />
-    <option name="LAST_COMMIT_MESSAGE" value="jar de test" />
+    <MESSAGE value="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json" />
   </component>
 </project>

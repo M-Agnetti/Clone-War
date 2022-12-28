@@ -27,11 +27,7 @@ public class AsmParser {
     }
 
     private static List<Integer> getListOpcode(int opcode, String arg){
-        var list = new ArrayList<>(List.of(opcode));
-        for(var i = 0 ; i < arg.length() ; i++){
-            list.add((int)arg.charAt(i));
-        }
-        return list;
+        return List.of(opcode, arg.hashCode());
     }
 
 

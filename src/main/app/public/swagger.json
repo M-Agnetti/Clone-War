@@ -66,10 +66,10 @@
     },
     "/scores/{id}": {
       "get": {
-        "description": "description",
+        "description": "Returns the five best 5 scores of an artifact",
         "responses": {
           "200": {
-            "description": "description"
+            "description": "The list of the scores and the clone artifact"
           }
         },
         "parameters": [
@@ -87,10 +87,10 @@
     },
     "/all-scores": {
       "get": {
-        "description": "Returns",
+        "description": "Returns the 5 best scores of each artifact",
         "responses": {
           "200": {
-            "description": "description"
+            "description": "The list of the best scores for each artifact"
           }
         }
       }

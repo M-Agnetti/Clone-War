@@ -14,7 +14,7 @@ public class CloneArtefactTest {
     public void getFields(){
       Artefact artefact = new Artefact(0, "a1", new Date(1672144775L), 0, "");
       CloneArtefact clone = new CloneArtefact(artefact, 0);
-      assertEquals(new Artefact(0, "a1", new Date(1672144775L), 0, ""), clone.artefact());
+      assertEquals(  new Artefact(0, "a1", new Date(1672144775L), 0, ""), clone.artefact());
       assertEquals(0, clone.score());
     }
   }

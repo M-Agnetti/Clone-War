@@ -50,6 +50,7 @@ const Artefact = () => {
             .then(res => res.json())
             .then(data => {
                 setSources(data);
+                console.log(data);
             })
             .catch(err => console.log(err));
 
@@ -120,23 +121,28 @@ const Artefact = () => {
                     <CanvasJSChart options = {options} />
                 </div>
 
-            <div className="content-around sm:grid sm:grid-cols-2 lg:grid-cols-2 gap-4 space-y-4 sm:space-y-0 bg-center">
                 {
-                    sources.map(source => source.map(code =>
+                    sources.map(source =>
+                        <div>
+                            <h2 className="text-xl font-medium text-gray-700">{source.artefact.name}</h2>
+                    {source.lines.map(clone =>
+                    <div className="content-around sm:grid sm:grid-cols-2 lg:grid-cols-2 gap-4 space-y-4 sm:space-y-0 bg-center mb-4">
+
+                    { clone.map(code =>
                         <div className="bg-slate-800 rounded px-3 py-3 mb-5 shadow-lg">
                             {
-                                code.map(lines => lines.map(line =>
-                                        <p className="text-left text-white font-mono text-base">
-                                            {line}
-                                        </p>
-                                    )
+                                code.map(line =>
+                                    <p className="text-left text-white font-mono text-base">
+                                        {line}
+                                    </p>
                                 )
                             }
                         </div>
-                    )
+                        ) } </div>
+
+                        ) } </div>
                     )
                 }
-            </div>
         </div>
             </div>
             </div>

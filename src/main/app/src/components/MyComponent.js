@@ -30,7 +30,7 @@ class MyComponent extends React.Component {
                 console.log('Response parsing failed. Error: ', ex);
             });
 
-        fetch('http://localhost:8080/allscores',{
+        fetch('http://localhost:8080/all-scores',{
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -39,6 +39,7 @@ class MyComponent extends React.Component {
             'credentials': 'same-origin'
         }).then(res => res.json())
             .then((data) => {
+                console.log(data);
                 let tmp = [];
                 art.then((arts) => {
                     for(let pos = 0 ; pos < arts.length && pos < data.length ; pos++){
@@ -46,6 +47,7 @@ class MyComponent extends React.Component {
                         for (let i = 0; i < data.at(pos).length ; i++) {
                             points.push({label: data.at(pos).at(i).artefact.name, y:data.at(pos).at(i).score});
                         }
+                        console.log(points);
                         tmp.push({
                             artefact: arts.at(pos),
                             options: {

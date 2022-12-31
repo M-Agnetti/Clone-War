@@ -4,11 +4,9 @@ import fr.uge.clone.model.*;
 import io.helidon.dbclient.DbClient;
 import io.helidon.dbclient.DbRow;
 import java.io.ByteArrayInputStream;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class CloneRepository {
 
@@ -110,10 +108,10 @@ public class CloneRepository {
     }
 
     /**
-     *
-     * @param id1
-     * @param id2
-     * @param score
+     * Inserts a score between 0 and 100 (a percentage) between two artifacts
+     * @param id1 the first artifact's id
+     * @param id2 the second artifact's id
+     * @param score the score between 0 and 100
      */
     public void insertScore(long id1, long id2, long score){
         dbClient.execute(exec -> exec.createNamedInsert("insert-score")
@@ -196,14 +194,15 @@ public class CloneRepository {
      */
     public Instruction selectInstrById(long id){
         return dbClient.execute(exec -> exec.createNamedGet("select-instr-by-idHash")
-                .addParam("id", id).execute()
-                .map(dbRow -> dbRow.get().as(Instruction.class))).await();
+                .addParam("id", id).execute())
+                .await().map(dbRow -> dbRow.as(Instruction.class)).orElseThrow();
     }
 
     /**
+     * Selects and returns all the instructions of an artifact.
      *
-     * @param id
-     * @return
+     * @param id the artifact's
+     * @return the list of instructions
      */
     public List<Instruction> selectInstrOfArtifact(long id){
         try {
@@ -215,10 +214,17 @@ public class CloneRepository {
         }
     }
 
-    public List<Instruction> getAllOtherInstructions(long id){
+    /**
+     * Selects all the instruction other than a specific artifact.
+     *
+     * @param id the artifact's id
+     * @return a map which associates each artifact's id to its list of instructions.
+     */
+    public Map<Long, List<Instruction>> getAllOtherInstructions(long id){
         try {
             return dbClient.execute(dbExecute -> dbExecute.createNamedQuery("select-all-hash")
-                    .addParam("id", id).execute().map(dbRow -> dbRow.as(Instruction.class))).collectList().get();
+                    .addParam("id", id).execute().map(dbRow -> dbRow.as(Instruction.class))).collectList().get()
+                    .stream().collect(Collectors.groupingBy(Instruction::id, Collectors.toList()));
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -230,40 +236,35 @@ public class CloneRepository {
      * @param id the artifact's id
      * @return an Optional containing the metadata if found, an empty Optional otherwise
      */
-    public Optional<MetaData> selectMetaDataById(long id){
+    public MetaData selectMetaDataById(long id){
         return dbClient.execute(exec -> exec
                 .createNamedGet("select-metadata-by-id")
                 .addParam("id", id)
-                .execute()).await().map(dbRow -> dbRow.as(MetaData.class));
+                .execute()).await().map(dbRow -> dbRow.as(MetaData.class)).orElseThrow();
     }
 
     /**
+     * Selects all the lines of the Clone table of an artifact
+     * and maps them as Clone objects.
      *
-     * @param id
-     * @return
+     * @param id the artifact's id
+     * @return the list of clones
      */
-    public List<DbRow> countClonesOfArtifact(long id){
+    public List<Clone> selectClonesOfArtifact(long id){
         try {
-            return dbClient.execute(dbExecute -> dbExecute.createNamedQuery("count-clone-by-id").addParam("id1", id)
-                    .addParam("id2", id).execute()).collectList().get();
+            return dbClient.execute(dbExecute -> dbExecute.createNamedQuery("get-clone-of-art")
+                    .addParam("id1", id).addParam("id2", id).execute()
+                    .map(dbRow -> dbRow.as(Clone.class))).collectList().get();
+
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     /**
-     * Counts the line of the table Instruction linked to a specific artifact
-     *
-     * @param id the artifact's id
-     * @return the number of instructions of the artifact
-     */
-    private long countInstructionsOfArtifact(long id){
-        return dbClient.execute(exec -> exec.createNamedGet("count-instr-by-id")
-                .addParam("id", id).execute()).await().get().column("NB").as(Long.class);
-    }
-
-    /**
-     * Selects
+     * Selects a jar
      *
      * @param idHash the primary key of the instruction
      * @return the Jar selected
@@ -274,8 +275,9 @@ public class CloneRepository {
     }
 
     /**
+     * Selects the last id inserted in the Clone table.
      *
-     * @return
+     * @return the id selected
      */
     public long getLastCloneId(){
         var lastClone = dbClient.execute(exec -> exec.createNamedGet("get-last-clone-id")
@@ -283,28 +285,31 @@ public class CloneRepository {
         return lastClone == null ? 0 : lastClone.column("IDCLONE").as(Long.class);
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    public long countInstructions(long id){
-        return dbClient.execute(exec -> exec.createNamedGet("count-instr-by-id")
-                .addParam("id", id).execute()).await().get().column("NB").as(Long.class);
-    }
 
     /**
      *
-     * @param id
-     * @return
+     *
+     * @param id the artifact's id
+     * @return the list of rows selected
      */
     public List<DbRow> countClones(long id){
         try {
-            return dbClient.execute(dbExecute -> dbExecute.createNamedQuery("count-clone-by-id").addParam("id1", id)
+            return dbClient.execute(dbExecute -> dbExecute.createNamedQuery("get-clone-of-art").addParam("id1", id)
                     .addParam("id2", id).execute()).collectList().get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Map<String, Integer> getLinesOfClone(long idHash1, long idHash2){
+        var map = new HashMap<String, Integer>();
+
+        var list = dbClient.execute(dbExecute -> dbExecute.createNamedQuery("get-lines-of-clone").addParam("id1", idHash1)
+                .addParam("id2", idHash2).execute().map(row -> row.column("LINE").as(Integer.class)))
+                .collectList().await();
+        map.put("min", list.stream().mapToInt(Integer::valueOf).min().orElse(1));
+        map.put("max", list.stream().mapToInt(Integer::valueOf).max().orElse(1));
+        return map;
     }
 
 

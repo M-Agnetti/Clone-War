@@ -1,18 +1,19 @@
 package fr.uge.clone.service;
 
+import fr.uge.clone.analyze.SourcesReader;
+import fr.uge.clone.model.*;
 import fr.uge.clone.repository.CloneRepository;
-import fr.uge.clone.analyze.SourcesJar;
 import fr.uge.clone.analyze.Analyzer;
 import fr.uge.clone.analyze.CloneDetector;
-import fr.uge.clone.model.Clone;
-import fr.uge.clone.model.CloneArtefact;
+import io.helidon.common.http.DataChunk;
 import io.helidon.common.http.Http;
 import io.helidon.dbclient.DbClient;
 import io.helidon.webserver.*;
 
 import java.io.ByteArrayInputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 
@@ -29,16 +30,18 @@ public class CloneService implements Service {
     }
 
     /**
+     * Defines all the routes and handlers for each request.
      *
-     * @param rules
+     * @param rules the rules of the APIs routing.
      */
     @Override
     public void update(Routing.Rules rules)  {
+        Objects.requireNonNull(rules);
         rules.get("/artefacts", this::getArtefacts)
                 .get("/artefact/{id}", this::getArtefactById)
                 .get("/clones/{id}", this::getCloneSource)
                 .get("/scores/{id}", this::getBestScoresById)
-                .get("/allscores", this::getAllBestScores)
+                .get("/all-scores", this::getAllBestScores)
                 .post("/post/{type}", this::insertArtefact)
                 .post("/class/UploadComplete", this::completeInsertion);
     }
@@ -49,44 +52,54 @@ public class CloneService implements Service {
      * @param serverRequest the server request
      * @param serverResponse the server response
      */
-    public void getArtefacts(ServerRequest serverRequest, ServerResponse serverResponse) {
+    private void getArtefacts(ServerRequest serverRequest, ServerResponse serverResponse){
         serverResponse.send(repository.selectAllArtefacts());
     }
 
+    private boolean checkJars(Blob classes, Blob sources) {
+        try {
+            return SourcesReader.isSourcesJar(sources.getBinaryStream()) && SourcesReader.isClassesJar(classes.getBinaryStream());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      *
      * @param request the server request
      * @param response the server response
      */
-    public void completeInsertion(ServerRequest request, ServerResponse response){
+    private void completeInsertion(ServerRequest request, ServerResponse response){
         repository.insertJar(new ByteArrayInputStream(map.get("classes")), new ByteArrayInputStream(map.get("sources")));
-
-        var lastJar = repository.selectLastJar();
-        var dataMap = SourcesJar.getAllData(lastJar.sources());
         map.clear();
+        var lastJar = repository.selectLastJar();
 
-        repository.insertArtefact(lastJar.idJar(), dataMap.get("name"), dataMap.get("url"));
-        repository.insertMetadata(lastJar.idJar(), dataMap.get("groupId"), dataMap.get("artifactId"), dataMap.get("version"));
-
-        response.send(Http.Status.OK_200);
-
-        System.out.println("complete insertion sent");
-        new Analyzer(dbClient, lastJar.classes(), lastJar.idJar()).launch();
-        System.out.println("idJar2 : " + lastJar.idJar());
-        new CloneDetector(dbClient, lastJar.idJar()).detect();
-
+        if(checkJars(lastJar.classes(), lastJar.sources())){
+            finishAcceptedInsertion(lastJar);
+            response.send(Http.Status.OK_200);
+        }
+        else {
+            response.send(Http.Status.NOT_ACCEPTABLE_406);
+        }
     }
 
+    private void finishAcceptedInsertion(Jar jar) {
+        var dataMap = SourcesReader.getAllData(jar.sources());
+        repository.insertArtefact(jar.idJar(), dataMap.get("name"), dataMap.get("url"));
+        repository.insertMetadata(jar.idJar(), dataMap.get("groupId"), dataMap.get("artifactId"), dataMap.get("version"));
+
+        new Analyzer(dbClient, jar.classes(), jar.idJar()).launch();
+        new CloneDetector(dbClient, jar.idJar()).detect();
+    }
 
     /**
      *
      * @param request the server request
      * @param response the server response
      */
-    public void insertArtefact(ServerRequest request, ServerResponse response) {
+    private void insertArtefact(ServerRequest request, ServerResponse response) {
         var type = request.path().param("type");
 
-        request.content().map(byteBuffers -> byteBuffers.bytes()).collectList()
+        request.content().map(DataChunk::bytes).collectList()
                 .forSingle(bytes1 -> bytes1.forEach(bytesArray ->
                     map.merge(type, bytesArray, (v1, v2) -> {
                         var array = new byte[v1.length + v2.length];
@@ -106,8 +119,7 @@ public class CloneService implements Service {
     private void getArtefactById(ServerRequest request, ServerResponse response) {
         var id = Integer.parseInt(request.path().param("id"));
         var metadata = repository.selectMetaDataById(id);
-        System.out.println(metadata.get());
-        response.send(metadata.isEmpty() ? "error" : List.of(metadata.get()));
+        response.send(List.of(metadata));
     }
 
     /**
@@ -118,9 +130,12 @@ public class CloneService implements Service {
     private void getAllBestScores(ServerRequest request, ServerResponse response) {
         var artefacts = repository.selectAllArtefacts();
         ArrayList<List<CloneArtefact>> list = new ArrayList<>();
-        artefacts.stream().forEach(art -> {
+        artefacts.forEach(art -> {
             var scores = repository.selectBestScores(art.id());
-            list.add(scores.stream().map(score -> new CloneArtefact(art, score.score())).toList());
+            list.add(scores.stream().map(score -> {
+                var art2 = repository.selectArtById(score.id1() == art.id() ? score.id2() : score.id1());
+                return new CloneArtefact(art2, score.score());
+            }).toList());
         });
         response.send(list);
     }
@@ -138,16 +153,6 @@ public class CloneService implements Service {
         response.send(scores.stream().map(score -> new CloneArtefact(it.next(), score.score())).toList());
     }
 
-    /**
-     *
-     * @param request the server request
-     * @param response the server response
-     */
-    private void getBestScoresArtefacts(ServerRequest request, ServerResponse response) {
-        var id = Integer.parseInt(request.path().param("id"));
-        var res = repository.selectBestScores(id).stream().map(score -> repository.selectArtById(score.id2())).toList();
-        response.send(res);
-    }
 
     /**
      *
@@ -156,34 +161,42 @@ public class CloneService implements Service {
      */
     private void getCloneSource(ServerRequest request, ServerResponse response){
         var id = Integer.parseInt(request.path().param("id"));
-        var list = new ArrayList<List<List<List<String>>>>();
-        try {
-            var res = dbClient.execute(dbExecute -> dbExecute.createNamedQuery("get-clone-of-art")
-                    .addParam("id1", id).addParam("id2", id).execute()
-                    .map(dbRow -> dbRow.as(Clone.class))).collectList().get();
+        var res = repository.selectClonesOfArtifact(id);
+        var artClones = new HashMap<Artefact, List<List<List<String>>>>();
 
-            var map = res.stream().collect(Collectors.groupingBy(clone -> clone.idClone(), Collectors.toList()));
-            map.entrySet().forEach(clone -> {
-                var jar1 = repository.selectJarByIdHash(clone.getValue().get(0).id1());
-                var jar2 = repository.selectJarByIdHash(clone.getValue().get(0).id2());
+        var map = res.stream().collect(Collectors.groupingBy(Clone::idClone, Collectors.toList()));
+        map.forEach((key, value) -> {
+            var jar1 = repository.selectJarByIdHash(value.get(0).id1());
+            var jar2 = repository.selectJarByIdHash(value.get(0).id2());
+            var art2 = repository.selectArtById(id == jar1.idJar() ? jar2.idJar() : jar1.idJar());
+            artClones.computeIfAbsent(art2, k -> new ArrayList<>()).add(forEachClone(id, jar1.idJar(), value));
+        });
 
-                /************************************************************************/
-                var id1instr1 = repository.selectInstrById(clone.getValue().get(0).id1());
-                var id2instr1 = repository.selectInstrById(clone.getValue().get(0).id2());
-                var id1instr2 = clone.getValue().size() == 1 ? id1instr1 :
-                        repository.selectInstrById(clone.getValue().get(1).id1());
-                var id2instr2 = clone.getValue().size() == 1 ? id2instr1 :
-                        repository.selectInstrById(clone.getValue().get(1).id2());
+        response.send(artClones.entrySet().stream().map(entry -> new CloneSources(entry.getKey(), entry.getValue())).toList());
+    }
 
-                list.add(List.of(SourcesJar.extractLines(jar1.sources(), id1instr1.file(), id1instr1.line(), id1instr2.line()),
-                                SourcesJar.extractLines(jar2.sources(), id2instr1.file(), id2instr1.line(), id2instr2.line())));
+    private List<List<String>> forEachClone(long id, long idJar, List<Clone> clones) {
+        var clone1 = clones.get(0);
+        var clone2 = clones.size() == 1 ? clone1 : clones.get(1);
+        return id == idJar ? getSourceOfClone(clone1.id1(), clone1.id2(), clone2.id1(), clone2.id2()) :
+                getSourceOfClone(clone1.id2(), clone1.id1(), clone2.id2(), clone2.id1());
+    }
 
-            });
 
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-        response.send(list);
+    private List<List<String>> getSourceOfClone(long clone1id1, long clone1id2, long clone2id1, long clone2id2){
+        var jar1 = repository.selectJarByIdHash(clone1id1);
+        var jar2 = repository.selectJarByIdHash(clone1id2);
+
+        var id1instr1 = repository.selectInstrById(clone1id1);
+        var id2instr1 = repository.selectInstrById(clone1id2);
+        var id1instr2 = repository.selectInstrById(clone2id1);
+        var id2instr2 = repository.selectInstrById(clone2id2);
+
+        var lines1 = repository.getLinesOfClone(id1instr1.idHash(), id1instr2.idHash());
+        var lines2 = repository.getLinesOfClone(id2instr1.idHash(), id2instr2.idHash());
+
+        return (List.of(SourcesReader.extractLines(jar1.sources(), id1instr1.file(), lines1.get("min"), lines1.get("max")),
+                SourcesReader.extractLines(jar2.sources(), id2instr1.file(), lines2.get("min"), lines2.get("max"))));
     }
 
 

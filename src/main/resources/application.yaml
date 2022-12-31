@@ -89,6 +89,7 @@ db:
                         constraint FK_SCORE1 foreign key (id1) references ARTEFACT (ID),
                         constraint FK_SCORE2 foreign key (id2) references ARTEFACT (ID)
                       );"
+
     select-all-types: "SELECT * FROM TEST"
     select-all-artefacts: "SELECT * FROM ARTEFACT"
     select-metadata-by-id: "SELECT * FROM METADATA WHERE idMeta = :id"
@@ -108,7 +109,7 @@ db:
     get-clone-of-art: "SELECT * FROM INSTRUCTION AS H1 JOIN CLONE JOIN INSTRUCTION AS H2 WHERE ID1 = H1.IDHASH AND ID2 = H2.IDHASH AND (H1.ID = :id1 or H2.ID = :id2)"
 
     count-instr-by-id: "SELECT COUNT(*) AS NB FROM INSTRUCTION WHERE ID = :id"
-    count-clone-by-id: "SELECT * FROM INSTRUCTION AS H1 JOIN CLONE JOIN INSTRUCTION AS H2 WHERE ID1 = H1.IDHASH AND ID2 = H2.IDHASH AND (H1.ID = :id1 or H2.ID = :id2)"
     insert-score: "INSERT INTO SCORE(ID1, ID2, SCORE) VALUES(?, ?, ?)"
     select-best-scores: "SELECT * FROM SCORE WHERE ID1 = :id ORDER BY SCORE DESC LIMIT 5"
+    get-lines-of-clone: "SELECT LINE FROM INSTRUCTION WHERE IDHASH >= :id1 AND IDHASH <= :id2"
 

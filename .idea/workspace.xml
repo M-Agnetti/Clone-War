@@ -9,23 +9,86 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="Some cleaning + documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_30.xml" beforeDir="false" />
+    <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="plusieurs problèmes réglés concernant le front + raccourci des méthodes + changé la détection des clones + changé tout l'ASM">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneSources.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/OpcodeEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/classes1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/classes3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/classes4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Person2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Person2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/sources3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/sources4.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/junit5-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/CustomConstructor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ExpandedTypeDescription.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ImplTypeDescription.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIMediaType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ParserHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/Serializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/OpenAPIConfigImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/helidon/native-image/reflection-config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/native-image/io.helidon.openapi/helidon-openapi/native-image.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/OpenAPIConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/ParserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/SerializerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestAdditionalProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestOpenAPIMediaTypesDescribedCorrectly.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/openapi-greeting.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/openapi-time-server.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/petstore.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/petstore.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverCORSRestricted.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverNoCORS.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverTest.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/simple.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/withBooleanAddlProps.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/withSchemaAddlProps.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq-sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seq.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/public/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/public/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/swagger.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Artefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Artefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Clone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Clone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Instruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Jar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Jar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/MetaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/MetaData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/AnalyzerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/analyze/SourcesJarTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/mapper/ArtefactMapperProviderTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/test/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/fr/uge/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/fr/uge/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test8.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testt.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,11 +99,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="OpenAPI" />
-        <option value="Record" />
-        <option value="Swagger" />
         <option value="Class" />
+        <option value="package.json" />
+        <option value="Swagger" />
+        <option value="JavaScript File" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -56,6 +120,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesReader.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -70,6 +137,7 @@
     <hideBySeverity>
       <option value="300" />
     </hideBySeverity>
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2GrTigwP2nmTVv8jc1j0uQneBek" />
   <component name="ProjectLevelVcsManager">
@@ -106,55 +174,24 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\services" />
+      <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources" />
       <recent name="C:\Users\soumi\IntellijProjects\nouveau\src\main\META-INF" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="fr.uge.clone.mapper" />
-      <recent name="fr.uge.clone.service" />
-      <recent name="fr.uge.clone.analyze" />
+      <recent name="fr.uge.clone.model" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn verify" />
       <command value="mvn package" />
-      <command value="mvn clean" />
       <command value="mvn clean package" />
+      <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="true" type="SwaggerCodegen">
-      <option name="activeConfigurationType" value="FILE" />
-      <option name="configurationPath" value="" />
-      <option name="customJreEnabled" value="false" />
-      <option name="customTemplatesPath" value="" />
-      <option name="enableDebugLogging" value="false" />
-      <option name="generateToPath" value="C:\Users\soumi\IntellijProjects\nouveau\gen" />
-      <option name="generationParameters">
-        <list />
-      </option>
-      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
-      <option name="jdkPath" value="" />
-      <option name="language" value="java" />
-      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\resources\META-INF\openapi.yaml" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.uge.clone.main.Main" />
-      <module name="clone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fr.uge.clone.main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JAR Application.clone.jar">
     <configuration name="clone.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/clone.jar" />
       <method v="2" />
@@ -175,10 +212,26 @@
     <configuration name="tailwind.config.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/main/app/tailwind.config.js" working-dir="$PROJECT_DIR$/src/main/app">
       <method v="2" />
     </configuration>
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="C:\Users\soumi\IntellijProjects\nouveau\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="specificationPath" value="C:\Users\soumi\IntellijProjects\nouveau\src\main\app\src\components\swagger.json" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JAR Application.clone.jar" />
+        <item itemvalue="Node.js.tailwind.config.js" />
       </list>
     </recent_temporary>
   </component>
@@ -249,6 +302,16 @@
       <workItem from="1671958427065" duration="43018000" />
       <workItem from="1672063275000" duration="16091000" />
       <workItem from="1672084496319" duration="6770000" />
+      <workItem from="1672130350447" duration="385000" />
+      <workItem from="1672140225457" duration="70000" />
+      <workItem from="1672142519965" duration="17860000" />
+      <workItem from="1672162643466" duration="11947000" />
+      <workItem from="1672247012704" duration="11037000" />
+      <workItem from="1672315139385" duration="1692000" />
+      <workItem from="1672342364743" duration="2358000" />
+      <workItem from="1672352824314" duration="360000" />
+      <workItem from="1672412039852" duration="24082000" />
+      <workItem from="1672472842039" duration="23742000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -495,14 +558,35 @@
       <option name="project" value="LOCAL" />
       <updated>1672073763590</updated>
     </task>
-    <task id="LOCAL-00036" summary="Model tests">
-      <created>1672146242813</created>
+    <task id="LOCAL-00036" summary="documentation + open api">
+      <created>1672130547675</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1672146242813</updated>
+      <updated>1672130547675</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="jar de test">
+      <created>1672140284810</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1672140284810</updated>
+    </task>
+    <task id="LOCAL-00038" summary="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json">
+      <created>1672172768303</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1672172768303</updated>
+    </task>
+    <task id="LOCAL-00039" summary="documentation + réorganisation/nettoyage du projet">
+      <created>1672250271865</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1672250271865</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -521,7 +605,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="jar plugin and frontend added" />
     <MESSAGE value="database commit" />
     <MESSAGE value="request frontend / backend" />
     <MESSAGE value="tailwind configuration" />
@@ -542,8 +625,11 @@
     <MESSAGE value="solved the db problem + extracted and displays artifact data + set welcome animation" />
     <MESSAGE value="hash + detection des clones + affichage des clones dans le front" />
     <MESSAGE value="envoi des meilleurs score + affichage des graphes des meilleurs scores" />
-    <MESSAGE value="Model tests" />
-    <MESSAGE value="Some cleaning + documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some cleaning + documentation" />
+    <MESSAGE value="documentation + open api" />
+    <MESSAGE value="jar de test" />
+    <MESSAGE value="problème de l'open api réglé + configuration de l'open api avec React (il reste seulement à remplir le swagger.json" />
+    <MESSAGE value="documentation + réorganisation/nettoyage du projet" />
+    <MESSAGE value="plusieurs problèmes réglés concernant le front + raccourci des méthodes + changé la détection des clones + changé tout l'ASM" />
+    <option name="LAST_COMMIT_MESSAGE" value="plusieurs problèmes réglés concernant le front + raccourci des méthodes + changé la détection des clones + changé tout l'ASM" />
   </component>
 </project>

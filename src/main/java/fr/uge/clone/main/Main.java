@@ -6,7 +6,6 @@ import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 import io.helidon.media.jackson.JacksonSupport;
 import io.helidon.media.multipart.MultiPartSupport;
-import io.helidon.openapi.OpenAPISupport;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.SocketConfiguration;
 import io.helidon.webserver.WebServer;
@@ -18,26 +17,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    private static Routing buildRouting(Config config){
-        return Routing.builder()
-                .register("/", new CloneService(DbClient.create(config)))
-                .register("/", StaticContentSupport.builder("/static")
-                        .welcomeFileName("index.html").build())
-                .register("/home", StaticContentSupport.builder("/static")
-                        .welcomeFileName("index.html").build())
-                .register("/openapi", StaticContentSupport.builder("/static")
-                        .welcomeFileName("index.html").build())
-                .build();
-    }
-
-    private static WebServer createServer(Config config, Routing routing) {
-        return WebServer.builder(routing)
-                .config(config)
-                .addMediaSupport(JacksonSupport.create(new ObjectMapper()))
-                .addMediaSupport(MultiPartSupport.create())
-                .addSocket(SocketConfiguration.builder().timeout(Long.MAX_VALUE, TimeUnit.HOURS).build())
-                .build();
-    }
+    /***************************************************************************************************
+     *                                                                                                 *
+     *                                        MAIN PROGRAM                                             *
+     *                                                                                                 *
+     ***************************************************************************************************/
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -68,5 +52,26 @@ public class Main {
         webServer.start().await(10, TimeUnit.SECONDS);
         System.out.println("Server started at: http://localhost:" + webServer.port());
 
+    }
+
+    private static Routing buildRouting(Config config){
+        return Routing.builder()
+                .register("/", new CloneService(DbClient.create(config)))
+                .register("/", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
+                .register("/home", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
+                .register("/openapi", StaticContentSupport.builder("/static")
+                        .welcomeFileName("index.html").build())
+                .build();
+    }
+
+    private static WebServer createServer(Config config, Routing routing) {
+        return WebServer.builder(routing)
+                .config(config)
+                .addMediaSupport(JacksonSupport.create(new ObjectMapper()))
+                .addMediaSupport(MultiPartSupport.create())
+                .addSocket(SocketConfiguration.builder().timeout(Long.MAX_VALUE, TimeUnit.HOURS).build())
+                .build();
     }
 }

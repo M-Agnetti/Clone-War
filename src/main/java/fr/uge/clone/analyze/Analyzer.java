@@ -1,7 +1,6 @@
 package fr.uge.clone.analyze;
-import fr.uge.clone.model.Jar;
+import fr.uge.clone.model.OpcodeEntry;
 import fr.uge.clone.repository.CloneRepository;
-import io.helidon.config.Config;
 import io.helidon.dbclient.DbClient;
 
 import java.io.IOException;
@@ -11,41 +10,10 @@ import java.util.*;
 
 public class Analyzer {
 
-    private final static int WIN_SIZE = 3;
+    private final static int WIN_SIZE = 4;
     private final Blob blob;
     private final long id;
     private final CloneRepository repository;
-
-    public static void main(String[] args) throws SQLException, IOException {
-        Config dbConfig = Config.create().get("db");
-        DbClient dbClient = DbClient.create(dbConfig);
-
-        var jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 1)
-                .execute()).await().get().as(Jar.class);
-        var map = AsmParser.parse(jar.classes().getBinaryStream());
-        System.out.println(map);
-        System.err.println("------------------------------------------------------------------------------");
-
-        var a = new Analyzer(dbClient, jar.classes(), jar.idJar());
-        //System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
-        a.launch();
-
-        System.out.println("/************************************************************************************************/\n\n");
-        //System.out.println("                                          JAR 2                                ");
-        //System.out.println("\n/************************************************************************************************/");
-
-
-        jar = dbClient.execute(exec -> exec.createNamedGet("select-jar-by-id")
-                .addParam("id", 4)
-                .execute()).await().get().as(Jar.class);
-        System.err.println("------------------------------------------------------------------------------");
-
-        a = new Analyzer(dbClient, jar.classes(), jar.idJar());
-        System.out.println("id : " + jar.idJar() + "\n***************************************************\n\n");
-        a.launch();
-
-    }
 
     public Analyzer(DbClient dbClient, Blob blob, long id){
         Objects.requireNonNull(dbClient, "dbClient is null");
@@ -55,57 +23,21 @@ public class Analyzer {
         this.repository = new CloneRepository(dbClient);
     }
 
-    /**
-     * Starts the analysis of a Blob then calculate
-     * his hash value for each instruction.
-     */
     public void launch() {
-        System.out.println("LAUNCH");
         try {
-            var map = AsmParser.parse(blob.getBinaryStream());
-            map.entrySet().stream().forEach(entry -> {
-                ArrayList<Map.Entry<Integer, Integer>> hashs = new ArrayList<>();
-
-                entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey()).map(listEntry -> {
-                            List<Integer> list = listEntry.getValue().stream().map(integers -> getOpcodeHash(integers)).toList();
-                            return Map.entry(listEntry.getKey(), list);
-                        })
-                        .forEach(listEntry -> { var line = listEntry.getKey();
-                            listEntry.getValue().forEach(hash -> hashs.add(Map.entry(line, hash)));
-                        });
-
-                //analyse pour chaque fichier
-                //System.out.println("\n\n" + hashs);
-
-                var sub = hashs.subList(0, Math.min(WIN_SIZE, hashs.size()))
-                        .stream().mapToInt(Map.Entry::getValue).boxed().toList();
+            AsmParser.parse(blob.getBinaryStream()).forEach((fileName, opcodes) -> {
+                var sub = opcodes.subList(0, Math.min(WIN_SIZE, opcodes.size())).stream().map(OpcodeEntry::opcode).toList();
                 int h = hash(sub);
-                repository.insertInstruction(id, h, entry.getKey(), hashs.get(0).getKey());
-                //System.out.println("LINE1 : " + hashs.get(0).getKey() + " | " + hashs.subList(0, Math.min(WIN_SIZE, hashs.size())) +  " | hashValue : " + h);
-                for(var i = 1 ; i + WIN_SIZE <= hashs.size() ; i++){
-                    //h = h - hashs.get(i-1).getValue() + hashs.get(i + WIN_SIZE - 1).getValue();
-                    //System.out.println("line : " + hashs.get(i).getKey() + " | " + hashs.subList(i, i+WIN_SIZE));
-
-                    h = nextHash(h, hashs.get(i-1).getValue(), hashs.get(i + WIN_SIZE - 1).getValue());
-                    //System.out.print(" | next hash : " + h);
-                    repository.insertInstruction(id, h, entry.getKey(), hashs.get(i).getKey());
+                repository.insertInstruction(id, h, fileName, opcodes.get(0).line());
+                for (var i = 1; i + WIN_SIZE <= opcodes.size(); i++) {
+                    h = nextHash(h, opcodes.get(i - 1).opcode(), opcodes.get(i + WIN_SIZE - 1).opcode());
+                    repository.insertInstruction(id, h, fileName, opcodes.get(i).line());
                 }
-
             });
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    private static int getOpcodeHash(List<Integer> list){
-        int h;
-        int i;
-        for(h = i = 0 ; i < list.size() ; i++){
-            h = ((h << 1) + list.get(i));
-        }
-        return Objects.hash(list.stream().toArray());
-    }
-
 
     private static int hash(List<Integer> list){
         int h = 0;

@@ -1,11 +1,11 @@
 package fr.uge.clone.analyze;
 
+import fr.uge.clone.model.OpcodeEntry;
 import org.objectweb.asm.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -23,16 +23,12 @@ public class AsmParser {
         } catch(IllegalAccessException e){
             throw new IllegalStateException(e);
         }
-        return null;
-    }
-
-    private static List<Integer> getListOpcode(int opcode, String arg){
-        return List.of(opcode, arg.hashCode());
+        return "";
     }
 
 
-    public static Map<String, Map<Integer, List<List<Integer>>>> parse(InputStream input) throws IOException {
-        final Map<String, Map<Integer, List<List<Integer>>>> map = new HashMap<>();
+    public static Map<String, List<OpcodeEntry>> parse(InputStream input) throws IOException {
+        final Map<String, List<OpcodeEntry>> map2 = new HashMap<>();
 
         try(var zip = new ZipInputStream(input)){
             ZipEntry e;
@@ -46,117 +42,83 @@ public class AsmParser {
                             classReader.accept(new ClassVisitor(Opcodes.ASM9) {
                                 String fileName;
 
-                                private static String modifier(int access) {
-                                    if (Modifier.isPublic(access)) {
-                                        return "public";
-                                    }
-                                    if (Modifier.isPrivate(access)) {
-                                        return "private";
-                                    }
-                                    if (Modifier.isProtected(access)) {
-                                        return "protected";
-                                    }
-                                    return "";
-                                }
-
                                 @Override
                                 public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
                                     fileName = name;
-                                    //System.err.println("class " + modifier(access) + " " + name + " " + superName + " " + (interfaces != null? Arrays.toString(interfaces): ""));
                                 }
 
                                 @Override
                                 public RecordComponentVisitor visitRecordComponent(String name, String descriptor, String signature) {
-                                    //System.err.println("  component " + name + " " + ClassDesc.ofDescriptor(descriptor).displayName());
                                     return null;
                                 }
 
                                 @Override
                                 public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-                                    //System.err.println("  field " + modifier(access) + " " + ClassDesc.ofDescriptor(descriptor).displayName());
                                     return null;
                                 }
 
                                 @Override
                                 public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-                                    //System.err.println("\n method " + modifier(access) + " " + name + " " + MethodTypeDesc.ofDescriptor(descriptor).displayDescriptor() + " " + signature);
                                     return new MethodVisitor(Opcodes.ASM9) {
                                         private int lineNumber = -1;
 
                                         @Override
                                         public void visitInsn(int opcode) {
                                             var s = getOpcode(opcode);
-                                            opcode = s.endsWith("RETURN") ? 177 : opcode;
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
-                                           // System.err.println("    visitInsn : " + getOpcode(opcode) + " | line " + lineNumber);
+                                            var op = s.endsWith("RETURN") ? Opcodes.RETURN : opcode;
+
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(op, lineNumber));
                                         }
 
                                         @Override
                                         public void visitIntInsn(int opcode, int operand){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode, operand));
-                                            //System.err.println("    visitIntInsn : " + getOpcode(opcode) + " operand : " + operand + " | line " + lineNumber);
+
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(opcode, lineNumber));
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(operand, lineNumber));
                                         }
 
                                         @Override
                                         public void visitVarInsn(int opcode, int var){
                                             var s = getOpcode(opcode);
-                                            var opName = s.endsWith("LOAD") ? "LOAD" : s.startsWith("V") ? "STORE" : s;
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode, var));
-                                            //System.err.println("    visitVarInsn : " + getOpcode(opcode) + " " + var + " | line " + lineNumber);
+                                            var op = s.endsWith("LOAD") ? Opcodes.ALOAD : s.startsWith("V") ? Opcodes.V10 : opcode;
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(op, lineNumber));
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(var, lineNumber));
                                         }
 
                                         @Override
                                         public void visitTypeInsn(int opcode, String desc){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
-                                            //System.err.println("    visitTypeInsn : " + getOpcode(opcode)  + " | line " + lineNumber);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(opcode, lineNumber));
                                         }
 
                                         @Override
                                         public void visitFieldInsn(int opc, String owner, String name, String desc){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opc));
-                                            //System.err.println("    visitFieldInsn : " + getOpcode(opc) + " " + name);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(opc, lineNumber));
                                         }
 
                                         @Override
                                         public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
                                             var s = getOpcode(opcode);
-                                            var list = s.endsWith("SPECIAL") ? List.of(opcode) : getListOpcode(opcode, name);
-                                           // var opName = s.endsWith("SPECIAL") ? s : (s + " " + name);
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(list);
-                                            //System.err.println("    " + getOpcode(opcode) + " " + name + " | line " + lineNumber);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(opcode, lineNumber));
+                                            if(s.endsWith("STATIC") || s.endsWith("SPECIAL")){
+                                                map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(name.hashCode(), lineNumber));
+                                            }
                                         }
 
-                                        // + the other visit methods to get all the opcodes
 
                                         @Override
                                         public void visitIincInsn(int var, int increment){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-
-                                                    //.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("INCREMENT " + increment);
-                                            .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(var, increment));
-                                            //System.err.println("visitIincInsn : " + var + " " + increment + " | line " + lineNumber);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(var, lineNumber));
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(increment, lineNumber));
                                         }
 
                                         @Override
                                         public void visitJumpInsn(int opcode, Label label){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(opcode));
-                                            //System.err.println("    visitJumpInsn : " + getOpcode(opcode) + " " + label.toString()
-                                            //   + " | line " + lineNumber);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(opcode, lineNumber));
                                         }
 
                                         @Override
                                         public void visitLdcInsn(Object cst){
-                                            map.computeIfAbsent(fileName, k -> new HashMap<>())
-                                                    //.computeIfAbsent(lineNumber, k -> new StringJoiner("\n")).add("LDC " + cst.toString());
-                                            .computeIfAbsent(lineNumber, k -> new ArrayList<>()).add(List.of(Opcodes.LDC));
-                                            //System.err.println("    visitLdcInsn : LDC " + cst.toString() + " | line " + lineNumber);
+                                            map2.computeIfAbsent(fileName, k -> new ArrayList<>()).add(new OpcodeEntry(Opcodes.LDC, lineNumber));
                                         }
 
                                         @Override
@@ -171,8 +133,7 @@ public class AsmParser {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(map);
-        return map;
+        return map2;
     }
 
 }

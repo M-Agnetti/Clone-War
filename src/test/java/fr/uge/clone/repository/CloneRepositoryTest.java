@@ -71,7 +71,7 @@ public class CloneRepositoryTest {
       repo.insertMetadata(0, "fr.uge.model", "model", "0.0.1-SNAPSHOT");
       assertEquals(
               new MetaData(0, "fr.uge.model", "model", "0.0.1-SNAPSHOT"),
-              repo.selectMetaDataById(0).orElseThrow());
+              repo.selectMetaDataById(0));
     }
   }
 }

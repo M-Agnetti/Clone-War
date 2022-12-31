@@ -7,39 +7,28 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class SourcesJar {
+public class SourcesReader {
 
-    /**
-     * Extracts some lines from a given java file from
-     * a Blob. It starts at line startLine and ends at
-     * line endLine.
-     * @param blob the Blob containing the java file
-     *             we want to extract the lines from
-     * @param fileName the name of the file to extract
-     *                 the lines from
-     * @param startLine the line to start the extraction
-     * @param endLine the line to stop the extraction
-     * @return the List of all the lines extracted from
-     * the founded java file in the Blob.
-     */
-    public static List<List<String>> extractLines(Blob blob, String fileName, int startLine, int endLine) {
+    public static List<String> extractLines(Blob blob, String fileName, int startLine, int endLine) {
         Objects.requireNonNull(blob);
         Objects.requireNonNull(fileName);
+        if(startLine > endLine) {
+            var tmp = startLine;
+            startLine = endLine;
+            endLine = tmp;
+        }
         try {
-            var input = lookUpForFile(blob.getBinaryStream(), fileName + ".java");
+            var input = getFileContent(blob.getBinaryStream(), fileName + ".java");
+            assert input != null;
             try(var reader = new BufferedReader(new InputStreamReader(input))) {
-                return List.of(
-                        //reader.lines().skip(Math.max(0, startLine)).limit(3).toList(),
-                        reader.lines().skip(startLine - 1).limit(endLine - startLine + 1).toList()
-                        //reader.lines().skip(endLine).limit(3).toList()
-                );
+                return reader.lines().skip(startLine - 1).limit(endLine - startLine + 1).toList();
             }
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static InputStream lookUpForFile(InputStream input, String file) {
+    private static InputStream getFileContent(InputStream input, String file) {
         try(var zip = new ZipInputStream(input)){
             ZipEntry e;
             while ((e = zip.getNextEntry()) != null) {
@@ -53,11 +42,44 @@ public class SourcesJar {
         return null;
     }
 
+    public static boolean isSourcesJar(InputStream input) {
+        Objects.requireNonNull(input);
+        try(var zip = new ZipInputStream(input)){
+            ZipEntry e;
+            while ((e = zip.getNextEntry()) != null) {
+                if(e.getName().endsWith("pom.xml")){
+                    return true;
+                }
+                if(e.getName().endsWith(".class")){
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public static boolean isClassesJar(InputStream input) {
+        Objects.requireNonNull(input);
+        try(var zip = new ZipInputStream(input)){
+            ZipEntry e;
+            while ((e = zip.getNextEntry()) != null) {
+                if(e.getName().endsWith(".java")){
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
     private static String getStringFromPom(InputStream input){
-        var builder = new StringBuilder("");
+        var builder = new StringBuilder();
         try(var reader = new BufferedReader(new InputStreamReader(input))) {
-            reader.lines().forEach(s -> { builder.append(s); });
-            return builder.toString().replaceAll("[ ]", "");
+            reader.lines().forEach(builder::append);
+            return builder.toString().replaceAll(" ", "");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -74,15 +96,16 @@ public class SourcesJar {
     }
 
     private static String getResultFromPattern(String pom, String elem, Pattern groupId){
-        String result;
+        String result = null;
         Pattern groupId2 = Pattern.compile("<" + elem + ">[^<>]+</" + elem + ">");
         var matcher = groupId.matcher(pom);
-        while (matcher.find()) {
+        if (matcher.find()) {
             var m = groupId2.matcher(matcher.group());
-            m.find();
-            do {
-                result = m.group().replaceAll("<" + elem + ">|</" + elem + ">", "");
-            } while (m.find());
+            if(m.find()) {
+                do {
+                    result = m.group().replaceAll("<" + elem + ">|</" + elem + ">", "");
+                } while (m.find());
+            }
             return result;
         }
         return null;
@@ -115,27 +138,23 @@ public class SourcesJar {
     }
 
     /**
-     * Gets all the data from a given Blob by
-     * analyzing its pom.xml file.
-     * @param blob The Blob to get the data from
-     * @return a Map representing all the datas
-     * of the given Blob with its name, url,
-     * artifactID, groupID and version.
+     *
+     * @param blob the blob of the sources jar
+     * @return the map of the metadata
      */
     public static Map<String, String> getAllData(Blob blob){
-        String pom;
-        var map = new HashMap<String, String>();
         try {
-            pom = getStringFromPom(lookUpForFile(blob.getBinaryStream(), "pom.xml"));
+            var map = new HashMap<String, String>();
+            String pom = getStringFromPom(getFileContent(blob.getBinaryStream(), "pom.xml"));
+            map.put("name", getName(pom));
+            map.put("url", getUrl(pom));
+            map.put("artifactId", getArtifactId(pom));
+            map.put("groupId", getGroupId(pom));
+            map.put("version", getVersion(pom));
+            return map;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        map.put("name", getName(pom));
-        map.put("url", getUrl(pom));
-        map.put("artifactId", getArtifactId(pom));
-        map.put("groupId", getGroupId(pom));
-        map.put("version", getVersion(pom));
-        return map;
     }
 
 }

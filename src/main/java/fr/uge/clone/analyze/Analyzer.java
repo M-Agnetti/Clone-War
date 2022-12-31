@@ -1,5 +1,4 @@
 package fr.uge.clone.analyze;
-import fr.uge.clone.model.Clone;
 import fr.uge.clone.model.Jar;
 import fr.uge.clone.repository.CloneRepository;
 import io.helidon.config.Config;
@@ -56,6 +55,10 @@ public class Analyzer {
         this.repository = new CloneRepository(dbClient);
     }
 
+    /**
+     * Starts the analysis of a Blob then calculate
+     * his hash value for each instruction.
+     */
     public void launch() {
         System.out.println("LAUNCH");
         try {

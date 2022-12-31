@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,57 +23,57 @@ public class AnalyzerTest {
       assertThrows(NullPointerException.class, () ->
               new Analyzer(null, new Blob() {
                 @Override
-                public long length() throws SQLException {
+                public long length() {
                   return 0;
                 }
 
                 @Override
-                public byte[] getBytes(long pos, int length) throws SQLException {
+                public byte[] getBytes(long pos, int length) {
                   return new byte[0];
                 }
 
                 @Override
-                public InputStream getBinaryStream() throws SQLException {
+                public InputStream getBinaryStream() {
                   return null;
                 }
 
                 @Override
-                public long position(byte[] pattern, long start) throws SQLException {
+                public long position(byte[] pattern, long start) {
                   return 0;
                 }
 
                 @Override
-                public long position(Blob pattern, long start) throws SQLException {
+                public long position(Blob pattern, long start) {
                   return 0;
                 }
 
                 @Override
-                public int setBytes(long pos, byte[] bytes) throws SQLException {
+                public int setBytes(long pos, byte[] bytes) {
                   return 0;
                 }
 
                 @Override
-                public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
+                public int setBytes(long pos, byte[] bytes, int offset, int len) {
                   return 0;
                 }
 
                 @Override
-                public OutputStream setBinaryStream(long pos) throws SQLException {
+                public OutputStream setBinaryStream(long pos) {
                   return null;
                 }
 
                 @Override
-                public void truncate(long len) throws SQLException {
+                public void truncate(long len) {
 
                 }
 
                 @Override
-                public void free() throws SQLException {
+                public void free() {
 
                 }
 
                 @Override
-                public InputStream getBinaryStream(long pos, long length) throws SQLException {
+                public InputStream getBinaryStream(long pos, long length) {
                   return null;
                 }
               }, 0));

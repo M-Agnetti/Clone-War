@@ -9,7 +9,19 @@ import java.util.zip.ZipInputStream;
 
 public class SourcesJar {
 
-
+    /**
+     * Extracts some lines from a given java file from
+     * a Blob. It starts at line startLine and ends at
+     * line endLine.
+     * @param blob the Blob containing the java file
+     *             we want to extract the lines from
+     * @param fileName the name of the file to extract
+     *                 the lines from
+     * @param startLine the line to start the extraction
+     * @param endLine the line to stop the extraction
+     * @return the List of all the lines extracted from
+     * the founded java file in the Blob.
+     */
     public static List<List<String>> extractLines(Blob blob, String fileName, int startLine, int endLine) {
         Objects.requireNonNull(blob);
         Objects.requireNonNull(fileName);
@@ -102,6 +114,14 @@ public class SourcesJar {
         return res == null ? getPomDataParent(pom,"artifactId") : res;
     }
 
+    /**
+     * Gets all the data from a given Blob by
+     * analyzing its pom.xml file.
+     * @param blob The Blob to get the data from
+     * @return a Map representing all the datas
+     * of the given Blob with its name, url,
+     * artifactID, groupID and version.
+     */
     public static Map<String, String> getAllData(Blob blob){
         String pom;
         var map = new HashMap<String, String>();

@@ -55,7 +55,9 @@ public class CloneDetector {
     }
 
     /**
-     *
+     * Detect a clone between all instructions of an
+     * Artifact and all other instructions and calculate
+     * the score of cloning.
      */
     public void detect() {
         System.out.println("DETECT CLONE");

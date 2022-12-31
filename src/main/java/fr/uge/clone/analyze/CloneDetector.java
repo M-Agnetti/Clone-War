@@ -48,8 +48,11 @@ public class CloneDetector {
 
 
     /**
-     * Launches the clone detection.
+     * Detect all the clones between all instructions of an
+     * Artifact and all other instructions and calculate
+     * the score of cloning.
      */
+
     public void detect() {
         var currents = repository.selectInstrOfArtifact(id);
         repository.getAllOtherInstructions(id).forEach((id, instr) -> {

@@ -10,85 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9554e8aa-98cd-42b1-9ff0-a3f75786500e" name="Changes" comment="plusieurs problèmes réglés concernant le front + raccourci des méthodes + changé la détection des clones + changé tout l'ASM">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneSources.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/OpcodeEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/classes1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/classes3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/classes4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Person2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/fr/uge/main/Person2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/sources3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/sources4.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/junit5-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/CustomConstructor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ExpandedTypeDescription.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ImplTypeDescription.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIMediaType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/OpenAPIParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/ParserHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/Serializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/OpenAPIConfigImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/internal/package-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/io/helidon/openapi/package-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/helidon/native-image/reflection-config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/main/resources/META-INF/native-image/io.helidon.openapi/helidon-openapi/native-image.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/OpenAPIConfigTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/ParserTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/SerializerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestAdditionalProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/java/io/helidon/openapi/TestOpenAPIMediaTypesDescribedCorrectly.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/openapi-greeting.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/openapi-time-server.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/petstore.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/petstore.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverCORSRestricted.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverNoCORS.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/serverTest.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/simple.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/withBooleanAddlProps.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi/src/test/resources/withSchemaAddlProps.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seq-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seq.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/public/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/public/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/Artefact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/app/src/components/MyComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/app/src/components/swagger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/Analyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/AsmParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/CloneDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/model/CloneArtefact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/repository/CloneRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/service/CloneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/clone.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/clone.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/model/CloneArtefactTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/uge/clone/repository/CloneRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/test/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/fr/uge/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/fr/uge/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test8.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/uge/clone/analyze/SourcesReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,7 +235,7 @@
       <workItem from="1672342364743" duration="2358000" />
       <workItem from="1672352824314" duration="360000" />
       <workItem from="1672412039852" duration="24082000" />
-      <workItem from="1672472842039" duration="23742000" />
+      <workItem from="1672472842039" duration="24161000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1667146031919</created>
@@ -586,7 +510,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672250271865</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="plusieurs problèmes réglés concernant le front + raccourci des méthodes + changé la détection des clones + changé tout l'ASM">
+      <created>1672497416629</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1672497416629</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
